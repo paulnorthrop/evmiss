@@ -179,7 +179,11 @@ plot.evmiss_sim_study <- function(x, what = c("return", "mu", "sigma", "xi",
   # Need to adjust this: 4 plots (2 by 2), 6 plots (3 by 2 or 2 by 3)
   # Set the layout for the plots
     if (vertical) {
-      graphics::par(mfrow = c(4, 1), mar = mar)
+      if (what == "all") {
+        graphics::par(mfrow = c(3, 1), mar = mar)
+      } else {
+        graphics::par(mfrow = c(4, 1), mar = mar)
+      }
     } else {
       graphics::par(mfrow = c(2, 2), mar = mar)
     }
