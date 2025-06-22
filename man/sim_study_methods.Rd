@@ -54,37 +54,39 @@ further details. The default is \code{"return"} for the \code{plot} method and
 \code{"all"} for the \code{summary} method.
 \itemize{
 \item \code{"return"}: estimates of return levels using the approaches \code{"full"},
-\code{"adjust"} and \code{"naive"}.
+\code{"adjust"}, \code{"naive"} and \code{"discard"}.
 \item \code{"mu"} , \code{"sigma"}, \code{"xi"} or \code{"all"}. The name of the parameter whose
 estimates are plotted. Use \code{"all"} to select all 3 GEV parameters.
 }}
 
 \item{distn}{A character scalar. The default is \code{"marginal"}.
 \itemize{
-\item \code{"marginal"}: 3 histograms of point estimates.
+\item \code{"marginal"}: 4 histograms of point estimates.
 \itemize{
-\item If \code{what = "return"} then 3 histograms of the point estimates of the
+\item If \code{what = "return"} then 4 histograms of the point estimates of the
 required return level are produced, one plot for each of the
-approaches \code{"full"}, \code{"adjust"} and \code{"naive"}.
+approaches \code{"full"}, \code{"adjust"}, \code{"naive"} and \code{"discard"}.
 \item If \code{what} is \code{"all"} then 3 histograms of the respective point
 estimates of the GEV parameters \eqn{\mu}, \eqn{\sigma} and \eqn{\xi}
 are produced, for the approach supplied in \code{approach}.
 \item if \code{what} is \code{"mu"}, \code{"sigma"} or \code{"xi"} then 3 histograms of the
 point estimates of the chosen GEV parameter are produced, one for
-each of the approaches \code{"full"}, \code{"adjust"} and \code{"naive"}.
+each of the approaches \code{"full"}, \code{"adjust"}, \code{"naive"} and
+\code{"discard"}.
 }
-\item \code{"joint"}: 3 scatter plots of point estimates.
+\item \code{"joint"}: 6 scatter plots of point estimates.
 \itemize{
-\item If \code{what = "return"} then 3 scatter plots are produced to compare the
+\item If \code{what = "return"} then 6 scatter plots are produced to compare the
 point estimates of the required return level for a pair of the
-approaches \code{"full"}, \code{"adjust"} or \code{"naive"}.
+approaches \code{"full"}, \code{"adjust"}, \code{"naive"} and \code{"discard"}.
 \item If \code{what} is \code{"all"} then 3 scatter plots are produced, one for each
 of the GEV parameters \eqn{\mu}, \eqn{\sigma} and \eqn{\xi}, to
 compare the estimates from approaches supplied in \code{approach}.
 are produced, for the approach supplied in \code{approach}.
-\item if \code{what} is \code{"mu"}, \code{"sigma"} or \code{"xi"} then 3 scatter plots of the
+\item if \code{what} is \code{"mu"}, \code{"sigma"} or \code{"xi"} then 6 scatter plots of the
 point estimates of the chosen GEV parameter are produced, each one
-comparing two of the approaches \code{"full"}, \code{"adjust"} and \code{"naive"}.
+comparing two of the approaches \code{"full"}, \code{"adjust"}, \code{"naive"} and
+\code{"discard"}.
 }
 }}
 
@@ -98,8 +100,8 @@ or a numeric vector (for \code{summary.evmiss_sim_study}). A return period or
 periods, in numbers of blocks, for which to compare the three estimation
 approaches. All values must be greater than 1.}
 
-\item{vertical}{logical scalar. If \code{vertical = TRUE} then the 3 plots are
-arranged vertically. Otherwise, they are arranged horizontally.}
+\item{vertical}{logical scalar. If \code{vertical = TRUE} then the 4 plots are
+arranged vertically. Otherwise, they are arranged in 2 rows of 2 plots.}
 
 \item{main}{A character vector. Titles for the histograms.}
 
@@ -145,7 +147,9 @@ differences between estimates and the quantities described in \code{vsfull}
 below. The object returned from this function should be a named vector.
 See \strong{Examples}. If \code{statistics} is missing then the default is to
 calculate the following sample statistics: mean, standard deviation, root
-mean squared error, median and inter-quartile range.}
+mean squared error, median, inter-quartile range, mean absolute error and
+the number of simulations for which the GEV parameter MLEs are missing
+owing to a convergence problem.}
 
 \item{meanSE}{A logical scalar. If \code{meanSE = TRUE} and \code{vsfull = FALSE} then
 the sample mean of the estimated standard errors over all simulated
@@ -208,9 +212,8 @@ relevant block maxima. \strong{Update, and explain more}.
 \strong{Summary method}. A 3-column matrix containing the values of the
 statistics in \code{statistics} used to summarise the performance of the
 estimators. The columns relate to the parameters \code{mu}, \code{sigma} and \code{xi}
-respectively. Each group of 3 rows (4 rows if \code{adjust} is supplied to
-\code{sim_study}) relates to a different combination of summary statistic and
-estimator, indicated by the row names.
+respectively. Each group of 4 rows relates to a different combination of
+summary statistic and estimator, indicated by the row names.
 }
 \section{Examples}{
  See \code{\link{sim_study}}.

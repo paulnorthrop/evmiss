@@ -26,9 +26,8 @@
 #' **Summary method**. A 3-column matrix containing the values of the
 #'   statistics in `statistics` used to summarise the performance of the
 #'   estimators. The columns relate to the parameters `mu`, `sigma` and `xi`
-#'   respectively. Each group of 3 rows (4 rows if `adjust` is supplied to
-#'   `sim_study`) relates to a different combination of summary statistic and
-#'   estimator, indicated by the row names.
+#'   respectively. Each group of 4 rows relates to a different combination of
+#'   summary statistic and estimator, indicated by the row names.
 #'
 #' @seealso [`sim_study`].
 #' @name sim_study_methods
@@ -44,40 +43,42 @@ NULL
 #'   `"all"` for the `summary` method.
 #'
 #'  * `"return"`: estimates of return levels using the approaches `"full"`,
-#'    `"adjust"` and `"naive"`.
+#'    `"adjust"`, `"naive"` and `"discard"`.
 #'  * `"mu"` , `"sigma"`, `"xi"` or `"all"`. The name of the parameter whose
 #'    estimates are plotted. Use `"all"` to select all 3 GEV parameters.
 #'
 #' @param distn A character scalar. The default is `"marginal"`.
 #'
-#'  * `"marginal"`: 3 histograms of point estimates.
-#'      - If `what = "return"` then 3 histograms of the point estimates of the
+#'  * `"marginal"`: 4 histograms of point estimates.
+#'      - If `what = "return"` then 4 histograms of the point estimates of the
 #'        required return level are produced, one plot for each of the
-#'        approaches `"full"`, `"adjust"` and `"naive"`.
+#'        approaches `"full"`, `"adjust"`, `"naive"` and `"discard"`.
 #'      - If `what` is `"all"` then 3 histograms of the respective point
 #'        estimates of the GEV parameters \eqn{\mu}, \eqn{\sigma} and \eqn{\xi}
 #'        are produced, for the approach supplied in `approach`.
 #'      - if `what` is `"mu"`, `"sigma"` or `"xi"` then 3 histograms of the
 #'        point estimates of the chosen GEV parameter are produced, one for
-#'        each of the approaches `"full"`, `"adjust"` and `"naive"`.
-#'  * `"joint"`: 3 scatter plots of point estimates.
-#'      - If `what = "return"` then 3 scatter plots are produced to compare the
+#'        each of the approaches `"full"`, `"adjust"`, `"naive"` and
+#'        `"discard"`.
+#'  * `"joint"`: 6 scatter plots of point estimates.
+#'      - If `what = "return"` then 6 scatter plots are produced to compare the
 #'        point estimates of the required return level for a pair of the
-#'        approaches `"full"`, `"adjust"` or `"naive"`.
+#'        approaches `"full"`, `"adjust"`, `"naive"` and `"discard"`.
 #'      - If `what` is `"all"` then 3 scatter plots are produced, one for each
 #'        of the GEV parameters \eqn{\mu}, \eqn{\sigma} and \eqn{\xi}, to
 #'        compare the estimates from approaches supplied in `approach`.
 #'        are produced, for the approach supplied in `approach`.
-#'      - if `what` is `"mu"`, `"sigma"` or `"xi"` then 3 scatter plots of the
+#'      - if `what` is `"mu"`, `"sigma"` or `"xi"` then 6 scatter plots of the
 #'        point estimates of the chosen GEV parameter are produced, each one
-#'        comparing two of the approaches `"full"`, `"adjust"` and `"naive"`.
+#'        comparing two of the approaches `"full"`, `"adjust"`, `"naive"` and
+#'        `"discard"`.
 #'
 #' @param approach A character scalar or vector. A proper subset of
 #'   `c("full", "adjust", "naive", "discard")`. Only relevant if `what` is
 #'   `"all"`. If `distn = "marginal"` then the default is `"full"`.
 #'   If `distn = "joint"` then the default is `c("full", "adjust")`.
-#' @param vertical logical scalar. If `vertical = TRUE` then the 3 plots are
-#'   arranged vertically. Otherwise, they are arranged horizontally.
+#' @param vertical logical scalar. If `vertical = TRUE` then the 4 plots are
+#'   arranged vertically. Otherwise, they are arranged in 2 rows of 2 plots.
 #' @param main A character vector. Titles for the histograms.
 #' @param penultimate A logical scalar. If  `distn = "marginal"` should
 #'   lines be added to plots to indicate the GEV parameter values, or the
@@ -431,7 +432,9 @@ plot.evmiss_sim_study <- function(x, what = c("return", "mu", "sigma", "xi",
 #'   below. The object returned from this function should be a named vector.
 #'   See **Examples**. If `statistics` is missing then the default is to
 #'   calculate the following sample statistics: mean, standard deviation, root
-#'   mean squared error, median and inter-quartile range.
+#'   mean squared error, median, inter-quartile range, mean absolute error and
+#'   the number of simulations for which the GEV parameter MLEs are missing
+#'   owing to a convergence problem.
 #' @param meanSE A logical scalar. If `meanSE = TRUE` and `vsfull = FALSE` then
 #'   the sample mean of the estimated standard errors over all simulated
 #'   datasets is added to the output summary statistics. Otherwise, this is not
