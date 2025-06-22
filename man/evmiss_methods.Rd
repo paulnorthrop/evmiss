@@ -229,7 +229,8 @@ plot(fit, profile = FALSE)
 # Create the return level plot only
 # When profile = TRUE (the default) the confidence limits are fine
 # but the plot takes longer
-plot(fit, which = 3)
+# For speed, we reduce the number, num, of points used to plot the curves
+plot(fit, which = 3, num = 8)
 
 # If we do not reflect the adjustment in the plot then it gives a false
 # impression of how well the model has fitted the data
