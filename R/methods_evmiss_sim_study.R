@@ -361,7 +361,8 @@ plot.evmiss_sim_study <- function(x, what = c("return", "mu", "sigma", "xi",
                                legend = all_legend, ...)
       } else {
         # Extract estimates for the selected parameter
-        row_names <- paste(what, c("full", "adjust", "naive"), sep = "_")
+        row_names <- paste(what, c("full", "adjust", "naive", "discard"),
+                           sep = "_")
         pars <- x$parameters[row_names, ]
         # Call hist() to enable equality of the vertical axis scales
         full_pars <- pars[1, ]
@@ -373,20 +374,26 @@ plot.evmiss_sim_study <- function(x, what = c("return", "mu", "sigma", "xi",
         naive_pars <- pars[3, ]
         naive_lines <- c(stats::median(naive_pars, na.rm = TRUE),
                          mean(naive_pars, na.rm = TRUE))
+        discard_pars <- pars[4, ]
+        discard_lines <- c(stats::median(discard_pars, na.rm = TRUE),
+                         mean(discard_pars, na.rm = TRUE))
         pen_val <- which(is.element(c("mu", "sigma", "xi"), what))
         if (penultimate) {
           full_lines <- c(full_lines, penult_lines[pen_val])
           adj_lines <- c(adj_lines, penult_lines[pen_val])
           naive_lines <- c(naive_lines, penult_lines[pen_val])
+          discard_lines <- c(discard_lines, penult_lines[pen_val])
         }
         y1 <- graphics::hist(full_pars, plot = FALSE)
         y2 <- graphics::hist(adj_pars, plot = FALSE)
         y3 <- graphics::hist(naive_pars, plot = FALSE)
-        my_ylim <- c(0, max(y1$density, y2$density, y3$density))
-        my_xlim <- range(y1$breaks, y2$breaks, y3$breaks)
+        y4 <- graphics::hist(discard_pars, plot = FALSE)
+        my_ylim <- c(0, max(y1$density, y2$density, y3$density, y4$density))
+        my_xlim <- range(y1$breaks, y2$breaks, y3$breaks, y4$breaks)
         attr(full_pars, "legend") <- ifelse(is.element(1, legend), TRUE, FALSE)
         attr(adj_pars, "legend") <- ifelse(is.element(2, legend), TRUE, FALSE)
         attr(naive_pars, "legend") <- ifelse(is.element(3, legend), TRUE, FALSE)
+        attr(discard_pars, "legend") <- ifelse(is.element(4, legend), TRUE, FALSE)
         par_legend <- c("median", "mean")
         if (penultimate) {
           par_legend <- c(par_legend, penult_legend)
@@ -399,6 +406,9 @@ plot.evmiss_sim_study <- function(x, what = c("return", "mu", "sigma", "xi",
                                ylim = my_ylim, legend = par_legend)
         parameter_call_hist_fn(naive_pars, naive_lines, xlab = what,
                                ..., main = main[3], xlim = my_xlim,
+                               ylim = my_ylim, legend = par_legend)
+        parameter_call_hist_fn(discard_pars, discard_lines, xlab = what,
+                               ..., main = main[4], xlim = my_xlim,
                                ylim = my_ylim, legend = par_legend)
       }
     } else {
