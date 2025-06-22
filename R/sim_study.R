@@ -113,7 +113,7 @@
 #'
 #' ## GEV parameter estimates
 #'
-#' # (a) by approach
+#' # (a) Each parameter, by approach
 #' plot(res, what = "mu")
 #' plot(res, what = "sigma")
 #' plot(res, what = "xi")
