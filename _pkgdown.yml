@@ -1,0 +1,55 @@
+destination: docs
+
+url: https://github.com/paulnorthrop/evmiss
+
+development:
+  mode: release
+
+template:
+  bootstrap: 5
+  bootswatch: flatly
+
+#template:
+#  params:
+#    bootswatch: paper
+
+reference:
+  - title: Package
+    desc: ~
+    contents:
+      - "evmiss"
+  - title: GEV Inference
+    desc: ~
+    contents:
+      - "block_maxima"
+      - "gev_mle"
+      - "gev_bayes"
+      - "evmiss_methods"
+      - "confint_gev_methods"
+  - title: Return levels
+    desc: ~
+    contents:
+      - "gev_return"
+      - "return_level_methods"
+      - "confint_return_level_methods"
+  - title: Example datasets
+    desc: ~
+    contents:
+      - "BloomsburyOzone"
+      - "BloomsburyOzoneMaxima"
+      - "BrestSurgeDays"
+      - "BrestSurgeMaxima"
+      - "BrestSurgeMissing"
+      - "PlymouthOzone"
+      - "PlymouthOzoneMaxima"
+      - "days"
+  - title: GEV influence curves
+    desc: ~
+    contents:
+      - "gev_influence"
+  - title: Simulation
+    desc: ~
+    contents:
+      - "sim_data"
+      - "sim_study"
+      - "sim_study_methods"
