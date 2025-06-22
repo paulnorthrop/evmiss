@@ -159,24 +159,23 @@ plot.evmiss_sim_study <- function(x, what = c("return", "mu", "sigma", "xi",
       approach <- c("full", "adjust")
     }
     condition1 <- length(approach) != 2
-    condition2 <- !all(is.element(approach, c("full", "adjust", "naive")))
-    approach_names <- c("full", "adjust", "naive")
+    condition2 <- !all(is.element(approach,
+                                  c("full", "adjust", "naive", "discard")))
     if (condition1 || condition2) {
       stop("''approach'' must be a length-2 subset of ",
-           "c(\"full\", \"adjust\", \"naive\")")
+           "c(\"full\", \"adjust\", \"naive\", \"discard\")")
     }
   }
+  # Reset graphical parameters on exit
+  old_par <- graphics::par(no.readonly = TRUE)
+  on.exit(graphics::par(old_par))
   # Fiddle margins for Figure 3
-  if (length(main) == 1 && main == "") {
+  if (distn == "marginal" && length(main) == 1 && main == "") {
     graphics::par(mar = c(4.25, 1.25, 0, 0.25))
   }
   # If the user is not using graphics::layout() then use graphics::par()
   # to set the layout of the plots
-  if (!layout) {
-  # Reset graphical parameters on exit
-    old_par <- graphics::par(no.readonly = TRUE)
-    on.exit(graphics::par(old_par))
-
+  if (!layout && distn == "marginal") {
   # Need to adjust this: 4 plots (2 by 2), 6 plots (3 by 2 or 2 by 3)
   # Set the layout for the plots
     if (vertical) {
@@ -290,16 +289,30 @@ plot.evmiss_sim_study <- function(x, what = c("return", "mu", "sigma", "xi",
       rl_call_hist_fn(rl_naive, which = 3, ...)
       rl_call_hist_fn(rl_discard, which = 4, ...)
     } else {
-      my_ylim <- range(rl_full, rl_adjust, rl_naive, rl_discard)
-      my_xlim <- my_ylim
-      # To ensure that the plots are square
-      graphics::par(pty = "s")
-      scatter_fun(rl_full, rl_adjust, ..., xlab = "full data",
-                  ylab = "adjust for missings", xlim = my_xlim, ylim = my_ylim)
-      scatter_fun(rl_full, rl_naive, ..., xlab = "full data",
-                  ylab = "no adjustment", xlim = my_xlim, ylim = my_ylim)
-      scatter_fun(rl_adjust, rl_naive, ..., xlab = "adjust for missings",
-                  ylab = "no adjustment", xlim = my_xlim, ylim = my_ylim)
+      mypanel <- function(x, y, ..., col = "black"){
+        graphics::abline(0, 1, ..., col = col, lwd = pass_lwd)
+        graphics::points(x, y, ...)
+      }
+      rl_mat <- cbind(full = rl_full, adjust = rl_adjust, naive = rl_naive,
+                      discard = rl_discard)
+      if (missing(mar)) {
+        graphics::par(mar = c(5, 5, 4, 2))
+      }
+      pairs_fn <- function(x, ..., oma = c(3, 3, 8, 3), asp = 1) {
+        graphics::pairs(x, ..., panel = mypanel, oma = oma, asp = asp)
+      }
+      # Hack to avoid lwd affecting the axis line width
+      dots <- list(...)
+      if (!is.null(dots$lwd)) {
+        pass_lwd <- dots$lwd
+        dots$lwd <- NULL
+      } else {
+        pass_lwd <- 1
+      }
+      for_pairs <- c(list(x = rl_mat), dots)
+      do.call(pairs_fn, for_pairs)
+      rl_title <- paste0(return_period, "-block return level estimates")
+      graphics::title(rl_title)
     }
   } else {
     # distn = "marginal": plots of marginal distributions of parameters
@@ -418,11 +431,11 @@ plot.evmiss_sim_study <- function(x, what = c("return", "mu", "sigma", "xi",
         # To ensure that the plots are square
         graphics::par(pty = "s")
         scatter_fun(pars[1, ], pars[2, ], ..., xlab = "full data",
-                    ylab = "adjust for missings", xlim = my_xlim, ylim = my_ylim)
+                    ylab = "adjust", xlim = my_xlim, ylim = my_ylim)
         scatter_fun(pars[1, ], pars[3, ], ..., xlab = "full data",
-                    ylab = "no adjustment", xlim = my_xlim, ylim = my_ylim)
-        scatter_fun(pars[2, ], pars[3, ], ..., xlab = "adjust for missings",
-                    ylab = "no adjustment", xlim = my_xlim, ylim = my_ylim)
+                    ylab = "naive", xlim = my_xlim, ylim = my_ylim)
+        scatter_fun(pars[2, ], pars[3, ], ..., xlab = "adjust",
+                    ylab = "naive", xlim = my_xlim, ylim = my_ylim)
       }
     }
   }
