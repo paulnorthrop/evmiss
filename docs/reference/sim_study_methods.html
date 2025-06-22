@@ -76,7 +76,8 @@ sim_study.'></head><body>
 <span><span class="co"># S3 method for class 'summary.evmiss_sim_study'</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, quiet <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">sim_table</span><span class="op">(</span><span class="va">object</span>, <span class="va">return_period</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+<span><span class="co"># S3 method for class 'evmiss_sim_study'</span></span>
+<span><span class="fu">tab</span><span class="op">(</span><span class="va">object</span>, <span class="va">return_period</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -95,33 +96,35 @@ such as graphical parameters.</p></dd>
 <dd><p>A character scalar. What should be plotted? See <code>distn</code> for
 further details. The default is <code>"return"</code> for the <code>plot</code> method and
 <code>"all"</code> for the <code>summary</code> method.</p><ul><li><p><code>"return"</code>: estimates of return levels using the approaches <code>"full"</code>,
-<code>"adjust"</code> and <code>"naive"</code>.</p></li>
+<code>"adjust"</code>, <code>"naive"</code> and <code>"discard"</code>.</p></li>
 <li><p><code>"mu"</code> , <code>"sigma"</code>, <code>"xi"</code> or <code>"all"</code>. The name of the parameter whose
 estimates are plotted. Use <code>"all"</code> to select all 3 GEV parameters.</p></li>
 </ul></dd>
 
 
 <dt id="arg-distn">distn<a class="anchor" aria-label="anchor" href="#arg-distn"></a></dt>
-<dd><p>A character scalar. The default is <code>"marginal"</code>.</p><ul><li><p><code>"marginal"</code>: 3 histograms of point estimates.</p><ul><li><p>If <code>what = "return"</code> then 3 histograms of the point estimates of the
+<dd><p>A character scalar. The default is <code>"marginal"</code>.</p><ul><li><p><code>"marginal"</code>: 4 histograms of point estimates.</p><ul><li><p>If <code>what = "return"</code> then 4 histograms of the point estimates of the
 required return level are produced, one plot for each of the
-approaches <code>"full"</code>, <code>"adjust"</code> and <code>"naive"</code>.</p></li>
+approaches <code>"full"</code>, <code>"adjust"</code>, <code>"naive"</code> and <code>"discard"</code>.</p></li>
 <li><p>If <code>what</code> is <code>"all"</code> then 3 histograms of the respective point
 estimates of the GEV parameters \(\mu\), \(\sigma\) and \(\xi\)
 are produced, for the approach supplied in <code>approach</code>.</p></li>
 <li><p>if <code>what</code> is <code>"mu"</code>, <code>"sigma"</code> or <code>"xi"</code> then 3 histograms of the
 point estimates of the chosen GEV parameter are produced, one for
-each of the approaches <code>"full"</code>, <code>"adjust"</code> and <code>"naive"</code>.</p></li>
+each of the approaches <code>"full"</code>, <code>"adjust"</code>, <code>"naive"</code> and
+<code>"discard"</code>.</p></li>
 </ul></li>
-<li><p><code>"joint"</code>: 3 scatter plots of point estimates.</p><ul><li><p>If <code>what = "return"</code> then 3 scatter plots are produced to compare the
+<li><p><code>"joint"</code>: 6 scatter plots of point estimates.</p><ul><li><p>If <code>what = "return"</code> then 6 scatter plots are produced to compare the
 point estimates of the required return level for a pair of the
-approaches <code>"full"</code>, <code>"adjust"</code> or <code>"naive"</code>.</p></li>
+approaches <code>"full"</code>, <code>"adjust"</code>, <code>"naive"</code> and <code>"discard"</code>.</p></li>
 <li><p>If <code>what</code> is <code>"all"</code> then 3 scatter plots are produced, one for each
 of the GEV parameters \(\mu\), \(\sigma\) and \(\xi\), to
 compare the estimates from approaches supplied in <code>approach</code>.
 are produced, for the approach supplied in <code>approach</code>.</p></li>
-<li><p>if <code>what</code> is <code>"mu"</code>, <code>"sigma"</code> or <code>"xi"</code> then 3 scatter plots of the
+<li><p>if <code>what</code> is <code>"mu"</code>, <code>"sigma"</code> or <code>"xi"</code> then 6 scatter plots of the
 point estimates of the chosen GEV parameter are produced, each one
-comparing two of the approaches <code>"full"</code>, <code>"adjust"</code> and <code>"naive"</code>.</p></li>
+comparing two of the approaches <code>"full"</code>, <code>"adjust"</code>, <code>"naive"</code> and
+<code>"discard"</code>.</p></li>
 </ul></li>
 </ul></dd>
 
@@ -141,8 +144,8 @@ approaches. All values must be greater than 1.</p></dd>
 
 
 <dt id="arg-vertical">vertical<a class="anchor" aria-label="anchor" href="#arg-vertical"></a></dt>
-<dd><p>logical scalar. If <code>vertical = TRUE</code> then the 3 plots are
-arranged vertically. Otherwise, they are arranged horizontally.</p></dd>
+<dd><p>logical scalar. If <code>vertical = TRUE</code> then the 4 plots are
+arranged vertically. Otherwise, they are arranged in 2 rows of 2 plots.</p></dd>
 
 
 <dt id="arg-main">main<a class="anchor" aria-label="anchor" href="#arg-main"></a></dt>
@@ -194,9 +197,10 @@ placed on the vertical axis.</p></dd>
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>Further arguments. Only used in the following cases.</p><ul><li><p><code>plot.evmiss_sim_study</code>: to pass graphical parameters to the graphical functions
 <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></code>, <code><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></code>.</p></li>
-<li><p><code>print.summary.evmiss_sim_study</code>: to pass arguments, such as <code>digits</code>, to
-<code><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></code>.</p></li>
-<li><p><code>sim_table</code>: to pass arguments to <code>print.summary.evmiss_sim_study</code>.</p></li>
+<li><p><code>print.summary.evmiss_sim_study</code>: if <code>quiet = FALSE</code>, to pass arguments to
+<code><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></code>, such as <code>digits</code>.</p></li>
+<li><p><code>tab.evmiss_sim_study</code>: to pass arguments to <code>summary.evmiss_sim_study</code>,
+such as <code>vsfull</code>.</p></li>
 </ul></dd>
 
 
@@ -206,7 +210,9 @@ differences between estimates and the quantities described in <code>vsfull</code
 below. The object returned from this function should be a named vector.
 See <strong>Examples</strong>. If <code>statistics</code> is missing then the default is to
 calculate the following sample statistics: mean, standard deviation, root
-mean squared error, median and inter-quartile range.</p></dd>
+mean squared error, median, inter-quartile range, mean absolute error and
+the number of simulations for which the GEV parameter MLEs are missing
+owing to a convergence problem.</p></dd>
 
 
 <dt id="arg-meanse">meanSE<a class="anchor" aria-label="anchor" href="#arg-meanse"></a></dt>
@@ -265,17 +271,22 @@ row names. Otherwise, the names used are <code>stat1</code>, <code>stat2</code> 
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p><strong>Plot method</strong>. The S3 plot method provides plots to compare these 3
+    <p><strong>Plot method</strong>. The S3 plot method provides plots to compare these 4
 approaches based on the point estimates that they produce for return levels
 and GEV parameters. Optionally, if <code>penultimate = TRUE</code>, comparisons can be
 made with a penultimate GEV approximation to the true distribution of the
 relevant block maxima. <strong>Update, and explain more</strong>.</p>
-<p><strong>Summary method</strong>. A 3-column matrix containing the values of the
-statistics in <code>statistics</code> used to summarise the performance of the
-estimators. The columns relate to the parameters <code>mu</code>, <code>sigma</code> and <code>xi</code>
-respectively. Each group of 3 rows (4 rows if <code>adjust</code> is supplied to
-<code>sim_study</code>) relates to a different combination of summary statistic and
-estimator, indicated by the row names.</p>
+<p><strong>Summary method</strong>. A matrix containing the values of the statistics in
+<code>statistics</code> used to summarise the performance of estimators of GEV
+parameters (if <code>what = "all"</code>) or return levels (if `what = "return"). The
+columns relate to the GEV parameters or return levels. Each group of 4 rows
+relates to a different combination of summary statistic and estimator
+(approach to dealing with missingness), indicated by the row names.</p>
+<p><strong>Table method, tab</strong>. Creates a table of results in which there is a row
+for each estimator. If <code>vsfull = FALSE</code> is passed to
+<code>summary.evmiss_sim_study</code> then the first row relates to the <code>"full"</code>
+approach. Otherwise, only <code>"adjust"</code>, <code>"naive"</code> and <code>"discard"</code> are
+included.</p>
     </div>
     <div class="section level2">
     <h2 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a></h2>
