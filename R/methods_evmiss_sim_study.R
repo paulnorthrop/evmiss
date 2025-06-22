@@ -302,8 +302,8 @@ plot.evmiss_sim_study <- function(x, what = c("return", "mu", "sigma", "xi",
       if (missing(mar)) {
         graphics::par(mar = c(5, 5, 4, 2))
       }
-      pairs_fn <- function(x, ..., oma = c(3, 3, 8, 3), asp = 1) {
-        graphics::pairs(x, ..., panel = mypanel, oma = oma, asp = asp)
+      pairs_fn <- function(x, ..., oma = c(3, 3, 6, 3), asp = 1, pty = "m") {
+        graphics::pairs(x, ..., panel = mypanel, oma = oma, asp = asp, pty = pty)
       }
       # Hack to avoid lwd affecting the axis line width
       dots <- list(...)
