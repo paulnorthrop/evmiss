@@ -322,7 +322,7 @@ plot.evmiss_sim_study <- function(x, what = c("return", "mu", "sigma", "xi",
     # distn = "marginal": plots of marginal distributions of parameters
     #   if what = "all": 1 approach for mu, sigma and xi
     #
-    # distn = "joint": scatter plots of comparing the 3 approaches
+    # distn = "joint": scatter plots of comparing the 4 approaches
     if (distn == "marginal") {
       parameter_call_hist_fn <- function(estimates, ...) {
         hist_fun(estimates, line_col = line_col[-3], line_lty = line_lty[-3], ...)
@@ -356,7 +356,8 @@ plot.evmiss_sim_study <- function(x, what = c("return", "mu", "sigma", "xi",
         }
         parameter_call_hist_fn(mu_pars, vlines = mu_lines, xlab = gev_names[1],
                                xlim = range(mu_pars, mu_lines),
-                               legend = all_legend, ...)
+                               legend = all_legend,
+                               main = as.character(approach), ...)
         parameter_call_hist_fn(sigma_pars,sigma_lines, xlab = gev_names[2],
                                xlim = range(sigma_pars, sigma_lines),
                                legend = all_legend, ...)
