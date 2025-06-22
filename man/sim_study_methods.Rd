@@ -5,7 +5,7 @@
 \alias{plot.evmiss_sim_study}
 \alias{summary.evmiss_sim_study}
 \alias{print.summary.evmiss_sim_study}
-\alias{sim_table}
+\alias{tab.evmiss_sim_study}
 \title{Methods for objects of class \code{"evmiss_sim_study"}}
 \usage{
 \method{plot}{evmiss_sim_study}(
@@ -40,7 +40,7 @@
 
 \method{print}{summary.evmiss_sim_study}(x, quiet = FALSE, ...)
 
-sim_table(object, return_period, ...)
+\method{tab}{evmiss_sim_study}(object, return_period, ...)
 }
 \arguments{
 \item{x, object}{An object inheriting from class \code{"evmiss_sim_study"}, a
@@ -137,9 +137,10 @@ placed on the vertical axis.}
 \itemize{
 \item \code{plot.evmiss_sim_study}: to pass graphical parameters to the graphical functions
 \code{\link[graphics:plot.default]{plot}}, \code{\link[graphics:hist]{hist}}.
-\item \code{print.summary.evmiss_sim_study}: to pass arguments, such as \code{digits}, to
-\code{\link[base:print]{print}}.
-\item \code{sim_table}: to pass arguments to \code{print.summary.evmiss_sim_study}.
+\item \code{print.summary.evmiss_sim_study}: if \code{quiet = FALSE}, to pass arguments to
+\code{\link[base:print]{print}}, such as \code{digits}.
+\item \code{tab.evmiss_sim_study}: to pass arguments to \code{summary.evmiss_sim_study},
+such as \code{vsfull}.
 }}
 
 \item{statistics}{A function used to calculate statistics to summarise the
@@ -203,17 +204,24 @@ Methods for objects of class \code{"evmiss_sim_study"} returned from
 \code{\link{sim_study}}.
 }
 \details{
-\strong{Plot method}. The S3 plot method provides plots to compare these 3
+\strong{Plot method}. The S3 plot method provides plots to compare these 4
 approaches based on the point estimates that they produce for return levels
 and GEV parameters. Optionally, if \code{penultimate = TRUE}, comparisons can be
 made with a penultimate GEV approximation to the true distribution of the
 relevant block maxima. \strong{Update, and explain more}.
 
-\strong{Summary method}. A 3-column matrix containing the values of the
-statistics in \code{statistics} used to summarise the performance of the
-estimators. The columns relate to the parameters \code{mu}, \code{sigma} and \code{xi}
-respectively. Each group of 4 rows relates to a different combination of
-summary statistic and estimator, indicated by the row names.
+\strong{Summary method}. A matrix containing the values of the statistics in
+\code{statistics} used to summarise the performance of estimators of GEV
+parameters (if \code{what = "all"}) or return levels (if `what = "return"). The
+columns relate to the GEV parameters or return levels. Each group of 4 rows
+relates to a different combination of summary statistic and estimator
+(approach to dealing with missingness), indicated by the row names.
+
+\strong{Table method, tab}. Creates a table of results in which there is a row
+for each estimator. If \code{vsfull = FALSE} is passed to
+\code{summary.evmiss_sim_study} then the first row relates to the \code{"full"}
+approach. Otherwise, only \code{"adjust"}, \code{"naive"} and \code{"discard"} are
+included.
 }
 \section{Examples}{
  See \code{\link{sim_study}}.

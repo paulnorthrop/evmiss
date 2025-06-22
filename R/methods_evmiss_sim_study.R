@@ -11,23 +11,30 @@
 #'
 #' * `plot.evmiss_sim_study`: to pass graphical parameters to the graphical functions
 #'     [`plot`][graphics::plot], [`hist`][graphics::hist].
-#' * `print.summary.evmiss_sim_study`: to pass arguments, such as `digits`, to
-#'   [`print`][base::print].
-#' * `sim_table`: to pass arguments to `print.summary.evmiss_sim_study`.
-#'
+#' * `print.summary.evmiss_sim_study`: if `quiet = FALSE`, to pass arguments to
+#'   [`print`][base::print], such as `digits`.
+#' * `tab.evmiss_sim_study`: to pass arguments to `summary.evmiss_sim_study`,
+#'   such as `vsfull`.
 #' @details
 #'
-#' **Plot method**. The S3 plot method provides plots to compare these 3
+#' **Plot method**. The S3 plot method provides plots to compare these 4
 #' approaches based on the point estimates that they produce for return levels
 #' and GEV parameters. Optionally, if `penultimate = TRUE`, comparisons can be
 #' made with a penultimate GEV approximation to the true distribution of the
 #' relevant block maxima. **Update, and explain more**.
 #'
-#' **Summary method**. A 3-column matrix containing the values of the
-#'   statistics in `statistics` used to summarise the performance of the
-#'   estimators. The columns relate to the parameters `mu`, `sigma` and `xi`
-#'   respectively. Each group of 4 rows relates to a different combination of
-#'   summary statistic and estimator, indicated by the row names.
+#' **Summary method**. A matrix containing the values of the statistics in
+#' `statistics` used to summarise the performance of estimators of GEV
+#' parameters (if `what = "all"`) or return levels (if `what = "return"). The
+#' columns relate to the GEV parameters or return levels. Each group of 4 rows
+#' relates to a different combination of summary statistic and estimator
+#' (approach to dealing with missingness), indicated by the row names.
+#'
+#' **Table method, tab**. Creates a table of results in which there is a row
+#' for each estimator. If `vsfull = FALSE` is passed to
+#' `summary.evmiss_sim_study` then the first row relates to the `"full"`
+#' approach. Otherwise, only `"adjust"`, `"naive"` and `"discard"` are
+#' included.
 #'
 #' @seealso [`sim_study`].
 #' @name sim_study_methods
@@ -747,11 +754,16 @@ print.summary.evmiss_sim_study <- function(x, quiet = FALSE, ...) {
 
 # ========================== Simulation results table ======================= #
 
+#' @export
+tab <- function(object, return_period, ...) {
+  UseMethod("tab")
+}
+
 #' Simulation results table
 #'
 #' @rdname sim_study_methods
 #' @export
-sim_table <- function(object, return_period, ...) {
+tab.evmiss_sim_study <- function(object, return_period, ...) {
   # If return_period is supplied then compare return levels
   # Otherwise compare GEV parameters
   if (missing(return_period)) {
