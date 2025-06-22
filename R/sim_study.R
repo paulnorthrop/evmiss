@@ -172,7 +172,6 @@ sim_study <- function(nsim, return_periods, discard = 25, level = 0.95,
                                  formals(sim_data)$blocks)
   # A function to perform one replication
   replication_fun <- function(x, return_periods) {
-#  replication_fun <- function(return_periods) {
     if (!quiet) {
       print(x)
     }
@@ -294,8 +293,6 @@ sim_study <- function(nsim, return_periods, discard = 25, level = 0.95,
   repeat_simulations <- function(nsim, return_periods) {
     replicate(n = nsim, replication_fun(return_periods = return_periods))
   }
-#  results <- repeat_simulations(nsim = nsim, return_periods = return_periods)
-  #
   results <- sapply(1:nsim, FUN = replication_fun,
                     return_periods = return_periods)
   # Calculate the true return levels
