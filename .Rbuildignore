@@ -1,3 +1,9 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^SimpsonNorthrop2025$
+^\.github$
+^data-raw$
+^_pkgdown\.yml$
+^docs$
+^README\.Rmd$
+^LICENSE\.md$
