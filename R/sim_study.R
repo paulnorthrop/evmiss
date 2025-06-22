@@ -123,10 +123,11 @@
 #' plot(res, what = "sigma", distn = "joint")
 #' plot(res, what = "xi", distn = "joint")
 #'
-#' # All parameters, "full", "naive" and "adjust" approaches
+#' # All parameters, "full", "naive", "adjust" and "discard" approaches
 #' plot(res, what = "all", approach = "full")
 #' plot(res, what = "all", approach = "naive")
 #' plot(res, what = "all", approach = "adjust")
+#' plot(res, what = "all", approach = "discard")
 #'
 #' # All parameters, comparing different approaches
 #' plot(res, what = "all", distn = "joint", approach = c("full", "adjust"))
