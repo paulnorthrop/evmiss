@@ -736,7 +736,6 @@ print.summary.evmiss_sim_study <- function(x, quiet = FALSE, ...) {
     }
   }
   if (!quiet) {
-    print(list(...))
     print(mat, ...)
   }
   attr(x, "matrix") <- mat
