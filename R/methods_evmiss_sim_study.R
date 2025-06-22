@@ -188,6 +188,8 @@ plot.evmiss_sim_study <- function(x, what = c("return", "mu", "sigma", "xi",
       graphics::par(mfrow = c(2, 2), mar = mar)
     }
   }
+  # Vector containing the approach names, for later
+  the_approaches <- c("full", "adjust", "naive", "discard")
   # Plotting function for histograms and, perhaps, vertical lines
   hist_fun <- function(x, vlines, line_col, line_lty, ..., freq = FALSE,
                        lwd = 3, cex.lab = 1.5, cex.axis = 1.5, cex.main = 1.5,
@@ -249,7 +251,7 @@ plot.evmiss_sim_study <- function(x, what = c("return", "mu", "sigma", "xi",
                        x$distn_args)
     true_return_level <- do.call(quantile_fn, quantile_args)
     # distn = "marginal": plots of marginal distributions of return levels
-    # distn = "joint": scatter plots of comparing the 3 approaches
+    # distn = "joint": scatter plots of comparing the 4 approaches
     if (distn == "marginal") {
       # Call hist() to enable equality of the vertical axis scales
       y1 <- suppressWarnings(graphics::hist(rl_full, plot = FALSE, ...))
@@ -299,6 +301,12 @@ plot.evmiss_sim_study <- function(x, what = c("return", "mu", "sigma", "xi",
       }
       rl_mat <- cbind(full = rl_full, adjust = rl_adjust, naive = rl_naive,
                       discard = rl_discard)
+      # Which approaches should we include?
+      if (length(approach) == 1) {
+        stop("If distn = \"joint\" then approach must have length > 1.")
+      }
+      keep <- which(is.element(the_approaches, approach))
+      rl_mat <- rl_mat[, keep]
       if (missing(mar)) {
         graphics::par(mar = c(5, 5, 4, 2))
       }
