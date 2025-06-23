@@ -39,6 +39,14 @@
 #' approach. Otherwise, only `"adjust"`, `"naive"` and `"discard"` are
 #' included.
 #'
+#' * If `return_period` is supplied then the statistics concern
+#'   estimation of these return periods and the statistics included are
+#'   mean, standard deviation, root mean squared error, median, inter-quartile
+#'   range and mean absolute error.
+#' * Otherwise, the statistics concern the estimation of the GEV parameters and
+#'   the statistics included are mean, standard deviation and root mean squared
+#'   error.
+#'
 #' @seealso [`sim_study`].
 #' @name sim_study_methods
 #' @section Examples: See [`sim_study`].
@@ -98,7 +106,7 @@ NULL
 #'   approximation (if `penultimate = TRUE`).
 #' @param line_lty A numeric vector giving the line types of these vertical
 #'   lines.
-#' @param legend A numeric vector of length 3. In which of the 3 plots should a
+#' @param legend A numeric vector of length 4. In which of the 4 plots should a
 #'   legend relating to the vertical lines be placed. The default is in the
 #'   final plot, the `"discard"` plot.
 #' @param mar A numeric vector. The number of lines of margin on the four sides
@@ -476,8 +484,8 @@ plot.evmiss_sim_study <- function(x, what = c("return", "mu", "sigma", "xi",
 #'   See **Examples**. If `statistics` is missing then the default is to
 #'   calculate the following sample statistics: mean, standard deviation, root
 #'   mean squared error, median, inter-quartile range, mean absolute error and
-#'   the number of simulations for which the GEV parameter MLEs are missing
-#'   owing to a convergence problem.
+#'   `isNA`, the number of simulations for which the GEV parameter MLEs are
+#'   missing owing to a convergence problem.
 #' @param meanSE A logical scalar. If `meanSE = TRUE` and `vsfull = FALSE` then
 #'   the sample mean of the estimated standard errors over all simulated
 #'   datasets is added to the output summary statistics. Otherwise, this is not
@@ -711,9 +719,10 @@ summary.evmiss_sim_study <- function(object, ..., what = c("all", "return"),
 #'
 #' @rdname sim_study_methods
 #' @param return_period Either a numeric scalar (for `plot.evmiss_sim_study`)
-#'   or a numeric vector (for `summary.evmiss_sim_study`). A return period or
-#'   periods, in numbers of blocks, for which to compare the three estimation
-#'   approaches. All values must be greater than 1.
+#'   or a numeric vector (for `summary.evmiss_sim_study` or
+#'   `tab.evmiss_sim_study`). A return period or periods, in numbers of blocks,
+#'   for which to compare the four estimation approaches. All values must be
+#'   greater than 1.
 #' @param quiet A logical scalar. If `quiet = TRUE` then do not print the
 #'   summary to the console.
 #' @export

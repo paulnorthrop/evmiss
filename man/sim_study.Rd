@@ -197,9 +197,22 @@ plot(res, what = "all", distn = "joint", approach = c("adjust", "discard"),
 
 ### Summaries
 
+## GEV parameter estimates
+
+# Comparison to what would be obtained from the full dataset
 summary(res)
-summary(res, vsfull = TRUE)
+# Comparison with a penultimate approximation
+summary(res, vsfull = FALSE)
+
+##  Return levels
+
+# Comparison to what would be obtained from the full dataset
 summary(res, what = "return", return_period = c(100, 1000))
+
+# Comparison with a penultimate approximation
+summary(res, what = "return", return_period = c(100, 1000), vsfull = FALSE)
+
+# Example of a user-defined statistics function
 stat_fn <- function(x) {
   return(c(mean = mean(x, na.rm = TRUE), sd = sd(x, na.rm = TRUE)))
 }

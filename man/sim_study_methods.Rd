@@ -94,9 +94,10 @@ compare the estimates from the 2 approaches supplied in \code{approach}.
 If \code{distn = "joint"} then the default is \code{c("full", "adjust")}.}
 
 \item{return_period}{Either a numeric scalar (for \code{plot.evmiss_sim_study})
-or a numeric vector (for \code{summary.evmiss_sim_study}). A return period or
-periods, in numbers of blocks, for which to compare the three estimation
-approaches. All values must be greater than 1.}
+or a numeric vector (for \code{summary.evmiss_sim_study} or
+\code{tab.evmiss_sim_study}). A return period or periods, in numbers of blocks,
+for which to compare the four estimation approaches. All values must be
+greater than 1.}
 
 \item{vertical}{logical scalar. Only relevant if \code{distn = "marginal"} or if
 \code{distn = "joint"} and \code{what == "all"}. If \code{vertical = TRUE} then the plots
@@ -119,7 +120,7 @@ approximation (if \code{penultimate = TRUE}).}
 \item{line_lty}{A numeric vector giving the line types of these vertical
 lines.}
 
-\item{legend}{A numeric vector of length 3. In which of the 3 plots should a
+\item{legend}{A numeric vector of length 4. In which of the 4 plots should a
 legend relating to the vertical lines be placed. The default is in the
 final plot, the \code{"discard"} plot.}
 
@@ -149,8 +150,8 @@ below. The object returned from this function should be a named vector.
 See \strong{Examples}. If \code{statistics} is missing then the default is to
 calculate the following sample statistics: mean, standard deviation, root
 mean squared error, median, inter-quartile range, mean absolute error and
-the number of simulations for which the GEV parameter MLEs are missing
-owing to a convergence problem.}
+\code{isNA}, the number of simulations for which the GEV parameter MLEs are
+missing owing to a convergence problem.}
 
 \item{meanSE}{A logical scalar. If \code{meanSE = TRUE} and \code{vsfull = FALSE} then
 the sample mean of the estimated standard errors over all simulated
@@ -225,6 +226,15 @@ for each estimator. If \code{vsfull = FALSE} is passed to
 \code{summary.evmiss_sim_study} then the first row relates to the \code{"full"}
 approach. Otherwise, only \code{"adjust"}, \code{"naive"} and \code{"discard"} are
 included.
+\itemize{
+\item If \code{return_period} is supplied then the statistics concern
+estimation of these return periods and the statistics included are
+mean, standard deviation, root mean squared error, median, inter-quartile
+range and mean absolute error.
+\item Otherwise, the statistics concern the estimation of the GEV parameters and
+the statistics included are mean, standard deviation and root mean squared
+error.
+}
 }
 \section{Examples}{
  See \code{\link{sim_study}}.
