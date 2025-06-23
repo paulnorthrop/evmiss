@@ -83,7 +83,6 @@ sim_data <- function(blocks = 50, block_length = 365, distn = "exp",
   if (!missing(missing_args)) {
     default_args <- as.list(formals(missing_fn)$missing_args)[-1]
     missing_args <- merge_two_lists(missing_args, default_args)
-    print(missing_args)
   }
   if (blocks > 0) {
     # Simulate raw data with no missings
