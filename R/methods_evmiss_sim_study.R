@@ -166,9 +166,6 @@ plot.evmiss_sim_study <- function(x, what = c("return", "mu", "sigma", "xi",
            "c(\"full\", \"adjust\", \"naive\", \"discard\")")
     }
   }
-  # Reset graphical parameters on exit
-  old_par <- graphics::par(no.readonly = TRUE)
-  on.exit(graphics::par(old_par))
   # Fiddle margins for Figure 3
   if (distn == "marginal" && length(main) == 1 && main == "") {
     graphics::par(mar = c(4.25, 1.25, 0, 0.25))
@@ -176,8 +173,10 @@ plot.evmiss_sim_study <- function(x, what = c("return", "mu", "sigma", "xi",
   # If the user is not using graphics::layout() then use graphics::par()
   # to set the layout of the plots
   if (!layout && distn == "marginal") {
-  # Need to adjust this: 4 plots (2 by 2), 6 plots (3 by 2 or 2 by 3)
-  # Set the layout for the plots
+    # Reset graphical parameters on exit
+    old_par <- graphics::par(no.readonly = TRUE)
+    on.exit(graphics::par(old_par))
+    # Set the layout for the plots
     if (vertical) {
       if (what == "all") {
         graphics::par(mfrow = c(3, 1), mar = mar)
@@ -268,7 +267,7 @@ plot.evmiss_sim_study <- function(x, what = c("return", "mu", "sigma", "xi",
       y4 <- suppressWarnings(graphics::hist(rl_discard, plot = FALSE, ...))
       my_ylim <- c(0, max(y1$density, y2$density, y3$density, y4$density))
       my_xlim <- range(y1$breaks, y2$breaks, y3$breaks, y4$breaks)
-      my_xlab <- paste(return_period, "block return level")
+      my_xlab <- paste0(return_period, "-block return level")
       my_legend <- c("median", "mean", "truth")
       if (length(main) == 1 && main == "" && !no_ylab) {
         names_on_y_axis <- TRUE
