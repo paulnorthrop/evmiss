@@ -27,6 +27,8 @@
 \alias{rl_sim_study}
 \alias{rl_reorder_results}
 \alias{merge_two_lists}
+\alias{select_approaches}
+\alias{pairs_lwd_hack}
 \title{Internal evmiss functions}
 \usage{
 negated_gev_loglik(parameters, maxima_notNA, adjust, big_val = Inf)
@@ -125,6 +127,10 @@ rl_sim_study(
 rl_reorder_results(rl_list, profile, return_periods)
 
 merge_two_lists(list1, list2)
+
+select_approaches(x, the_approaches, approach)
+
+pairs_lwd_hack(x, ...)
 }
 \description{
 Internal evmiss functions

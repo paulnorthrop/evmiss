@@ -1384,3 +1384,29 @@ merge_two_lists <- function(list1, list2) {
     list2[!names(list2) %in% names(list1)]
   return(merged_list)
 }
+
+#' @keywords internal
+#' @rdname evmiss-internal
+select_approaches <- function(x, the_approaches, approach) {
+  # Which approaches should we include?
+  if (length(approach) == 1) {
+    stop("If distn = \"joint\" then approach must have length > 1.")
+  }
+  keep <- which(is.element(the_approaches, approach))
+  return(x[, keep])
+}
+
+#' @keywords internal
+#' @rdname evmiss-internal
+pairs_lwd_hack <- function(x, ...) {
+  # Hack to avoid lwd affecting the axis line width
+  dots <- list(...)
+  if (!is.null(dots$lwd)) {
+    pass_lwd <- dots$lwd
+    dots$lwd <- NULL
+  } else {
+    pass_lwd <- 1
+  }
+  return(c(list(x = x, pass_lwd = pass_lwd), dots))
+}
+

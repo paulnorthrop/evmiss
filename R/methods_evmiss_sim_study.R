@@ -213,6 +213,14 @@ plot.evmiss_sim_study <- function(x, what = c("return", "mu", "sigma", "xi",
                    cex.axis = cex.axis, cex.main = cex.main)
     graphics::abline(0, 1, lwd = lwd, col = col, lty = lty)
   }
+  # Pairs panel and function
+  pairs_panel <- function(x, y, ..., col = "black"){
+    graphics::abline(0, 1, ..., col = col, lwd = pass_lwd)
+    graphics::points(x, y, ...)
+  }
+  pairs_fn <- function(x, ..., oma = c(3, 3, 6, 3), asp = 1) {
+    graphics::pairs(x, ..., panel = pairs_panel, oma = oma, asp = asp)
+  }
 
   # Plots of estimated return levels
   if (what == "return") {
@@ -295,33 +303,17 @@ plot.evmiss_sim_study <- function(x, what = c("return", "mu", "sigma", "xi",
       rl_call_hist_fn(rl_naive, which = 3, ...)
       rl_call_hist_fn(rl_discard, which = 4, ...)
     } else {
-      mypanel <- function(x, y, ..., col = "black"){
-        graphics::abline(0, 1, ..., col = col, lwd = pass_lwd)
-        graphics::points(x, y, ...)
-      }
       rl_mat <- cbind(full = rl_full, adjust = rl_adjust, naive = rl_naive,
                       discard = rl_discard)
-      # Which approaches should we include?
-      if (length(approach) == 1) {
-        stop("If distn = \"joint\" then approach must have length > 1.")
-      }
-      keep <- which(is.element(the_approaches, approach))
-      rl_mat <- rl_mat[, keep]
+      # Select only the required approaches
+      rl_mat <- select_approaches(rl_mat, the_approaches, approach)
       if (missing(mar)) {
         graphics::par(mar = c(5, 5, 4, 2))
       }
-      pairs_fn <- function(x, ..., oma = c(3, 3, 6, 3), asp = 1, pty = "m") {
-        graphics::pairs(x, ..., panel = mypanel, oma = oma, asp = asp, pty = pty)
-      }
       # Hack to avoid lwd affecting the axis line width
-      dots <- list(...)
-      if (!is.null(dots$lwd)) {
-        pass_lwd <- dots$lwd
-        dots$lwd <- NULL
-      } else {
-        pass_lwd <- 1
-      }
-      for_pairs <- c(list(x = rl_mat), dots)
+      for_pairs <- pairs_lwd_hack(rl_mat, ...)
+      pass_lwd <- for_pairs$pass_lwd
+      for_pairs$pass_lwd <- NULL
       do.call(pairs_fn, for_pairs)
       rl_title <- paste0(return_period, "-block return level estimates")
       graphics::title(rl_title)
@@ -447,18 +439,24 @@ plot.evmiss_sim_study <- function(x, what = c("return", "mu", "sigma", "xi",
                     main = "xi")
       } else {
         # Extract estimates for the selected parameter
-        row_names <- paste(what, c("full", "adjust", "naive"), sep = "_")
+        row_names <- paste(what, c("full", "adjust", "naive", "discard"),
+                           sep = "_")
         pars <- x$parameters[row_names, ]
-        my_ylim <- range(pars)
-        my_xlim <- my_ylim
-        # To ensure that the plots are square
-        graphics::par(pty = "s")
-        scatter_fun(pars[1, ], pars[2, ], ..., xlab = "full data",
-                    ylab = "adjust", xlim = my_xlim, ylim = my_ylim)
-        scatter_fun(pars[1, ], pars[3, ], ..., xlab = "full data",
-                    ylab = "naive", xlim = my_xlim, ylim = my_ylim)
-        scatter_fun(pars[2, ], pars[3, ], ..., xlab = "adjust",
-                    ylab = "naive", xlim = my_xlim, ylim = my_ylim)
+        # Make the approaches the columns
+        tpars <- t(pars)
+        colnames(tpars) <- substring(rownames(pars), 4)
+        # Select only the required approaches
+        tpars <- select_approaches(tpars, the_approaches, approach)
+        if (missing(mar)) {
+          graphics::par(mar = c(5, 5, 4, 2))
+        }
+        # Hack to avoid lwd affecting the axis line width
+        for_pairs <- pairs_lwd_hack(tpars, ...)
+        pass_lwd <- for_pairs$pass_lwd
+        for_pairs$pass_lwd <- NULL
+        do.call(pairs_fn, for_pairs)
+        pars_title <- as.character(what)
+        graphics::title(pars_title)
       }
     }
   }
