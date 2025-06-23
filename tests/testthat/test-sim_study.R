@@ -17,26 +17,29 @@ test_that("sim_study(): check true return levels", {
 
 # Return levels
 
-res1 <- print(summary(res, what = "return", return_period = c(100, 1000)))
+res1 <- print(summary(res, what = "return", return_period = c(100, 1000),
+                      meanSE = TRUE, vsfull = FALSE), quiet = TRUE)
 # Example of a user-defined statistics function
 stat_fn <- function(x) {
  return(c(mean = mean(x, na.rm = TRUE), sd = sd(x, na.rm = TRUE)))
 }
-res2 <- print(summary(res, what = "return", statistics = stat_fn))
+res2 <- print(summary(res, what = "return", return_period = c(100, 1000),
+                      statistics = stat_fn,
+                      meanSE = TRUE, vsfull = FALSE), quiet = TRUE)
 
 test_that("sim_study(): user-supplied statistics function (return levels)", {
-  testthat::expect_equal(attr(res1, "matrix")[1:6,  ],
+  testthat::expect_equal(attr(res1, "matrix")[c(1:8, 29:32),  ],
                          attr(res2, "matrix"), ignore_attr = TRUE)
 })
 
 # GEV estimates
 
-res3 <- print(summary(res, return_period = c(100, 1000)))
+res3 <- print(summary(res, return_period = c(100, 1000)), quiet = TRUE)
 # Example of a user-defined statistics function
 stat_fn <- function(x) {
   return(c(mean = mean(x, na.rm = TRUE), sd = sd(x, na.rm = TRUE)))
 }
-res4 <- print(summary(res, statistics = stat_fn))
+res4 <- print(summary(res, statistics = stat_fn), quiet = TRUE)
 
 test_that("sim_study(): user-supplied statistics function (GEV parameters)", {
   testthat::expect_equal(attr(res3, "matrix")[1:6,  ],
@@ -48,19 +51,18 @@ test_that("sim_study(): user-supplied statistics function (GEV parameters)", {
 # Return levels
 
 res1m <- attr(res1, "matrix")
-res1bias <- res1m[1:3, ]
-res1sd <- res1m[4:6, ]
-res1rmse <- res1m[7:9, ]
-res1med <- res1m[10:12, ]
-res1qir <- res1m[13:15, ]
-res1mae <- res1m[16:18, ]
+res1bias <- res1m[1:4, ]
+res1sd <- res1m[5:8, ]
+res1rmse <- res1m[9:12, ]
+res1med <- res1m[13:16, ]
+res1qir <- res1m[17:20, ]
+res1mae <- res1m[21:24, ]
 res1all <- cbind(res1bias, res1med, res1sd, res1qir, res1rmse, res1mae)
-tab1 <- as.matrix(tab(res, return_period = c(100, 1000)))
+tab1 <- as.matrix(tab(res, return_period = c(100, 1000), meanSE = TRUE,
+                      vsfull = FALSE))
 # Extract only
 test_that("sim_study(): summary() vs tab()", {
-  testthat::expect_equal(res1all,
-                         as.matrix(tab(res, return_period = c(100, 1000))),
-                         ignore_attr = TRUE)
+  testthat::expect_equal(res1all, tab1, ignore_attr = TRUE)
 })
 
 # GEV estimates
@@ -70,7 +72,7 @@ res3bias <- res3m[1:3, ]
 res3sd <- res3m[4:6, ]
 res3rmse <- res3m[7:9, ]
 res3all <- cbind(res3bias, res3sd, res3rmse)
-tab3 <- as.matrix(tab(res))
+tab3 <- as.matrix(tab(res, quiet = TRUE))
 
 test_that("sim_study(): summary() vs tab()", {
   testthat::expect_equal(res3all, tab3, ignore_attr = TRUE)
