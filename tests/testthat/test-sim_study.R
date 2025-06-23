@@ -15,6 +15,8 @@ test_that("sim_study(): check true return levels", {
 # Check that a user-supplied statistics function gives the sample results
 # as the relevant default calculations
 
+# Return levels
+
 res1 <- print(summary(res, what = "return", return_period = c(100, 1000)))
 # Example of a user-defined statistics function
 stat_fn <- function(x) {
@@ -22,7 +24,22 @@ stat_fn <- function(x) {
 }
 res2 <- print(summary(res, what = "return", statistics = stat_fn))
 
-test_that("sim_study(): user-supplied statistics function", {
+test_that("sim_study(): user-supplied statistics function (return levels)", {
   testthat::expect_equal(attr(res1, "matrix")[1:6,  ],
                          attr(res2, "matrix"), ignore_attr = TRUE)
 })
+
+# GEV estimates
+
+res1 <- print(summary(res, return_period = c(100, 1000)))
+# Example of a user-defined statistics function
+stat_fn <- function(x) {
+  return(c(mean = mean(x, na.rm = TRUE), sd = sd(x, na.rm = TRUE)))
+}
+res2 <- print(summary(res, statistics = stat_fn))
+
+test_that("sim_study(): user-supplied statistics function (GEV parameters)", {
+  testthat::expect_equal(attr(res1, "matrix")[1:6,  ],
+                         attr(res2, "matrix"), ignore_attr = TRUE)
+})
+
