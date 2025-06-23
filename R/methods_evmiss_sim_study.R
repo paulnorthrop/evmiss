@@ -166,16 +166,13 @@ plot.evmiss_sim_study <- function(x, what = c("return", "mu", "sigma", "xi",
            "c(\"full\", \"adjust\", \"naive\", \"discard\")")
     }
   }
-  # Fiddle margins for Figure 3
-  if (distn == "marginal" && length(main) == 1 && main == "") {
-    graphics::par(mar = c(4.25, 1.25, 0, 0.25))
-  }
   # If the user is not using graphics::layout() then use graphics::par()
-  # to set the layout of the plots
-  if (!layout && distn == "marginal") {
-    # Reset graphical parameters on exit
+  # to set the layout of the plots and reset graphical parameters on exit
+  if (!layout) {
     old_par <- graphics::par(no.readonly = TRUE)
     on.exit(graphics::par(old_par))
+  }
+  if (!layout && distn == "marginal") {
     # Set the layout for the plots
     if (vertical) {
       if (what == "all") {
@@ -306,7 +303,7 @@ plot.evmiss_sim_study <- function(x, what = c("return", "mu", "sigma", "xi",
                       discard = rl_discard)
       # Select only the required approaches
       rl_mat <- select_approaches(rl_mat, the_approaches, approach)
-      if (missing(mar)) {
+      if (missing(mar) && !layout) {
         graphics::par(mar = c(5, 5, 4, 2))
       }
       # Hack to avoid lwd affecting the axis line width
@@ -427,12 +424,14 @@ plot.evmiss_sim_study <- function(x, what = c("return", "mu", "sigma", "xi",
         my_xlim <- my_ylim
         my_xlab <- main[which(is.element(the_approaches, approach[1]))]
         my_ylab <- main[which(is.element(the_approaches, approach[2]))]
-        # To ensure that the plots are square
-        graphics::par(pty = "s")
-        if (vertical) {
-          graphics::par(mfrow = c(3, 1))
-        } else {
-          graphics::par(mfrow = c(1, 3))
+        if (!layout) {
+          # To ensure that the plots are square
+          graphics::par(pty = "s")
+          if (vertical) {
+            graphics::par(mfrow = c(3, 1))
+          } else {
+            graphics::par(mfrow = c(1, 3))
+          }
         }
         scatter_fun(pars[1, ], pars[4, ], ..., xlab = my_xlab, ylab = my_ylab,
                     main = "mu")
@@ -450,7 +449,7 @@ plot.evmiss_sim_study <- function(x, what = c("return", "mu", "sigma", "xi",
         colnames(tpars) <- substring(rownames(pars), 4)
         # Select only the required approaches
         tpars <- select_approaches(tpars, the_approaches, approach)
-        if (missing(mar)) {
+        if (missing(mar) && !layout) {
           graphics::par(mar = c(5, 5, 4, 2))
         }
         # Hack to avoid lwd affecting the axis line width
