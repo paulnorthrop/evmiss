@@ -31,15 +31,28 @@ test_that("sim_study(): user-supplied statistics function (return levels)", {
 
 # GEV estimates
 
-res1 <- print(summary(res, return_period = c(100, 1000)))
+res3 <- print(summary(res, return_period = c(100, 1000)))
 # Example of a user-defined statistics function
 stat_fn <- function(x) {
   return(c(mean = mean(x, na.rm = TRUE), sd = sd(x, na.rm = TRUE)))
 }
-res2 <- print(summary(res, statistics = stat_fn))
+res4 <- print(summary(res, statistics = stat_fn))
 
 test_that("sim_study(): user-supplied statistics function (GEV parameters)", {
-  testthat::expect_equal(attr(res1, "matrix")[1:6,  ],
-                         attr(res2, "matrix"), ignore_attr = TRUE)
+  testthat::expect_equal(attr(res3, "matrix")[1:6,  ],
+                         attr(res4, "matrix"), ignore_attr = TRUE)
 })
+
+# Check that summary() and tab() produce consistent results
+
+res3m <- attr(res3, "matrix")
+res3bias <- res3m[1:3, ]
+res3sd <- res3m[4:6, ]
+res3rmse <- res3m[7:9, ]
+res3all <- cbind(res3bias, res3sd, res3rmse)
+
+test_that("sim_study(): summary() vs tab()", {
+  testthat::expect_equal(res3all, as.matrix(tab(res)), ignore_attr = TRUE)
+})
+
 
