@@ -69,27 +69,22 @@ estimates are plotted. Use \code{"all"} to select all 3 GEV parameters.
 \item If \code{what = "return"} then 4 histograms of the point estimates of the
 required return level are produced, one plot for each of the
 approaches \code{"full"}, \code{"adjust"}, \code{"naive"} and \code{"discard"}.
-\item If \code{what} is \code{"all"} then 3 histograms of the respective point
+\item If \code{what = "all"} then 3 histograms of the respective point
 estimates of the GEV parameters \eqn{\mu}, \eqn{\sigma} and \eqn{\xi}
 are produced, for the approach supplied in \code{approach}.
-\item if \code{what} is \code{"mu"}, \code{"sigma"} or \code{"xi"} then 3 histograms of the
+\item if \code{what = "mu"}, \code{"sigma"} or \code{"xi"} then 4 histograms of the
 point estimates of the chosen GEV parameter are produced, one for
 each of the approaches \code{"full"}, \code{"adjust"}, \code{"naive"} and
 \code{"discard"}.
 }
-\item \code{"joint"}: 6 scatter plots of point estimates.
+\item \code{"joint"}:
 \itemize{
-\item If \code{what = "return"} then 6 scatter plots are produced to compare the
-point estimates of the required return level for a pair of the
-approaches \code{"full"}, \code{"adjust"}, \code{"naive"} and \code{"discard"}.
-\item If \code{what} is \code{"all"} then 3 scatter plots are produced, one for each
+\item If \code{what = "return"} or \code{what = "mu"}, \code{"sigma"} or \code{"xi"} then
+\code{\link[graphics:pairs]{pairs}} is used to produce a matrix of scatter plots
+to compare the estimates produced by the approaches.
+\item If \code{what = "all"} then 3 scatter plots are produced, one for each
 of the GEV parameters \eqn{\mu}, \eqn{\sigma} and \eqn{\xi}, to
-compare the estimates from approaches supplied in \code{approach}.
-are produced, for the approach supplied in \code{approach}.
-\item if \code{what} is \code{"mu"}, \code{"sigma"} or \code{"xi"} then 6 scatter plots of the
-point estimates of the chosen GEV parameter are produced, each one
-comparing two of the approaches \code{"full"}, \code{"adjust"}, \code{"naive"} and
-\code{"discard"}.
+compare the estimates from the 2 approaches supplied in \code{approach}.
 }
 }}
 
@@ -103,8 +98,10 @@ or a numeric vector (for \code{summary.evmiss_sim_study}). A return period or
 periods, in numbers of blocks, for which to compare the three estimation
 approaches. All values must be greater than 1.}
 
-\item{vertical}{logical scalar. If \code{vertical = TRUE} then the 4 plots are
-arranged vertically. Otherwise, they are arranged in 2 rows of 2 plots.}
+\item{vertical}{logical scalar. Only relevant if \code{distn = "marginal"} or if
+\code{distn = "joint"} and \code{what == "all"}. If \code{vertical = TRUE} then the plots
+are arranged vertically. Otherwise, 4 plots are 2 rows of 2 plots and 3
+plots are arranged horizontally.}
 
 \item{main}{A character vector. Titles for the histograms.}
 
@@ -211,7 +208,10 @@ Methods for objects of class \code{"evmiss_sim_study"} returned from
 approaches based on the point estimates that they produce for return levels
 and GEV parameters. Optionally, if \code{penultimate = TRUE}, comparisons can be
 made with a penultimate GEV approximation to the true distribution of the
-relevant block maxima. \strong{Update, and explain more}.
+relevant block maxima.
+
+\strong{The easiest way to appreciate the various plotting options that are
+available is to look at the examples in} \code{\link{sim_study}}.
 
 \strong{Summary method}. A matrix containing the values of the statistics in
 \code{statistics} used to summarise the performance of estimators of GEV

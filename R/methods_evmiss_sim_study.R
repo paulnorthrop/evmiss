@@ -21,7 +21,10 @@
 #' approaches based on the point estimates that they produce for return levels
 #' and GEV parameters. Optionally, if `penultimate = TRUE`, comparisons can be
 #' made with a penultimate GEV approximation to the true distribution of the
-#' relevant block maxima. **Update, and explain more**.
+#' relevant block maxima.
+#'
+#' **The easiest way to appreciate the various plotting options that are
+#' available is to look at the examples in** [`sim_study`].
 #'
 #' **Summary method**. A matrix containing the values of the statistics in
 #' `statistics` used to summarise the performance of estimators of GEV
@@ -60,32 +63,29 @@ NULL
 #'      - If `what = "return"` then 4 histograms of the point estimates of the
 #'        required return level are produced, one plot for each of the
 #'        approaches `"full"`, `"adjust"`, `"naive"` and `"discard"`.
-#'      - If `what` is `"all"` then 3 histograms of the respective point
+#'      - If `what = "all"` then 3 histograms of the respective point
 #'        estimates of the GEV parameters \eqn{\mu}, \eqn{\sigma} and \eqn{\xi}
 #'        are produced, for the approach supplied in `approach`.
-#'      - if `what` is `"mu"`, `"sigma"` or `"xi"` then 3 histograms of the
+#'      - if `what = "mu"`, `"sigma"` or `"xi"` then 4 histograms of the
 #'        point estimates of the chosen GEV parameter are produced, one for
 #'        each of the approaches `"full"`, `"adjust"`, `"naive"` and
 #'        `"discard"`.
-#'  * `"joint"`: 6 scatter plots of point estimates.
-#'      - If `what = "return"` then 6 scatter plots are produced to compare the
-#'        point estimates of the required return level for a pair of the
-#'        approaches `"full"`, `"adjust"`, `"naive"` and `"discard"`.
-#'      - If `what` is `"all"` then 3 scatter plots are produced, one for each
+#'  * `"joint"`:
+#'      - If `what = "return"` or `what = "mu"`, `"sigma"` or `"xi"` then
+#'      [`pairs`][graphics::pairs] is used to produce a matrix of scatter plots
+#'      to compare the estimates produced by the approaches.
+#'      - If `what = "all"` then 3 scatter plots are produced, one for each
 #'        of the GEV parameters \eqn{\mu}, \eqn{\sigma} and \eqn{\xi}, to
-#'        compare the estimates from approaches supplied in `approach`.
-#'        are produced, for the approach supplied in `approach`.
-#'      - if `what` is `"mu"`, `"sigma"` or `"xi"` then 6 scatter plots of the
-#'        point estimates of the chosen GEV parameter are produced, each one
-#'        comparing two of the approaches `"full"`, `"adjust"`, `"naive"` and
-#'        `"discard"`.
+#'        compare the estimates from the 2 approaches supplied in `approach`.
 #'
 #' @param approach A character scalar or vector. A proper subset of
 #'   `c("full", "adjust", "naive", "discard")`. Only relevant if `what` is
 #'   `"all"`. If `distn = "marginal"` then the default is `"full"`.
 #'   If `distn = "joint"` then the default is `c("full", "adjust")`.
-#' @param vertical logical scalar. If `vertical = TRUE` then the 4 plots are
-#'   arranged vertically. Otherwise, they are arranged in 2 rows of 2 plots.
+#' @param vertical logical scalar. Only relevant if `distn = "marginal"` or if
+#'   `distn = "joint"` and `what == "all"`. If `vertical = TRUE` then the plots
+#'   are arranged vertically. Otherwise, 4 plots are 2 rows of 2 plots and 3
+#'   plots are arranged horizontally.
 #' @param main A character vector. Titles for the histograms.
 #' @param penultimate A logical scalar. If  `distn = "marginal"` should
 #'   lines be added to plots to indicate the GEV parameter values, or the
