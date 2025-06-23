@@ -171,26 +171,29 @@ plot(res, distn = "joint")
 
 ## GEV parameter estimates
 
-# (a) Each parameter, by approach
+# (a) Each parameter marginally, by approach
 plot(res, what = "mu")
 plot(res, what = "sigma")
 plot(res, what = "xi")
 
-# (b) Comparing approaches
+# (b) Each parameter, comparing approaches
 plot(res, what = "mu", distn = "joint")
 plot(res, what = "sigma", distn = "joint")
 plot(res, what = "xi", distn = "joint")
 
-# All parameters, for each approach
+# All parameters marginally, for each approach
 plot(res, what = "all", approach = "full")
 plot(res, what = "all", approach = "naive")
 plot(res, what = "all", approach = "adjust")
 plot(res, what = "all", approach = "discard")
 
-# All parameters, comparing different approaches
-plot(res, what = "all", distn = "joint", approach = c("full", "adjust"))
-plot(res, what = "all", distn = "joint", approach = c("full", "naive"))
-plot(res, what = "all", distn = "joint", approach = c("adjust", "naive"))
+# All parameters, comparing pairs of different approaches
+plot(res, what = "all", distn = "joint", approach = c("full", "adjust"),
+     vertical = FALSE)
+plot(res, what = "all", distn = "joint", approach = c("adjust", "naive"),
+     vertical = FALSE)
+plot(res, what = "all", distn = "joint", approach = c("adjust", "discard"),
+     vertical = FALSE)
 
 ### Summaries
 
