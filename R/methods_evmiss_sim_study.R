@@ -426,11 +426,15 @@ plot.evmiss_sim_study <- function(x, what = c("return", "mu", "sigma", "xi",
         pars <- x$parameters[row_names, ]
         my_ylim <- range(pars)
         my_xlim <- my_ylim
-        approaches <- c("full", "adjust", "naive")
-        my_xlab <- main[which(is.element(approaches, approach[1]))]
-        my_ylab <- main[which(is.element(approaches, approach[2]))]
+        my_xlab <- main[which(is.element(the_approaches, approach[1]))]
+        my_ylab <- main[which(is.element(the_approaches, approach[2]))]
         # To ensure that the plots are square
         graphics::par(pty = "s")
+        if (vertical) {
+          graphics::par(mfrow = c(3, 1))
+        } else {
+          graphics::par(mfrow = c(1, 3))
+        }
         scatter_fun(pars[1, ], pars[4, ], ..., xlab = my_xlab, ylab = my_ylab,
                     main = "mu")
         scatter_fun(pars[2, ], pars[5, ], ..., xlab = my_xlab, ylab = my_ylab,
