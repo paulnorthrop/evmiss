@@ -76,6 +76,8 @@ sim_study.'></head><body>
 <span><span class="co"># S3 method for class 'summary.evmiss_sim_study'</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, quiet <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
+<span><span class="fu">tab</span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
 <span><span class="co"># S3 method for class 'evmiss_sim_study'</span></span>
 <span><span class="fu">tab</span><span class="op">(</span><span class="va">object</span>, <span class="va">return_period</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -106,25 +108,20 @@ estimates are plotted. Use <code>"all"</code> to select all 3 GEV parameters.</p
 <dd><p>A character scalar. The default is <code>"marginal"</code>.</p><ul><li><p><code>"marginal"</code>: 4 histograms of point estimates.</p><ul><li><p>If <code>what = "return"</code> then 4 histograms of the point estimates of the
 required return level are produced, one plot for each of the
 approaches <code>"full"</code>, <code>"adjust"</code>, <code>"naive"</code> and <code>"discard"</code>.</p></li>
-<li><p>If <code>what</code> is <code>"all"</code> then 3 histograms of the respective point
+<li><p>If <code>what = "all"</code> then 3 histograms of the respective point
 estimates of the GEV parameters \(\mu\), \(\sigma\) and \(\xi\)
 are produced, for the approach supplied in <code>approach</code>.</p></li>
-<li><p>if <code>what</code> is <code>"mu"</code>, <code>"sigma"</code> or <code>"xi"</code> then 3 histograms of the
+<li><p>if <code>what = "mu"</code>, <code>"sigma"</code> or <code>"xi"</code> then 4 histograms of the
 point estimates of the chosen GEV parameter are produced, one for
 each of the approaches <code>"full"</code>, <code>"adjust"</code>, <code>"naive"</code> and
 <code>"discard"</code>.</p></li>
 </ul></li>
-<li><p><code>"joint"</code>: 6 scatter plots of point estimates.</p><ul><li><p>If <code>what = "return"</code> then 6 scatter plots are produced to compare the
-point estimates of the required return level for a pair of the
-approaches <code>"full"</code>, <code>"adjust"</code>, <code>"naive"</code> and <code>"discard"</code>.</p></li>
-<li><p>If <code>what</code> is <code>"all"</code> then 3 scatter plots are produced, one for each
+<li><p><code>"joint"</code>:</p><ul><li><p>If <code>what = "return"</code> or <code>what = "mu"</code>, <code>"sigma"</code> or <code>"xi"</code> then
+<code><a href="https://rdrr.io/r/graphics/pairs.html" class="external-link">pairs</a></code> is used to produce a matrix of scatter plots
+to compare the estimates produced by the approaches.</p></li>
+<li><p>If <code>what = "all"</code> then 3 scatter plots are produced, one for each
 of the GEV parameters \(\mu\), \(\sigma\) and \(\xi\), to
-compare the estimates from approaches supplied in <code>approach</code>.
-are produced, for the approach supplied in <code>approach</code>.</p></li>
-<li><p>if <code>what</code> is <code>"mu"</code>, <code>"sigma"</code> or <code>"xi"</code> then 6 scatter plots of the
-point estimates of the chosen GEV parameter are produced, each one
-comparing two of the approaches <code>"full"</code>, <code>"adjust"</code>, <code>"naive"</code> and
-<code>"discard"</code>.</p></li>
+compare the estimates from the 2 approaches supplied in <code>approach</code>.</p></li>
 </ul></li>
 </ul></dd>
 
@@ -144,8 +141,10 @@ approaches. All values must be greater than 1.</p></dd>
 
 
 <dt id="arg-vertical">vertical<a class="anchor" aria-label="anchor" href="#arg-vertical"></a></dt>
-<dd><p>logical scalar. If <code>vertical = TRUE</code> then the 4 plots are
-arranged vertically. Otherwise, they are arranged in 2 rows of 2 plots.</p></dd>
+<dd><p>logical scalar. Only relevant if <code>distn = "marginal"</code> or if
+<code>distn = "joint"</code> and <code>what == "all"</code>. If <code>vertical = TRUE</code> then the plots
+are arranged vertically. Otherwise, 4 plots are 2 rows of 2 plots and 3
+plots are arranged horizontally.</p></dd>
 
 
 <dt id="arg-main">main<a class="anchor" aria-label="anchor" href="#arg-main"></a></dt>
@@ -275,7 +274,9 @@ row names. Otherwise, the names used are <code>stat1</code>, <code>stat2</code> 
 approaches based on the point estimates that they produce for return levels
 and GEV parameters. Optionally, if <code>penultimate = TRUE</code>, comparisons can be
 made with a penultimate GEV approximation to the true distribution of the
-relevant block maxima. <strong>Update, and explain more</strong>.</p>
+relevant block maxima.</p>
+<p><strong>The easiest way to appreciate the various plotting options that are
+available is to look at the examples in</strong> <code><a href="sim_study.html">sim_study</a></code>.</p>
 <p><strong>Summary method</strong>. A matrix containing the values of the statistics in
 <code>statistics</code> used to summarise the performance of estimators of GEV
 parameters (if <code>what = "all"</code>) or return levels (if `what = "return"). The

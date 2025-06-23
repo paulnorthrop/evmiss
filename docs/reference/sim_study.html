@@ -231,7 +231,7 @@ because it may prevent convergence issues for some simulated datasets.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## GEV parameter estimates</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># (a) by approach</span></span></span>
+<span class="r-in"><span><span class="co"># (a) Each parameter marginally, by approach</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">res</span>, what <span class="op">=</span> <span class="st">"mu"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="sim_study-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">res</span>, what <span class="op">=</span> <span class="st">"sigma"</span><span class="op">)</span></span></span>
@@ -239,7 +239,7 @@ because it may prevent convergence issues for some simulated datasets.</p>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">res</span>, what <span class="op">=</span> <span class="st">"xi"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="sim_study-5.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># (b) Comparing approaches</span></span></span>
+<span class="r-in"><span><span class="co"># (b) Each parameter, comparing approaches</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">res</span>, what <span class="op">=</span> <span class="st">"mu"</span>, distn <span class="op">=</span> <span class="st">"joint"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="sim_study-6.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">res</span>, what <span class="op">=</span> <span class="st">"sigma"</span>, distn <span class="op">=</span> <span class="st">"joint"</span><span class="op">)</span></span></span>
@@ -247,21 +247,26 @@ because it may prevent convergence issues for some simulated datasets.</p>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">res</span>, what <span class="op">=</span> <span class="st">"xi"</span>, distn <span class="op">=</span> <span class="st">"joint"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="sim_study-8.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># All parameters, "full", "naive" and "adjust" approaches</span></span></span>
+<span class="r-in"><span><span class="co"># All parameters marginally, for each approach</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">res</span>, what <span class="op">=</span> <span class="st">"all"</span>, approach <span class="op">=</span> <span class="st">"full"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="sim_study-9.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">res</span>, what <span class="op">=</span> <span class="st">"all"</span>, approach <span class="op">=</span> <span class="st">"naive"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="sim_study-10.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">res</span>, what <span class="op">=</span> <span class="st">"all"</span>, approach <span class="op">=</span> <span class="st">"adjust"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="sim_study-11.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># All parameters, comparing different approaches</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">res</span>, what <span class="op">=</span> <span class="st">"all"</span>, distn <span class="op">=</span> <span class="st">"joint"</span>, approach <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"full"</span>, <span class="st">"adjust"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">res</span>, what <span class="op">=</span> <span class="st">"all"</span>, approach <span class="op">=</span> <span class="st">"discard"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="sim_study-12.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">res</span>, what <span class="op">=</span> <span class="st">"all"</span>, distn <span class="op">=</span> <span class="st">"joint"</span>, approach <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"full"</span>, <span class="st">"naive"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># All parameters, comparing pairs of different approaches</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">res</span>, what <span class="op">=</span> <span class="st">"all"</span>, distn <span class="op">=</span> <span class="st">"joint"</span>, approach <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"full"</span>, <span class="st">"adjust"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>     vertical <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="sim_study-13.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">res</span>, what <span class="op">=</span> <span class="st">"all"</span>, distn <span class="op">=</span> <span class="st">"joint"</span>, approach <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"adjust"</span>, <span class="st">"naive"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">res</span>, what <span class="op">=</span> <span class="st">"all"</span>, distn <span class="op">=</span> <span class="st">"joint"</span>, approach <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"adjust"</span>, <span class="st">"naive"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>     vertical <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="sim_study-14.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">res</span>, what <span class="op">=</span> <span class="st">"all"</span>, distn <span class="op">=</span> <span class="st">"joint"</span>, approach <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"adjust"</span>, <span class="st">"discard"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>     vertical <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="sim_study-15.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">### Summaries</span></span></span>
 <span class="r-in"><span></span></span>
@@ -367,7 +372,7 @@ because it may prevent convergence issues for some simulated datasets.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">sim_study</span><span class="op">(</span>nsim <span class="op">=</span> <span class="fl">50</span>, distn <span class="op">=</span> <span class="st">"norm"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="sim_study-15.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="sim_study-16.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">res</span>, what <span class="op">=</span> <span class="st">"return"</span>, return_period <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">1000</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call:</span>
