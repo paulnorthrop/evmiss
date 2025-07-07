@@ -6,7 +6,13 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Extreme Value Analyses with Missing Data • evmiss</title>
-<script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- mathjax math --><script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script><script>
+  window.MathJax = {
+    chtml: {
+      fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2"
+    }
+  };
+</script><script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
@@ -56,7 +62,7 @@
 <h2 id="an-example">An example<a class="anchor" aria-label="anchor" href="#an-example"></a>
 </h2>
 <p>The main function in <code>evmiss</code> is <code><a href="reference/gev_mle.html">gev_mle()</a></code>, which fits a GEV distribution to block maxima using maximum likelihood estimation, with the option to make an adjustment for the numbers of non-missing raw values in each block.</p>
-<p>The main adjustment is based on the strong assumption that missing values occur completely at random. We suppose that a block maximum <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>M</mi><mi>n</mi></msub><annotation encoding="application/x-tex">M_n</annotation></semantics></math> based on a full block of length <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math> has a GEV(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>σ</mi><annotation encoding="application/x-tex">\sigma</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ξ</mi><annotation encoding="application/x-tex">\xi</annotation></semantics></math>) distribution, with distribution function <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">G(x)</annotation></semantics></math>. Let <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>n</mi><mi>i</mi></msub><annotation encoding="application/x-tex">n_i</annotation></semantics></math> be the number of non-missing values in block <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math> and let <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>M</mi><msub><mi>n</mi><mi>i</mi></msub></msub><annotation encoding="application/x-tex">M_{n_i}</annotation></semantics></math> denote the block maximum of such a block. We suppose that <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>M</mi><msub><mi>n</mi><mi>i</mi></msub></msub><annotation encoding="application/x-tex">M_{n_i}</annotation></semantics></math> has a GEV(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>n</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mu(n_i)</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>σ</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>n</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\sigma(n_i)</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ξ</mi><annotation encoding="application/x-tex">\xi</annotation></semantics></math>) distribution, where <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>n</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>μ</mi><mo>+</mo><mi>σ</mi><mrow><mo stretchy="true" form="prefix">[</mo><msup><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>n</mi><mi>i</mi></msub><mi>/</mi><mi>n</mi><mo stretchy="true" form="postfix">)</mo></mrow><mi>ξ</mi></msup><mo>−</mo><mn>1</mn><mo stretchy="true" form="postfix">]</mo></mrow><mi>/</mi><mi>ξ</mi></mrow><annotation encoding="application/x-tex">\mu(n_i) = \mu + \sigma [(n_i/n)^\xi -1] / \xi</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>σ</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>n</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>σ</mi><msup><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>n</mi><mi>i</mi></msub><mi>/</mi><mi>n</mi><mo stretchy="true" form="postfix">)</mo></mrow><mi>ξ</mi></msup></mrow><annotation encoding="application/x-tex">\sigma(n_i) = \sigma (n_i/n)^\xi</annotation></semantics></math>.</p>
+<p>The main adjustment is based on the strong assumption that missing values occur completely at random. We suppose that a block maximum <span class="math inline">\(M_n\)</span> based on a full block of length <span class="math inline">\(n\)</span> has a GEV(<span class="math inline">\(\mu\)</span>, <span class="math inline">\(\sigma\)</span>, <span class="math inline">\(\xi\)</span>) distribution, with distribution function <span class="math inline">\(G(x)\)</span>. Let <span class="math inline">\(n_i\)</span> be the number of non-missing values in block <span class="math inline">\(i\)</span> and let <span class="math inline">\(M_{n_i}\)</span> denote the block maximum of such a block. We suppose that <span class="math inline">\(M_{n_i}\)</span> has a GEV(<span class="math inline">\(\mu(n_i)\)</span>, <span class="math inline">\(\sigma(n_i)\)</span>, <span class="math inline">\(\xi\)</span>) distribution, where <span class="math inline">\(\mu(n_i) = \mu + \sigma [(n_i/n)^\xi -1] / \xi\)</span>, <span class="math inline">\(\sigma(n_i) = \sigma (n_i/n)^\xi\)</span>.</p>
 <div class="section level3">
 <h3 id="sea-surge-height-data">Sea surge height data<a class="anchor" aria-label="anchor" href="#sea-surge-height-data"></a>
 </h3>
@@ -161,8 +167,8 @@ Heffernan, Janet E., and Alec G. Stephenson. 2018. <em><span class="nocase">i</s
 <div class="developers">
 <h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li>Paul J. Northrop <br><small class="roles"> Author, maintainer, copyright holder </small>  </li>
-<li>Emma S. Simpson <br><small class="roles"> Author, copyright holder </small>  </li>
+<li>Paul J. Northrop <br><small class="roles"> Author, maintainer, copyright holder </small>   </li>
+<li>Emma S. Simpson <br><small class="roles"> Author, copyright holder </small>   </li>
 </ul>
 </div>
 
@@ -177,7 +183,7 @@ Heffernan, Janet E., and Alec G. Stephenson. 2018. <em><span class="nocase">i</s
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
 </div>
 
     </footer>
