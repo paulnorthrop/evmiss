@@ -108,7 +108,19 @@ GEV distribution for \eqn{M_{n_i}} from its approximate distribution function
 
 A likelihood is constructed as the product of contributions from the maxima
 from distinct blocks, under the assumption that these maxima are
-independent. The negated log-likelihood is minimised using a call to
+independent. Let \eqn{\theta = (\mu, \sigma, \xi)} and let
+\eqn{\ell_F(\underline{z}; \theta)} denote the usual, unadjusted, GEV
+log-likelihood for the full-data case where there are no missing values.
+It can be shown that our adjusted log-likelihood
+\eqn{\ell(\theta, \underline{z})} is given by
+
+\deqn{\ell(\theta, \underline{z}) = \ell_F(\underline{z}; \theta) -
+      \sum_{i=1}^n p_i \log G(z_i; \theta)}
+
+where \eqn{p_i = 1 - n_i / n} is the proportion of missing values in block
+\eqn{i}.
+
+The negated log-likelihood is minimised using a call to
 \code{\link[stats:optim]{stats::optim}} with \code{hessian = TRUE}. If \code{\link[stats:optim]{stats::optim}} throws an error
 then a warning is produced and the returned object has \code{NA} values for
 the components \code{par}, \code{loglik}, \code{vcov} and \code{se} and an extra component
