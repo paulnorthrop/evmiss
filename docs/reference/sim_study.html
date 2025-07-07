@@ -270,6 +270,9 @@ because it may prevent convergence issues for some simulated datasets.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">### Summaries</span></span></span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## GEV parameter estimates</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Comparison to what would be obtained from the full dataset</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call:</span>
@@ -297,33 +300,45 @@ because it may prevent convergence issues for some simulated datasets.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> isNA,adjust          0.00000000  0.000000000  0.000000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> isNA,naive           0.00000000  0.000000000  0.000000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> isNA,discard         0.00000000  0.000000000  0.000000000</span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">res</span>, vsfull <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Comparison with a penultimate approximation</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">res</span>, vsfull <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> summary.evmiss_sim_study(object = res, vsfull = TRUE)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> summary.evmiss_sim_study(object = res, vsfull = FALSE)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                              mu        sigma           xi</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> bias,adjust         -0.02971768  0.005540924  0.011477016</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> bias,naive          -0.33348632  0.028073818 -0.004436578</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> bias,discard        -0.11284213 -0.016571757 -0.032669671</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> sd,adjust            0.09408087  0.078692990  0.083157879</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> sd,naive             0.09594831  0.088741469  0.083109443</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> sd,discard           0.20835560  0.171469168  0.156154284</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rmse,adjust          0.09776158  0.078098891  0.083118289</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rmse,naive           0.34674930  0.092226280  0.082393684</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rmse,discard         0.23511096  0.170552822  0.157999318</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> median_bias,adjust  -0.02768807  0.010619613  0.009718407</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> median_bias,naive   -0.32316146  0.045845386 -0.006228680</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> median_bias,discard -0.13840627 -0.034639349 -0.006093888</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> iqr,adjust           0.13134064  0.064760903  0.093964235</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> iqr,naive            0.09232500  0.134221664  0.081747247</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> iqr,discard          0.26139553  0.212108985  0.184119907</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> mae,adjust           0.07694070  0.058404502  0.062774961</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> mae,naive            0.33348632  0.080407347  0.061358095</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> mae,discard          0.20102487  0.136232027  0.115837595</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> isNA,adjust          0.00000000  0.000000000  0.000000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> isNA,naive           0.00000000  0.000000000  0.000000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> isNA,discard         0.00000000  0.000000000  0.000000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                               mu         sigma           xi</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> bias,full           -0.003839986 -0.0278597431  0.007790091</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> bias,adjust         -0.033557669 -0.0223188192  0.019267107</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> bias,naive          -0.337326303  0.0002140746  0.003353513</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> bias,discard        -0.116682118 -0.0444314999 -0.024879580</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> sd,full              0.171366225  0.1042391559  0.119435053</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> sd,adjust            0.181173355  0.1121491021  0.112824824</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> sd,naive             0.181756862  0.1248581050  0.114293505</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> sd,discard           0.274357871  0.2004838735  0.199664994</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rmse,full            0.169687362  0.1068861585  0.118491024</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rmse,adjust          0.182464862  0.1132431118  0.113340520</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rmse,naive           0.382313851  0.1236034032  0.113194484</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rmse,discard         0.295603642  0.2033815775  0.199217923</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> median_bias,full    -0.029151248 -0.0396456609  0.005521644</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> median_bias,adjust  -0.014729294 -0.0262364061  0.013937393</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> median_bias,naive   -0.322532299  0.0061424001  0.013259862</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> median_bias,discard -0.114827063 -0.0515110337 -0.020418590</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> iqr,full             0.254301659  0.1311864912  0.128656835</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> iqr,adjust           0.260346039  0.1598136807  0.134456547</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> iqr,naive            0.256441257  0.1988598654  0.135090267</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> iqr,discard          0.374511341  0.2882915300  0.192845955</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mae,full             0.144175428  0.0865922318  0.092610775</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mae,adjust           0.143941034  0.0918008426  0.090542135</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mae,naive            0.341211780  0.1015589837  0.089672794</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mae,discard          0.233671262  0.1656333584  0.152840558</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> isNA,full            0.000000000  0.0000000000  0.000000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> isNA,adjust          0.000000000  0.0000000000  0.000000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> isNA,naive           0.000000000  0.0000000000  0.000000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> isNA,discard         0.000000000  0.0000000000  0.000000000</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">##  Return levels</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Comparison to what would be obtained from the full dataset</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">res</span>, what <span class="op">=</span> <span class="st">"return"</span>, return_period <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">1000</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call:</span>
@@ -352,6 +367,45 @@ because it may prevent convergence issues for some simulated datasets.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> isNA,adjust                     0.0000000             0.00000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> isNA,naive                      0.0000000             0.00000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> isNA,discard                    0.0000000             0.00000000</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Comparison with a penultimate approximation</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">res</span>, what <span class="op">=</span> <span class="st">"return"</span>, return_period <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">1000</span><span class="op">)</span>, vsfull <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Call:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> summary.evmiss_sim_study(object = res, what = "return", return_period = c(100, </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     1000), vsfull = FALSE)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                     100-year return level 1000-year return level</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> bias,full                      0.14925733              0.7678878</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> bias,adjust                    0.28315139              1.0791288</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> bias,naive                    -0.13653691              0.3953066</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> bias,discard                  -0.13309652              0.7011819</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> sd,full                        1.24978525              3.3256363</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> sd,adjust                      1.35168836              3.4911734</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> sd,naive                       1.12824863              2.9490215</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> sd,discard                     1.83593058              5.0337124</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rmse,full                      1.24619487              3.3805786</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rmse,adjust                    1.36773349              3.6206415</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rmse,naive                     1.12522371              2.9460245</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rmse,discard                   1.82234546              5.0322113</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> median_bias,full               0.03182451              0.2036225</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> median_bias,adjust             0.05210663              0.2318654</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> median_bias,naive             -0.35517359             -0.1829064</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> median_bias,discard           -0.41121698             -0.5478823</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> iqr,full                       1.45106005              3.2602849</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> iqr,adjust                     1.83618493              4.2763547</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> iqr,naive                      1.50931836              3.5145841</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> iqr,discard                    2.08413213              5.6041252</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mae,full                       0.94110029              2.3387866</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mae,adjust                     1.02879180              2.5172677</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mae,naive                      0.91453792              2.1899685</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mae,discard                    1.47064799              3.4850419</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> isNA,full                      0.00000000              0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> isNA,adjust                    0.00000000              0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> isNA,naive                     0.00000000              0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> isNA,discard                   0.00000000              0.0000000</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Example of a user-defined statistics function</span></span></span>
 <span class="r-in"><span><span class="va">stat_fn</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">x</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, sd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html" class="external-link">sd</a></span><span class="op">(</span><span class="va">x</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>

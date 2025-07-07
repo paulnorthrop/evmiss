@@ -150,7 +150,16 @@ GEV distribution for \(M_{n_i}\) from its approximate distribution function
 \([G(x)]^{n_i/n}\).</p>
 <p>A likelihood is constructed as the product of contributions from the maxima
 from distinct blocks, under the assumption that these maxima are
-independent. The negated log-likelihood is minimised using a call to
+independent. Let \(\theta = (\mu, \sigma, \xi)\) and let
+\(\ell_F(\underline{z}; \theta)\) denote the usual, unadjusted, GEV
+log-likelihood for the full-data case where there are no missing values.
+It can be shown that our adjusted log-likelihood
+\(\ell(\theta, \underline{z})\) is given by</p>
+<p>$$\ell(\theta, \underline{z}) = \ell_F(\underline{z}; \theta) -
+      \sum_{i=1}^n p_i \log G(z_i; \theta)$$</p>
+<p>where \(p_i = 1 - n_i / n\) is the proportion of missing values in block
+\(i\).</p>
+<p>The negated log-likelihood is minimised using a call to
 <code><a href="https://rdrr.io/r/stats/optim.html" class="external-link">stats::optim</a></code> with <code>hessian = TRUE</code>. If <code><a href="https://rdrr.io/r/stats/optim.html" class="external-link">stats::optim</a></code> throws an error
 then a warning is produced and the returned object has <code>NA</code> values for
 the components <code>par</code>, <code>loglik</code>, <code>vcov</code> and <code>se</code> and an extra component

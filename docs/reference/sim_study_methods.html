@@ -135,9 +135,10 @@ If <code>distn = "joint"</code> then the default is <code>c("full", "adjust")</c
 
 <dt id="arg-return-period">return_period<a class="anchor" aria-label="anchor" href="#arg-return-period"></a></dt>
 <dd><p>Either a numeric scalar (for <code>plot.evmiss_sim_study</code>)
-or a numeric vector (for <code>summary.evmiss_sim_study</code>). A return period or
-periods, in numbers of blocks, for which to compare the three estimation
-approaches. All values must be greater than 1.</p></dd>
+or a numeric vector (for <code>summary.evmiss_sim_study</code> or
+<code>tab.evmiss_sim_study</code>). A return period or periods, in numbers of blocks,
+for which to compare the four estimation approaches. All values must be
+greater than 1.</p></dd>
 
 
 <dt id="arg-vertical">vertical<a class="anchor" aria-label="anchor" href="#arg-vertical"></a></dt>
@@ -172,7 +173,7 @@ lines.</p></dd>
 
 
 <dt id="arg-legend">legend<a class="anchor" aria-label="anchor" href="#arg-legend"></a></dt>
-<dd><p>A numeric vector of length 3. In which of the 3 plots should a
+<dd><p>A numeric vector of length 4. In which of the 4 plots should a
 legend relating to the vertical lines be placed. The default is in the
 final plot, the <code>"discard"</code> plot.</p></dd>
 
@@ -210,8 +211,8 @@ below. The object returned from this function should be a named vector.
 See <strong>Examples</strong>. If <code>statistics</code> is missing then the default is to
 calculate the following sample statistics: mean, standard deviation, root
 mean squared error, median, inter-quartile range, mean absolute error and
-the number of simulations for which the GEV parameter MLEs are missing
-owing to a convergence problem.</p></dd>
+<code>isNA</code>, the number of simulations for which the GEV parameter MLEs are
+missing owing to a convergence problem.</p></dd>
 
 
 <dt id="arg-meanse">meanSE<a class="anchor" aria-label="anchor" href="#arg-meanse"></a></dt>
@@ -287,8 +288,14 @@ relates to a different combination of summary statistic and estimator
 for each estimator. If <code>vsfull = FALSE</code> is passed to
 <code>summary.evmiss_sim_study</code> then the first row relates to the <code>"full"</code>
 approach. Otherwise, only <code>"adjust"</code>, <code>"naive"</code> and <code>"discard"</code> are
-included.</p>
-    </div>
+included.</p><ul><li><p>If <code>return_period</code> is supplied then the statistics concern
+estimation of these return periods and the statistics included are
+mean, standard deviation, root mean squared error, median, inter-quartile
+range and mean absolute error.</p></li>
+<li><p>Otherwise, the statistics concern the estimation of the GEV parameters and
+the statistics included are mean, standard deviation and root mean squared
+error.</p></li>
+</ul></div>
     <div class="section level2">
     <h2 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a></h2>
     <p>See <code><a href="sim_study.html">sim_study</a></code>.</p>
