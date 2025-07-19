@@ -7,8 +7,7 @@
 \format{
 \code{BrestSurgeDays} is a data frame with 162 rows (years 1846 to
 2007) and the 12 variables (one for each month of the year). Each value
-in the data frame gives the number of days for which the surge height data
-for the month in question.
+in the data frame gives the number of days in the month in question.
 
 The row names of \code{BrestSurgeMaxima} are the years \code{1946:2007} and the column
 names are the abbreviated names of the months.
