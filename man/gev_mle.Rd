@@ -84,7 +84,8 @@ Objects inheriting from class \code{"evmiss"} have \code{coef}, \code{logLik}, \
 \description{
 Fits a GEV distribution to block maxima using maximum likelihood estimation,
 with the option to make an adjustment for the numbers of non-missing raw
-values in each block.
+values in each block. The GEV location and scale parameters are adjusted to
+reflect the proportion of raw values that are missing.
 }
 \details{
 If \code{data} is numeric vector then exactly one of the arguments
