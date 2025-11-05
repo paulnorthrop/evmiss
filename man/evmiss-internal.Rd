@@ -3,6 +3,7 @@
 \name{evmiss-internal}
 \alias{evmiss-internal}
 \alias{negated_gev_loglik}
+\alias{weighted_negated_gev_loglik}
 \alias{discard_maxima}
 \alias{negated_gev_loglik_ret_levs}
 \alias{faster_profile_ci}
@@ -32,6 +33,8 @@
 \title{Internal evmiss functions}
 \usage{
 negated_gev_loglik(parameters, maxima_notNA, adjust, big_val = Inf)
+
+weighted_negated_gev_loglik(parameters, maxima, weights, big_val = Inf)
 
 discard_maxima(maxima_notNA, discard)
 

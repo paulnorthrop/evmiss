@@ -42,6 +42,29 @@ negated_gev_loglik <- function(parameters, maxima_notNA, adjust,
   return(-sum(loglik))
 }
 
+# ======================== Weighted GEV log-likelihood ====================== #
+
+#' @keywords internal
+#' @rdname evmiss-internal
+weighted_negated_gev_loglik <- function(parameters, maxima, weights,
+                                        big_val = Inf) {
+  # Extract the GEV parameter values for a complete block
+  mu <- parameters[1]
+  sigma <- parameters[2]
+  xi <- parameters[3]
+  # Check that the parameters are not out-of-bounds
+  if (any(sigma <= 0) || any(1 + xi * (maxima - mu) / sigma <= 0)) {
+    return(big_val)
+  }
+  # Use the nieve package to calculate the contributions to the log-likelihood
+  loglik <- nieve::dGEV(x = maxima, loc = mu, scale = sigma, shape = xi,
+                        log = TRUE)
+  # Multiply by the weights
+  loglik <- weights * loglik
+  # Return the sum of the contributions
+  return(-sum(loglik))
+}
+
 # ============== Discard block maxima based on many missings ================ #
 
 #' @keywords internal
