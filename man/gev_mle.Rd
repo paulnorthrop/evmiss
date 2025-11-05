@@ -95,12 +95,12 @@ using maximum likelihood estimation.
 The adjustment for the numbers of non-missing values underlying the block
 maxima is based on the strong assumption that missing values occur
 completely at random. We suppose that a block maximum \eqn{M_n} based on
-a full block of length \eqn{n} has a \eqn{\text{GEV}(\mu, \sigma, \xi)}
-distribution, with distribution function \eqn{G(x)}. Let \eqn{n_i} be the
-number of missing values in block \eqn{i} and let \eqn{M_{n_i}} denote the
-block maximum of such a block. We suppose that \eqn{M_{n_i}} has a
-\eqn{\text{GEV}(\mu(n_i), \sigma(n_i), \xi)} distribution, where
-\deqn{\mu(n_i) = \mu + \sigma [(n_i/n)^\xi -1] / \xi,}
+a full (no missing raw values) block of length \eqn{n} has a
+\eqn{\text{GEV}(\mu, \sigma, \xi)} distribution, with distribution function
+\eqn{G(x)}. Let \eqn{n_i} be the number of missing values in block \eqn{i}
+and let \eqn{M_{n_i}} denote the block maximum of such a block. We suppose
+that \eqn{M_{n_i}} has a \eqn{\text{GEV}(\mu(n_i), \sigma(n_i), \xi)}
+distribution, where \deqn{\mu(n_i) = \mu + \sigma [(n_i/n)^\xi -1] / \xi,}
 \deqn{\sigma(n_i) = \sigma (n_i/n)^\xi.}
 
 These expressions are based on inferring the parameters of an approximate
