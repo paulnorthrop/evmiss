@@ -9,8 +9,8 @@
 #'   such as graphical parameters.
 #' @param ... Further arguments. Only used in the following cases.
 #'
-#' * `plot.evmiss_sim_study`: to pass graphical parameters to the graphical functions
-#'     [`plot`][graphics::plot], [`hist`][graphics::hist].
+#' * `plot.evmiss_sim_study`: to pass graphical parameters to the graphical
+#'    functions [`plot`][graphics::plot], [`hist`][graphics::hist].
 #' * `print.summary.evmiss_sim_study`: if `quiet = FALSE`, to pass arguments to
 #'   [`print`][base::print], such as `digits`.
 #' * `tab.evmiss_sim_study`: to pass arguments to `summary.evmiss_sim_study`,
@@ -122,18 +122,18 @@ NULL
 #' @export
 plot.evmiss_sim_study <- function(x, what = c("return", "mu", "sigma", "xi",
                                               "all"),
-                                   distn = c("marginal", "joint"),
-                                   approach = c("full", "adjust", "naive",
-                                                "discard"),
-                                   return_period = 100, vertical = TRUE,
-                                   main = c("full", "adjust", "naive",
-                                            "discard"),
-                                   penultimate = TRUE,
-                                   line_col = c("orange", "purple", "red",
-                                                "blue"),
-                                   line_lty = c(1, 1, 2, 3), legend = 4,
-                                   mar = c(5, 5, 2, 2),
-                                   layout = FALSE, no_ylab = FALSE, ...) {
+                                  distn = c("marginal", "joint"),
+                                  approach = c("full", "adjust", "naive",
+                                               "discard"),
+                                  return_period = 100, vertical = TRUE,
+                                  main = c("full", "adjust", "naive",
+                                           "discard"),
+                                  penultimate = TRUE,
+                                  line_col = c("orange", "purple", "red",
+                                               "blue"),
+                                  line_lty = c(1, 1, 2, 3), legend = 4,
+                                  mar = c(5, 5, 2, 2),
+                                  layout = FALSE, no_ylab = FALSE, ...) {
   # If penultimate = TRUE then check that package mev is available.
   # If it is then calculate the penultimate approximation estimates of the GEV
   # parameters mu, sigma and xi.

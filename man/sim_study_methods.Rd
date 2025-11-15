@@ -136,8 +136,8 @@ placed on the vertical axis.}
 
 \item{...}{Further arguments. Only used in the following cases.
 \itemize{
-\item \code{plot.evmiss_sim_study}: to pass graphical parameters to the graphical functions
-\code{\link[graphics:plot.default]{plot}}, \code{\link[graphics:hist]{hist}}.
+\item \code{plot.evmiss_sim_study}: to pass graphical parameters to the graphical
+functions \code{\link[graphics:plot.default]{plot}}, \code{\link[graphics:hist]{hist}}.
 \item \code{print.summary.evmiss_sim_study}: if \code{quiet = FALSE}, to pass arguments to
 \code{\link[base:print]{print}}, such as \code{digits}.
 \item \code{tab.evmiss_sim_study}: to pass arguments to \code{summary.evmiss_sim_study},
