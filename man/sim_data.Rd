@@ -87,7 +87,7 @@ simulated from a Uniform(\code{min}, \code{max}) distribution. The positions of
 these missing values within the block is random.
 }
 
-The function \code{mcar2} identifies at random a proportionmm\code{pmiss} of the
+The function \code{mcar2} identifies at random a proportion \code{pmiss} of the
 simulated raw observations to become missing.
 
 Care may need to be taken if these simulated data are used as input to
