@@ -858,12 +858,6 @@ print.summary.evmiss_sim_study_2 <- function(x, quiet = FALSE, ...) {
 
 # ========================== Simulation results table ======================= #
 
-#' @rdname sim_study_2_methods
-#' @export
-tab <- function(object, ...) {
-  UseMethod("tab")
-}
-
 #' Simulation results table
 #'
 #' @rdname sim_study_2_methods

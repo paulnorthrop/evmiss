@@ -5,7 +5,6 @@
 \alias{plot.evmiss_sim_study_2}
 \alias{summary.evmiss_sim_study_2}
 \alias{print.summary.evmiss_sim_study_2}
-\alias{tab}
 \alias{tab.evmiss_sim_study_2}
 \title{Methods for objects of class \code{"evmiss_sim_study_2"}}
 \usage{
@@ -40,8 +39,6 @@
 )
 
 \method{print}{summary.evmiss_sim_study_2}(x, quiet = FALSE, ...)
-
-tab(object, ...)
 
 \method{tab}{evmiss_sim_study_2}(object, return_period, ...)
 }
