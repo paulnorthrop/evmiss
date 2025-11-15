@@ -460,6 +460,6 @@ sim_study_2 <- function(nsim, return_periods, discard = 10, level = 0.95,
     val$true_return_levels <- true_return_levels
   }
   attr(val, "sim_data_args") <- sim_data_args
-  class(val) <- c("evmiss_sim_study", class(val))
+  class(val) <- c("evmiss_sim_study_2", class(val))
   return(val)
 }
