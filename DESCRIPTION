@@ -2,7 +2,7 @@ Package: evmiss
 Type: Package
 Title: Extreme Value Analyses with Missing Data
 Version: 1.0.0
-Date: 2025-06-15
+Date: 2025-11-15
 Authors@R: c(
     person(c("Paul", "J."), "Northrop", email = "p.northrop@ucl.ac.uk",
       role = c("aut", "cre", "cph")),
