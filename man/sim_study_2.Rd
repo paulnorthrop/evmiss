@@ -164,7 +164,6 @@ miss_args <- list(missing_fn = mcar,
 all_args <- c(general_args, block_args, miss_args)
 
 #### Exponential data
-#res <- sim_study_2(nsim = 50, return_periods = 100, distn = "exp")
 exp_args <- c(all_args, distn = "exp")
 res <- do.call(sim_study_2, exp_args)
 

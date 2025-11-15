@@ -106,7 +106,6 @@
 #' all_args <- c(general_args, block_args, miss_args)
 #'
 #' #### Exponential data
-#' #res <- sim_study_2(nsim = 50, return_periods = 100, distn = "exp")
 #' exp_args <- c(all_args, distn = "exp")
 #' res <- do.call(sim_study_2, exp_args)
 #'
@@ -394,7 +393,6 @@ sim_study_2 <- function(nsim, return_periods, discard = 10, level = 0.95,
   }
   rl_results <- results[-gev_rows, ]
   results <- results[gev_rows, ]
-  print(dim(results))
   # Set informative column and row names
   colnames(results) <- paste0("sim", 1:ncol(results))
   colnames(rl_results) <- paste0("sim", 1:ncol(results))
