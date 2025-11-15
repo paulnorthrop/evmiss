@@ -301,7 +301,7 @@ sim_study <- function(nsim, return_periods, discard = 25, level = 0.95,
       # mles, ses, confidence intervals
       # First for the first return level, then for the next etc.
       rl_val <- rl_reorder_results(rl_list, profile = profile,
-                                 return_periods = return_periods)
+                                   return_periods = return_periods)
       val <- c(val, rl_val)
     }
     return(val)
