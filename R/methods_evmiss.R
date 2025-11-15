@@ -307,7 +307,12 @@ confint.evmiss <- function(object, parm = "all", level = 0.95, profile = FALSE,
   ci_sym_mat <- ci_mat
 
   # If profile log-likelihood-based intervals are required then calculate them
-
+  # Was the fitted object produced by gev_weighted()?
+  if (inherits(object, "weighted_mle")) {
+    weighted_fit <- TRUE
+  } else {
+    weighted_fit <- FALSE
+  }
   if (profile) {
     # The number of parameters
     n_parm <- length(parm)
@@ -343,15 +348,26 @@ confint.evmiss <- function(object, parm = "all", level = 0.95, profile = FALSE,
         while (mult >= min_mult) {
           # Set inc based on the estimated standard errors
           inc <- mult * ses / 100
-          conf_list <- faster_profile_ci(negated_loglik_fn =
-                                           negated_gev_loglik,
-                                         which = parm_numbers[i], level = level,
-                                         mle = coef(object),
-                                         ci_sym_mat = ci_sym_mat,
-                                         inc = inc[i],
-                                         epsilon = epsilon[i],
-                                         maxima_notNA = maxima_notNA,
-                                         adjust = object$adjust)
+          if (weighted_fit) {
+            conf_list <- faster_profile_ci(negated_loglik_fn =
+                                             weighted_negated_gev_loglik,
+                                           which = parm_numbers[i], level = level,
+                                           mle = coef(object),
+                                           ci_sym_mat = ci_sym_mat,
+                                           inc = inc[i],
+                                           epsilon = epsilon[i],
+                                           maxima = object$maxima,
+                                           weights = object$weights)
+          } else {
+            conf_list <- faster_profile_ci(negated_loglik_fn = negated_gev_loglik,
+                                           which = parm_numbers[i], level = level,
+                                           mle = coef(object),
+                                           ci_sym_mat = ci_sym_mat,
+                                           inc = inc[i],
+                                           epsilon = epsilon[i],
+                                           maxima_notNA = maxima_notNA,
+                                           adjust = object$adjust)
+          }
           if (!is.null(conf_list$optim_error)) {
             mult <- mult / 2
           } else {
@@ -363,12 +379,22 @@ confint.evmiss <- function(object, parm = "all", level = 0.95, profile = FALSE,
         while (mult >= min_mult) {
           # Set inc based on the estimated standard errors
           inc <- mult * ses / 100
-          conf_list <- profile_ci(negated_loglik_fn = negated_gev_loglik,
-                                  which = parm_numbers[i], level = level,
-                                  mle = coef(object), inc = inc[i],
-                                  epsilon = epsilon[i],
-                                  maxima_notNA = maxima_notNA,
-                                  adjust = object$adjust)
+          if (weighted_fit) {
+            conf_list <- profile_ci(negated_loglik_fn =
+                                      weighted_negated_gev_loglik,
+                                    which = parm_numbers[i], level = level,
+                                    mle = coef(object), inc = inc[i],
+                                    epsilon = epsilon[i],
+                                    maxima = object$maxima,
+                                    weights = object$weights)
+          } else {
+            conf_list <- profile_ci(negated_loglik_fn = negated_gev_loglik,
+                                    which = parm_numbers[i], level = level,
+                                    mle = coef(object), inc = inc[i],
+                                    epsilon = epsilon[i],
+                                    maxima_notNA = maxima_notNA,
+                                    adjust = object$adjust)
+          }
           if (!is.null(conf_list$optim_error)) {
             mult <- mult / 2
           } else {
