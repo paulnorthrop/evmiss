@@ -119,11 +119,6 @@ fit2 <- gev_weighted(sdata$data_full, scheme = 2,
                      block_length = sdata$block_length)
 summary(fit2)
 
-# Fit to the full data using weighting scheme 3
-fit3 <- gev_weighted(sdata$data_full, scheme = 3,
-                     block_length = sdata$block_length)
-summary(fit3)
-
 ## Fits to the data with missings
 
 #  Make adjustment for the numbers of non-missing values per block
@@ -139,11 +134,6 @@ summary(fit1)
 fit2 <- gev_weighted(sdata$data_miss, scheme = 2,
                      block_length = sdata$block_length)
 summary(fit2)
-
-# Make adjustment using weighting scheme 3
-fit3 <- gev_weighted(sdata$data_miss, scheme = 3,
-                     block_length = sdata$block_length)
-summary(fit3)
 }
 \references{
 McVittie, J. H. and Murphy, O. A. (2025) Weighted Parameter

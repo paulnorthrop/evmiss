@@ -104,11 +104,6 @@
 #'                      block_length = sdata$block_length)
 #' summary(fit2)
 #'
-#' # Fit to the full data using weighting scheme 3
-#' fit3 <- gev_weighted(sdata$data_full, scheme = 3,
-#'                      block_length = sdata$block_length)
-#' summary(fit3)
-#'
 #' ## Fits to the data with missings
 #'
 #' #  Make adjustment for the numbers of non-missing values per block
@@ -124,11 +119,6 @@
 #' fit2 <- gev_weighted(sdata$data_miss, scheme = 2,
 #'                      block_length = sdata$block_length)
 #' summary(fit2)
-#'
-#' # Make adjustment using weighting scheme 3
-#' fit3 <- gev_weighted(sdata$data_miss, scheme = 3,
-#'                      block_length = sdata$block_length)
-#' summary(fit3)
 #' @export
 gev_weighted <- function(data, scheme = 1, block_length, block,
                          init = "quartiles", ...) {
@@ -199,7 +189,7 @@ gev_weighted <- function(data, scheme = 1, block_length, block,
   n <- maxima_notNA$n
   if (scheme == 1) {
     weights <- n_i / n
-  } else if (scheme == 2 || scheme == 3) {
+  } else if (scheme == 2) {
     Fhat <- stats::ecdf(data)
     weights <- Fhat(maxima) ^ (n - n_i)
   } else {
@@ -208,16 +198,6 @@ gev_weighted <- function(data, scheme = 1, block_length, block,
   fit <- try(stats::optim(par = init, fn = weighted_negated_gev_loglik,
                           maxima = maxima, weights = weights, hessian = TRUE,
                           ..., big_val = big_val), silent = TRUE)
-  # If scheme = 3 then refit using the weights inferred from the scheme 2 fit
-  # and the scheme 2 estimates as the initial value
-  if (!inherits(fit, "try-error") && scheme == 3) {
-    G <- nieve::pGEV(q = maxima, loc = fit$par[1], scale = fit$par[2],
-                     shape = fit$par[3],)
-    weights <- G ^ (1 - n_i / n)
-    fit <- try(stats::optim(par = fit$par, fn = weighted_negated_gev_loglik,
-                            maxima = maxima, weights = weights, hessian = TRUE,
-                            ..., big_val = big_val), silent = TRUE)
-  }
   # If there is an error then return NA values for the estimates etc.
   if (inherits(fit, "try-error")) {
     optim_error <- attr(fit, "condition")
