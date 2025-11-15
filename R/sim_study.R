@@ -248,7 +248,7 @@ sim_study <- function(nsim, return_periods, discard = 25, level = 0.95,
         upper_prof_3 <- ci_prof_3[, 2]
       }
     }
-    # Discard any block maxima based on greater than adjust percent missing
+    # Discard any block maxima based with greater than discard percent missing
     # values and fit a GEV without any further adjustment (adjust = FALSE)
     fit4 <- gev_mle(sdata$data_miss, block_length = sdata$block_length,
                     adjust = FALSE, discard = discard)
