@@ -329,7 +329,8 @@ plot.evmiss_sim_study <- function(x, what = c("return", "mu", "sigma", "xi",
     # distn = "joint": scatter plots of comparing the 4 approaches
     if (distn == "marginal") {
       parameter_call_hist_fn <- function(estimates, ...) {
-        hist_fun(estimates, line_col = line_col[-3], line_lty = line_lty[-3], ...)
+        hist_fun(estimates, line_col = line_col[-3], line_lty = line_lty[-3],
+                 ...)
         return(invisible())
       }
       if (what == "all") {
