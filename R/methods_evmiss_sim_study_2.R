@@ -124,10 +124,11 @@ plot.evmiss_sim_study_2 <- function(x, what = c("return", "mu", "sigma", "xi",
                                               "all"),
                                     distn = c("marginal", "joint"),
                                     approach = c("full", "adjust", "naive",
-                                                 "discard"),
+                                                 "discard", "weight1",
+                                                 "weight2"),
                                     return_period = 100, vertical = TRUE,
                                     main = c("full", "adjust", "naive",
-                                             "discard"),
+                                             "discard", "weight1", "weight2"),
                                     penultimate = TRUE,
                                     line_col = c("orange", "purple", "red",
                                                 "blue"),
@@ -154,6 +155,9 @@ plot.evmiss_sim_study_2 <- function(x, what = c("return", "mu", "sigma", "xi",
   } else {
     penult_lines <- NULL
   }
+  # Vector containing the approach names, for later
+  the_approaches <- c("full", "adjust", "naive", "discard", "weight1",
+                      "weight2")
   # Check that what, distn and approach are appropriate
   what <- match.arg(what)
   distn <- match.arg(distn)
@@ -167,11 +171,11 @@ plot.evmiss_sim_study_2 <- function(x, what = c("return", "mu", "sigma", "xi",
       approach <- c("full", "adjust")
     }
     condition1 <- length(approach) != 2
-    condition2 <- !all(is.element(approach,
-                                  c("full", "adjust", "naive", "discard")))
+    condition2 <- !all(is.element(approach, the_approaches))
     if (condition1 || condition2) {
       stop("''approach'' must be a length-2 subset of ",
-           "c(\"full\", \"adjust\", \"naive\", \"discard\")")
+           "c(\"full\", \"adjust\", \"naive\", \"discard\", \"weight1\",
+           \"weight2\")")
     }
   }
   # If the user is not using graphics::layout() then use graphics::par()
@@ -186,20 +190,32 @@ plot.evmiss_sim_study_2 <- function(x, what = c("return", "mu", "sigma", "xi",
       if (what == "all") {
         graphics::par(mfrow = c(3, 1), mar = mar)
       } else {
-        graphics::par(mfrow = c(4, 1), mar = mar)
+        graphics::par(mfrow = c(6, 1), mar = mar)
       }
     } else {
       graphics::par(mfrow = c(2, 2), mar = mar)
     }
   }
-  # Vector containing the approach names, for later
-  the_approaches <- c("full", "adjust", "naive", "discard")
   # Plotting function for histograms and, perhaps, vertical lines
   hist_fun <- function(x, vlines, line_col, line_lty, ..., freq = FALSE,
                        lwd = 3, cex.lab = 1.5, cex.axis = 1.5, cex.main = 1.5,
                        cex = 1.5, legend, main = "") {
-    graphics::hist(x, ..., freq = freq, cex.lab = cex.lab, cex.axis = cex.axis,
-                   cex.main = cex.main, main = main)
+    # Call hist() to calculate the counts for each bin
+    temp <- suppressWarnings(
+      graphics::hist(x, ..., freq = freq, cex.lab = cex.lab,
+                     cex.axis = cex.axis, cex.main = cex.main,
+                     main = main, plot = FALSE)
+      )
+    hist_args <- list(x = x, ..., freq = freq, cex.lab = cex.lab,
+                      cex.axis = cex.axis, cex.main = cex.main, main = main)
+    # Find any leading and trailing zero counts
+    zeroLeadingCounts <- findLeadingZeros(temp$counts)
+    zeroTrailingCounts <- findTrailingZeros(temp$counts)
+    # Remove breaks that lead to leading and trailing zero counts
+    toRemove <- c(zeroLeadingCounts, zeroTrailingCounts + 1)
+    hist_args$breaks <- temp$breaks[-toRemove]
+    do.call(graphics::hist, hist_args)
+
     if (!missing(vlines)) {
       graphics::abline(v = vlines, col = line_col, lwd = lwd, lty = line_lty)
     }
@@ -237,6 +253,8 @@ plot.evmiss_sim_study_2 <- function(x, what = c("return", "mu", "sigma", "xi",
     mle2 <- x$parameters[4:6, ]
     mle3 <- x$parameters[7:9, ]
     mle4 <- x$parameters[10:12, ]
+    mle5 <- x$parameters[13:15, ]
+    mle6 <- x$parameters[16:18, ]
     # Calculate the return levels estimates for return period return_period
     rl_full <- nieve::qGEV(1 / return_period, loc = mle1[1, ],
                            scale = mle1[2, ], shape = mle1[3, ],
@@ -250,11 +268,19 @@ plot.evmiss_sim_study_2 <- function(x, what = c("return", "mu", "sigma", "xi",
     rl_discard <- nieve::qGEV(1 / return_period, loc = mle4[1, ],
                               scale = mle4[2, ], shape = mle4[3, ],
                               lower.tail = FALSE)
+    rl_weight1 <- nieve::qGEV(1 / return_period, loc = mle5[1, ],
+                              scale = mle5[2, ], shape = mle5[3, ],
+                              lower.tail = FALSE)
+    rl_weight2 <- nieve::qGEV(1 / return_period, loc = mle6[1, ],
+                              scale = mle6[2, ], shape = mle6[3, ],
+                              lower.tail = FALSE)
     # Add attributes to control whether a legend is placed in the plot
     attr(rl_full, "legend") <- ifelse(is.element(1, legend), TRUE, FALSE)
     attr(rl_adjust, "legend") <- ifelse(is.element(2, legend), TRUE, FALSE)
     attr(rl_naive, "legend") <- ifelse(is.element(3, legend), TRUE, FALSE)
     attr(rl_discard, "legend") <- ifelse(is.element(4, legend), TRUE, FALSE)
+    attr(rl_weight1, "legend") <- ifelse(is.element(5, legend), TRUE, FALSE)
+    attr(rl_weight2, "legend") <- ifelse(is.element(6, legend), TRUE, FALSE)
     # Calculate the true return level
     # Set up the quantile function for the simulation distribution
     quantile_fn <- paste0("q", x$distn)
@@ -270,8 +296,12 @@ plot.evmiss_sim_study_2 <- function(x, what = c("return", "mu", "sigma", "xi",
       y2 <- suppressWarnings(graphics::hist(rl_adjust, plot = FALSE, ...))
       y3 <- suppressWarnings(graphics::hist(rl_naive, plot = FALSE, ...))
       y4 <- suppressWarnings(graphics::hist(rl_discard, plot = FALSE, ...))
-      my_ylim <- c(0, max(y1$density, y2$density, y3$density, y4$density))
-      my_xlim <- range(y1$breaks, y2$breaks, y3$breaks, y4$breaks)
+      y5 <- suppressWarnings(graphics::hist(rl_weight1, plot = FALSE, ...))
+      y6 <- suppressWarnings(graphics::hist(rl_weight2, plot = FALSE, ...))
+      my_ylim <- c(0, max(y1$density, y2$density, y3$density, y4$density,
+                          y5$density, y6$density))
+      my_xlim <- range(y1$breaks, y2$breaks, y3$breaks, y4$breaks, y5$breaks,
+                       y6$breaks)
       my_xlab <- paste0(return_period, "-block return level")
       my_legend <- c("median", "mean", "truth")
       if (length(main) == 1 && main == "" && !no_ylab) {
@@ -279,7 +309,7 @@ plot.evmiss_sim_study_2 <- function(x, what = c("return", "mu", "sigma", "xi",
       } else {
         names_on_y_axis <- FALSE
       }
-      main <- rep_len(main, 4)
+      main <- rep_len(main, 6)
       rl_call_hist_fn <- function(estimates, which, ..., xlab = my_xlab,
                                   xlim = my_xlim, ylim = my_ylim,
                                   legend = my_legend) {
@@ -304,11 +334,14 @@ plot.evmiss_sim_study_2 <- function(x, what = c("return", "mu", "sigma", "xi",
       }
       rl_call_hist_fn(rl_full, which = 1, ...)
       rl_call_hist_fn(rl_adjust, which = 2, ...)
+      rl_call_hist_fn(rl_weight2, which = 6, ...)
+      rl_call_hist_fn(rl_weight1, which = 5, ...)
       rl_call_hist_fn(rl_naive, which = 3, ...)
       rl_call_hist_fn(rl_discard, which = 4, ...)
     } else {
       rl_mat <- cbind(full = rl_full, adjust = rl_adjust, naive = rl_naive,
-                      discard = rl_discard)
+                      discard = rl_discard, weight1 = rl_weight1,
+                      weight2 = rl_weight2)
       # Select only the required approaches
       rl_mat <- select_approaches(rl_mat, the_approaches, approach)
       if (missing(mar) && !layout) {
@@ -329,7 +362,8 @@ plot.evmiss_sim_study_2 <- function(x, what = c("return", "mu", "sigma", "xi",
     # distn = "joint": scatter plots of comparing the 4 approaches
     if (distn == "marginal") {
       parameter_call_hist_fn <- function(estimates, ...) {
-        hist_fun(estimates, line_col = line_col[-3], line_lty = line_lty[-3], ...)
+        hist_fun(estimates, line_col = line_col[-3], line_lty = line_lty[-3],
+                 ...)
         return(invisible())
       }
       if (what == "all") {
@@ -386,23 +420,36 @@ plot.evmiss_sim_study_2 <- function(x, what = c("return", "mu", "sigma", "xi",
         discard_pars <- pars[4, ]
         discard_lines <- c(stats::median(discard_pars, na.rm = TRUE),
                          mean(discard_pars, na.rm = TRUE))
+        weight1_pars <- pars[5, ]
+        weight1_lines <- c(stats::median(weight1_pars, na.rm = TRUE),
+                           mean(weight1_pars, na.rm = TRUE))
+        weight2_pars <- pars[5, ]
+        weight2_lines <- c(stats::median(weight2_pars, na.rm = TRUE),
+                           mean(weight2_pars, na.rm = TRUE))
         pen_val <- which(is.element(c("mu", "sigma", "xi"), what))
         if (penultimate) {
           full_lines <- c(full_lines, penult_lines[pen_val])
           adj_lines <- c(adj_lines, penult_lines[pen_val])
           naive_lines <- c(naive_lines, penult_lines[pen_val])
           discard_lines <- c(discard_lines, penult_lines[pen_val])
+          weight1_lines <- c(weight1_lines, penult_lines[pen_val])
         }
         y1 <- graphics::hist(full_pars, plot = FALSE)
         y2 <- graphics::hist(adj_pars, plot = FALSE)
         y3 <- graphics::hist(naive_pars, plot = FALSE)
         y4 <- graphics::hist(discard_pars, plot = FALSE)
-        my_ylim <- c(0, max(y1$density, y2$density, y3$density, y4$density))
-        my_xlim <- range(y1$breaks, y2$breaks, y3$breaks, y4$breaks)
+        y5 <- graphics::hist(weight1_pars, plot = FALSE)
+        y6 <- graphics::hist(weight2_pars, plot = FALSE)
+        my_ylim <- c(0, max(y1$density, y2$density, y3$density, y4$density,
+                            y5$density, y6$density))
+        my_xlim <- range(y1$breaks, y2$breaks, y3$breaks, y4$breaks, y5$breaks,
+                         y6$breaks)
         attr(full_pars, "legend") <- ifelse(is.element(1, legend), TRUE, FALSE)
         attr(adj_pars, "legend") <- ifelse(is.element(2, legend), TRUE, FALSE)
         attr(naive_pars, "legend") <- ifelse(is.element(3, legend), TRUE, FALSE)
         attr(discard_pars, "legend") <- ifelse(is.element(4, legend), TRUE, FALSE)
+        attr(weight1_pars, "legend") <- ifelse(is.element(5, legend), TRUE, FALSE)
+        attr(weight2_pars, "legend") <- ifelse(is.element(6, legend), TRUE, FALSE)
         par_legend <- c("median", "mean")
         if (penultimate) {
           par_legend <- c(par_legend, penult_legend)
@@ -418,6 +465,12 @@ plot.evmiss_sim_study_2 <- function(x, what = c("return", "mu", "sigma", "xi",
                                ylim = my_ylim, legend = par_legend)
         parameter_call_hist_fn(discard_pars, discard_lines, xlab = what,
                                ..., main = main[4], xlim = my_xlim,
+                               ylim = my_ylim, legend = par_legend)
+        parameter_call_hist_fn(weight1_pars, weight1_lines, xlab = what,
+                               ..., main = main[5], xlim = my_xlim,
+                               ylim = my_ylim, legend = par_legend)
+        parameter_call_hist_fn(weight2_pars, weight2_lines, xlab = what,
+                               ..., main = main[6], xlim = my_xlim,
                                ylim = my_ylim, legend = par_legend)
       }
     } else {
