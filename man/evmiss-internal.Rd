@@ -27,6 +27,7 @@
 \alias{gev_confidence_bands}
 \alias{rl_sim_study}
 \alias{rl_reorder_results}
+\alias{rl_reorder_results_2}
 \alias{merge_two_lists}
 \alias{select_approaches}
 \alias{pairs_lwd_hack}
@@ -128,6 +129,8 @@ rl_sim_study(
 )
 
 rl_reorder_results(rl_list, profile, return_periods)
+
+rl_reorder_results_2(rl_list, profile, return_periods)
 
 merge_two_lists(list1, list2)
 
