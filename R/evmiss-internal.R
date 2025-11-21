@@ -1475,3 +1475,20 @@ pairs_lwd_hack <- function(x, ...) {
   return(c(list(x = x, pass_lwd = pass_lwd), dots))
 }
 
+#' @keywords internal
+#' @rdname evmiss-internal
+findLeadingZeros <- function(x) {
+  y <- diff(c(0, x))
+  z <- which(y == 0)
+  leadingZeros <- which(z - 1:length(z) == 0)
+  return(leadingZeros)
+}
+
+#' @keywords internal
+#' @rdname evmiss-internal
+findTrailingZeros <- function(x) {
+  y <- diff(c(0, rev(x)))
+  z <- which(y == 0)
+  trailingZeros <- length(x) + 1 - which(z - 1:length(z) == 0)
+  return(trailingZeros)
+}

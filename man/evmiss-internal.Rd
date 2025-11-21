@@ -31,6 +31,8 @@
 \alias{merge_two_lists}
 \alias{select_approaches}
 \alias{pairs_lwd_hack}
+\alias{findLeadingZeros}
+\alias{findTrailingZeros}
 \title{Internal evmiss functions}
 \usage{
 negated_gev_loglik(parameters, maxima_notNA, adjust, big_val = Inf)
@@ -137,6 +139,10 @@ merge_two_lists(list1, list2)
 select_approaches(x, the_approaches, approach)
 
 pairs_lwd_hack(x, ...)
+
+findLeadingZeros(x)
+
+findTrailingZeros(x)
 }
 \description{
 Internal evmiss functions
