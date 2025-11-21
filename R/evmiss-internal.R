@@ -1401,6 +1401,48 @@ rl_reorder_results <- function(rl_list, profile, return_periods) {
 
 #' @keywords internal
 #' @rdname evmiss-internal
+rl_reorder_results_2 <- function(rl_list, profile, return_periods) {
+  n_rl <- length(return_periods)
+  # rl_list is a list with n_rl (number of return levels) named vector
+  #   mle, se, lower_sym, upper_sym.
+  # If profile = TRUE then it also has components lower_prof and upper_prof.
+  # Each component may have more than one element, one for each return level.
+  # We want to return a vector containing, for each return level in turn:
+  #   mles for each method present in rl_list and then the
+  #   ses, lower and upper symmetric confidence limits and (perhaps) the
+  #   lower and upper confidence limits based on profile log-likelihood.
+
+  # A function to extract the information in the desired order
+  extract_component <- function(i) {
+    temp <- lapply(rl_list, function(x) x[i])
+    val <- c(temp[names(temp) == "mle"],
+             temp[names(temp) == "se"],
+             temp[names(temp) == "lower_sym"],
+             temp[names(temp) == "upper_sym"])
+    if (profile) {
+      val <- c(val,
+               temp[names(temp) == "lower_prof"],
+               temp[names(temp) == "upper_prof"])
+    }
+    return(val)
+  }
+  # rl is a 4m (or 6m if profile = TRUE) by n_rl matrix, where m is the
+  # number of methods.
+  # Each column gives values (mle, se etc) for a return level.
+  rl <- sapply(1:n_rl, extract_component)
+  # Concatenate to a vector.
+  # Name the components after the return level
+  names_rl <- paste0(rownames(rl), "_rl", rep(return_periods, each = nrow(rl)),
+                     "_", c("full", "adjust", "naive", "discard",
+                            "weight1", "weight2"))
+  rl <- c(rl)
+  names(rl) <- names_rl
+  # Unlist to create a vector: this is what is needed in sim_study()
+  return(unlist(rl))
+}
+
+#' @keywords internal
+#' @rdname evmiss-internal
 merge_two_lists <- function(list1, list2) {
   merged_list <- list1
   merged_list[names(list2)[!names(list2) %in% names(list1)]] <-
