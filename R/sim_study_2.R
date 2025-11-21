@@ -358,8 +358,8 @@ sim_study_2 <- function(nsim, return_periods, discard = 10, level = 0.95,
       # Pass the list res to a function to extract the following (in order)
       # mles, ses, confidence intervals
       # First for the first return level, then for the next etc.
-      rl_val <- rl_reorder_results(rl_list, profile = profile,
-                                   return_periods = return_periods)
+      rl_val <- rl_reorder_results_2(rl_list, profile = profile,
+                                     return_periods = return_periods)
       val <- c(val, rl_val)
     }
     return(val)
