@@ -325,7 +325,7 @@ sim_study_2 <- function(nsim, return_periods, discard = 10, level = 0.95,
                lower_prof_1, lower_prof_2, lower_prof_3, lower_prof_4,
                lower_sym_5, lower_sym_6,
                upper_prof_1, upper_prof_2, upper_prof_3, upper_prof_4,
-               upper_sym_5, upper_sym_6)
+               upper_prof_5, upper_prof_6)
     }
     # If return level inferences are required then perform them
     # GEV fit to the full data
@@ -384,7 +384,6 @@ sim_study_2 <- function(nsim, return_periods, discard = 10, level = 0.95,
   } else {
     true_return_levels <- NULL
   }
-
   # Separate the GEV results from the return level results
   if (profile) {
     gev_rows <- 1:108
@@ -413,7 +412,7 @@ sim_study_2 <- function(nsim, return_periods, discard = 10, level = 0.95,
   lower_sym <- results[rows3, , drop = FALSE]
   upper_sym <- results[rows4, , drop = FALSE]
   if (profile) {
-    rows5 <- 71:90
+    rows5 <- 73:90
     rows6 <- 91:108
     lower_prof <- results[rows5, , drop = FALSE]
     upper_prof <- results[rows6, , drop = FALSE]
