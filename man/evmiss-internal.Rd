@@ -6,6 +6,7 @@
 \alias{weighted_negated_gev_loglik}
 \alias{discard_maxima}
 \alias{negated_gev_loglik_ret_levs}
+\alias{weighted_negated_gev_loglik_ret_levs}
 \alias{faster_profile_ci}
 \alias{profile_ci}
 \alias{box_cox}
@@ -45,6 +46,15 @@ negated_gev_loglik_ret_levs(
   parameters,
   maxima_notNA,
   adjust,
+  m,
+  npy,
+  big_val = Inf
+)
+
+weighted_negated_gev_loglik_ret_levs(
+  parameters,
+  maxima,
+  weights,
   m,
   npy,
   big_val = Inf

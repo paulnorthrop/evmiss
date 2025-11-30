@@ -107,13 +107,40 @@ negated_gev_loglik_ret_levs <- function(parameters, maxima_notNA, adjust, m,
     mu <- mu + sigma * box_cox_vec(x = p_i, lambda = xi)
     sigma <- sigma * p_i ^ xi
   }
-  # Check that the parameters are no out-of-bounds
+  # Check that the parameters are not out-of-bounds
   if (any(sigma <= 0) || any(1 + xi * (maxima - mu) / sigma <= 0)) {
     return(big_val)
   }
   # Use the nieve package to calculate the contributions to the log-likelihood
   loglik <- nieve::dGEV(x = maxima, loc = mu, scale = sigma, shape = xi,
                         log = TRUE)
+  # Return the sum of the contributions
+  return(-sum(loglik))
+}
+
+# =============== Weighted GEV log-likelihood for return levels ============= #
+
+#' @keywords internal
+#' @rdname evmiss-internal
+weighted_negated_gev_loglik_ret_levs <- function(parameters, maxima, weights,
+                                                 m, npy, big_val = Inf) {
+  # Extract the parameter values: (return level zp, sigma, xi)
+  zp <- parameters[1]
+  sigma <- parameters[2]
+  xi <- parameters[3]
+  # Infer the value of the GEV location parameter mu
+  # Set the annual probability of exceedance based on m and npy
+  p <- 1 - (1 - 1 / m) ^ (1 / npy)
+  mu <- zp + sigma * box_cox_vec(x = -log(1 - p), lambda = -xi)
+  # Check that the parameters are not out-of-bounds
+  if (any(sigma <= 0) || any(1 + xi * (maxima - mu) / sigma <= 0)) {
+    return(big_val)
+  }
+  # Use the nieve package to calculate the contributions to the log-likelihood
+  loglik <- nieve::dGEV(x = maxima, loc = mu, scale = sigma, shape = xi,
+                        log = TRUE)
+  # Multiply by the weights
+  loglik <- weights * loglik
   # Return the sum of the contributions
   return(-sum(loglik))
 }
@@ -150,8 +177,15 @@ faster_profile_ci <- function(negated_loglik_fn, which = 1, level, mle,
   v2[1] <- v1[1] <- max_loglik
 
   # Extract the sample maxima
+  # Need to determine which function was used for the original fit:
+  # gev_mle(), for which the data are in maxima_notNA, or
+  # gev_Weighted(), for which the data are in maxima
   dots <- list(...)
-  data <- dots$maxima_notNA$maxima
+  if (!is.null(dots$maxima_notNA)) {
+    data <- dots$maxima_notNA$maxima
+  } else {
+    data <- dots$maxima
+  }
 
   ### Upper tail ...
 
@@ -469,8 +503,15 @@ profile_ci <- function(negated_loglik_fn, which = 1, level, mle, inc, epsilon,
   v2[1] <- v1[1] <- max_loglik
 
   # Extract the sample maxima
+  # Need to determine which function was used for the original fit:
+  # gev_mle(), for which the data are in maxima_notNA, or
+  # gev_Weighted(), for which the data are in maxima
   dots <- list(...)
-  data <- dots$maxima_notNA$maxima
+  if (!is.null(dots$maxima_notNA)) {
+    data <- dots$maxima_notNA$maxima
+  } else {
+    data <- dots$maxima
+  }
 
   # Starting from the MLE, we search upwards and downwards until we pass the
   # cutoff for the 100level% confidence interval
