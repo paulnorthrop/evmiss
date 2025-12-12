@@ -52,7 +52,7 @@
 #'  unweighted fit is performed.
 #'
 #' For each weighting scheme, the larger the number \eqn{n - n_i} of missing
-#' values the smaller the weight
+#' values the smaller the weight.
 #' See McVittie and Murphy (2025) for further details.
 #'
 #' @return A list, returned from [`stats::optim`] (the MLEs are in the
