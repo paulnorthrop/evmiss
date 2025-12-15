@@ -34,6 +34,15 @@
 \alias{pairs_lwd_hack}
 \alias{findLeadingZeros}
 \alias{findTrailingZeros}
+\alias{MCSEbias}
+\alias{MCSEsd}
+\alias{MCSErmse}
+\alias{MCSEstatistics}
+\alias{MCSEstatistics_boot}
+\alias{MCSEstatistics_boot2}
+\alias{MCSEstatistics_boot3}
+\alias{rfrechet}
+\alias{rmaxAR}
 \title{Internal evmiss functions}
 \usage{
 negated_gev_loglik(parameters, maxima_notNA, adjust, big_val = Inf)
@@ -153,6 +162,24 @@ pairs_lwd_hack(x, ...)
 findLeadingZeros(x)
 
 findTrailingZeros(x)
+
+MCSEbias(x, truth = 0)
+
+MCSEsd(x, truth = 0)
+
+MCSErmse(x, truth = 0)
+
+MCSEstatistics(x, truth = 0)
+
+MCSEstatistics_boot(x, B = 100, truth = 0)
+
+MCSEstatistics_boot2(x, B = 100, truth = 0)
+
+MCSEstatistics_boot3(x, B = 100, truth = 0)
+
+rfrechet(n)
+
+rmaxAR(n, theta, scale = 1, shape = 0)
 }
 \description{
 Internal evmiss functions

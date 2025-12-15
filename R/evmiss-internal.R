@@ -1533,3 +1533,122 @@ findTrailingZeros <- function(x) {
   trailingZeros <- length(x) + 1 - which(z - 1:length(z) == 0)
   return(trailingZeros)
 }
+
+#' @keywords internal
+#' @rdname evmiss-internal
+MCSEbias <- function(x, truth = 0) {
+  x <- x[!is.na(x)]
+  x <- x - truth
+  n <- length(x)
+  s <- stats::sd(x)
+  mcse <- s / sqrt(n)
+  return(mcse)
+}
+
+#' @keywords internal
+#' @rdname evmiss-internal
+MCSEsd <- function(x, truth = 0) {
+  x <- x[!is.na(x)]
+  n <- length(x)
+  s <- stats::sd(x)
+  x_centred <- x - mean(x)
+  k <- n * sum(x_centred ^ 4) / (sum(x_centred ^ 2) ^ 2)
+  mcse <- s * sqrt(k - 1 + 2 / (n - 1)) / (2 * sqrt(n))
+  return(mcse)
+}
+
+#' @keywords internal
+#' @rdname evmiss-internal
+MCSErmse <- function(x, truth = 0) {
+  x <- x[!is.na(x)]
+  x <- x - truth
+  n <- length(x)
+  m4 <- mean(x ^ 4)
+  m2 <- mean(x ^ 2)
+  sdMSE <- sqrt(n - 1) * stats::sd(x ^ 2) / n
+  s <- stats::sd(x)
+  eMSE <- s ^ 2 + mean(x) ^ 2
+  mcse <- sdMSE / (2 * sqrt(eMSE))
+  return(mcse)
+}
+
+#' @keywords internal
+#' @rdname evmiss-internal
+MCSEstatistics <- function(x, truth = 0) {
+  return(c(bias = MCSEbias(x, truth = truth), sd = MCSEsd(x, truth = truth),
+           rmse = MCSErmse(x, truth = truth)))
+}
+
+#' @keywords internal
+#' @rdname evmiss-internal
+MCSEstatistics_boot <- function(x, B = 100, truth = 0) {
+  x <- x[!is.na(x)]
+  x <- x - truth
+  bias <- Monte.Carlo.se::boot.se(x = x, B = B, theta = mean)
+  sd <- Monte.Carlo.se::boot.se(x = x, B = B, theta = stats::sd)
+  rmse <- function(x) {
+    return(sqrt(mean(x ^ 2)))
+  }
+  rmse <- Monte.Carlo.se::boot.se(x = x, B = B, theta = rmse)
+  return(c(bias = bias, sd = sd, rmse = rmse))
+}
+
+#' @keywords internal
+#' @rdname evmiss-internal
+MCSEstatistics_boot2 <- function(x, B = 100, truth = 0) {
+  x <- x[!is.na(x)]
+  x <- x - truth
+  bias <- Monte.Carlo.se::boot.se(x = x, B = B, theta = mean)
+  median_bias <- Monte.Carlo.se::boot.se(x = x, B = B, theta = stats::median)
+  sd <- Monte.Carlo.se::boot.se(x = x, B = B, theta = stats::sd)
+  iqr <- Monte.Carlo.se::boot.se(x = x, B = B, theta = stats::IQR)
+  rmse_fn <- function(x) {
+    return(sqrt(mean(x ^ 2)))
+  }
+  rmse <- Monte.Carlo.se::boot.se(x = x, B = B, theta = rmse_fn)
+  mae_fn <- function(x) {
+    return(mean(abs(x)))
+  }
+  mae <- Monte.Carlo.se::boot.se(x = x, B = B, theta = mae_fn)
+  return(c(bias = bias, median_bias = median_bias, sd = sd, iqr = iqr,
+           rmse = rmse, mae = mae))
+}
+
+#' @keywords internal
+#' @rdname evmiss-internal
+MCSEstatistics_boot3 <- function(x, B = 100, truth = 0) {
+  x <- x[!is.na(x)]
+  x <- x - truth
+  median_bias <- Monte.Carlo.se::boot.se(x = x, B = B, theta = stats::median)
+  iqr <- Monte.Carlo.se::boot.se(x = x, B = B, theta = stats::IQR)
+  mae_fn <- function(x) {
+    return(mean(abs(x)))
+  }
+  mae <- Monte.Carlo.se::boot.se(x = x, B = B, theta = mae_fn)
+  return(c(median_bias = median_bias, iqr = iqr, mae = mae))
+}
+
+# A function to simulate a sample of size n from a unit Frechet distribution
+#' @keywords internal
+#' @rdname evmiss-internal
+rfrechet <- function(n) {
+  return(-1 / log(runif(n)))
+}
+
+# A function to simulate a realisation of length n from a maxAR process with
+# extremal index theta (This is similar to pages 94-95 of Coles (2001).)
+# The function frechet2gp transforms the marginal distribution to
+# GP(scale, shape)
+#' @keywords internal
+#' @rdname evmiss-internal
+rmaxAR <- function(n, theta, scale = 1, shape = 0){
+  w <- rfrechet(n)
+  val <- numeric(n)
+  val[1] <- w[1]
+  for (i in 2:n) {
+    val[i] <- max((1 - theta) * val[i - 1], theta * w[i])
+  }
+  # Transform from Frechet to GP scale
+  val <- revdbayes::qgp(exp(-1 / val), scale = scale, shape = shape)
+  return(val)
+}
