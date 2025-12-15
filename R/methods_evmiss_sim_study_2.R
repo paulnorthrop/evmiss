@@ -202,7 +202,7 @@ plot.evmiss_sim_study_2 <- function(x, what = c("return", "mu", "sigma", "xi",
                        cex = 1.5, legend, main = "") {
     # Call hist() to calculate the counts for each bin
     temp <- suppressWarnings(
-      graphics::hist(x, ..., freq = freq, cex.lab = cex.lab,
+      graphics::hist(x = x, ..., freq = freq, cex.lab = cex.lab,
                      cex.axis = cex.axis, cex.main = cex.main,
                      main = main, plot = FALSE)
       )
@@ -213,7 +213,9 @@ plot.evmiss_sim_study_2 <- function(x, what = c("return", "mu", "sigma", "xi",
     zeroTrailingCounts <- findTrailingZeros(temp$counts)
     # Remove breaks that lead to leading and trailing zero counts
     toRemove <- c(zeroLeadingCounts, zeroTrailingCounts + 1)
-    hist_args$breaks <- temp$breaks[-toRemove]
+    if (length(toRemove) > 0) {
+      hist_args$breaks <- temp$breaks[-toRemove]
+    }
     do.call(graphics::hist, hist_args)
 
     if (!missing(vlines)) {
@@ -274,6 +276,14 @@ plot.evmiss_sim_study_2 <- function(x, what = c("return", "mu", "sigma", "xi",
     rl_weight2 <- nieve::qGEV(1 / return_period, loc = mle6[1, ],
                               scale = mle6[2, ], shape = mle6[3, ],
                               lower.tail = FALSE)
+    # If breaks has been supplied the restrict the return level values to the
+    # range covered by breaks
+    dots <- list(...)
+    if (!is.null(dots$breaks)) {
+      na_discard <- rl_discard < min(dots$breaks) |
+        rl_discard > max(dots$breaks)
+      rl_discard[na_discard] <- NA
+    }
     # Add attributes to control whether a legend is placed in the plot
     attr(rl_full, "legend") <- ifelse(is.element(1, legend), TRUE, FALSE)
     attr(rl_adjust, "legend") <- ifelse(is.element(2, legend), TRUE, FALSE)
@@ -337,7 +347,7 @@ plot.evmiss_sim_study_2 <- function(x, what = c("return", "mu", "sigma", "xi",
       rl_call_hist_fn(rl_weight2, which = 6, ...)
       rl_call_hist_fn(rl_weight1, which = 5, ...)
       rl_call_hist_fn(rl_naive, which = 3, ...)
-      rl_call_hist_fn(rl_discard, which = 4, ...)
+      rl_call_hist_fn(na.omit(rl_discard), which = 4, ...)
     } else {
       rl_mat <- cbind(full = rl_full, adjust = rl_adjust, naive = rl_naive,
                       discard = rl_discard, weight1 = rl_weight1,
@@ -684,6 +694,12 @@ summary.evmiss_sim_study_2 <- function(object, ..., what = c("all", "return"),
     discard_gev <- apply(mle4 - compare4, 1, FUN = statistics)
     weight1_gev <- apply(mle5 - compare5, 1, FUN = statistics)
     weight2_gev <- apply(mle6 - compare6, 1, FUN = statistics)
+    # Calculate Monte Carlo standard errors
+    adjust_gev_mcse <- apply(mle2 - compare2, 1, FUN = MCSEstatistics)
+    naive_gev_mcse <- apply(mle3 - compare3, 1, FUN = MCSEstatistics)
+    discard_gev_mcse <- apply(mle4 - compare4, 1, FUN = MCSEstatistics)
+    weight1_gev_mcse <- apply(mle5 - compare5, 1, FUN = MCSEstatistics)
+    weight2_gev_mcse <- apply(mle6 - compare6, 1, FUN = MCSEstatistics)
     # If we are not comparing to the full MLE then, if required, extract the
     # respective SEs of the parameters
     if (meanSE && !vsfull) {
@@ -744,6 +760,7 @@ summary.evmiss_sim_study_2 <- function(object, ..., what = c("all", "return"),
   colnames(discard_rl) <- paste0(return_period, "-year return level")
   colnames(weight1_rl) <- paste0(return_period, "-year return level")
   colnames(weight2_rl) <- paste0(return_period, "-year return level")
+
   # If we are not comparing to the full MLE then, if required, extract the
   # respective SEs of the parameters
   if (meanSE && !vsfull) {
@@ -795,6 +812,12 @@ summary.evmiss_sim_study_2 <- function(object, ..., what = c("all", "return"),
     res$discard_gev <- discard_gev
     res$weight1_gev <- weight1_gev
     res$weight2_gev <- weight2_gev
+    # MC SEs
+    res$adjust_gev_mcse <- adjust_gev_mcse
+    res$naive_gev_mcse <- naive_gev_mcse
+    res$discard_gev_mcse <- discard_gev_mcse
+    res$weight1_gev_mcse <- weight1_gev_mcse
+    res$weight2_gev_mcse <- weight2_gev_mcse
   } else {
     res$full_rl <- full_rl
     res$adjust_rl <- adjust_rl
@@ -818,10 +841,14 @@ summary.evmiss_sim_study_2 <- function(object, ..., what = c("all", "return"),
 #'   `tab.evmiss_sim_study_2`). A return period or periods, in numbers of blocks,
 #'   for which to compare the four estimation approaches. All values must be
 #'   greater than 1.
+#' @param ses A logical scalar. Should we return summaries of the performances
+#'   of the estimators `ses = FALSE` or the Monte Carlo standard errors
+#'   associated with these summaries?
 #' @param quiet A logical scalar. If `quiet = TRUE` then do not print the
 #'   summary to the console.
 #' @export
-print.summary.evmiss_sim_study_2 <- function(x, quiet = FALSE, ...) {
+print.summary.evmiss_sim_study_2 <- function(x, ses = FALSE, quiet = FALSE,
+                                             ...) {
   if (!quiet) {
     cat("\nCall:\n", paste(deparse(x$call), sep = "\n", collapse = "\n"),
         "\n\n", sep = "")
@@ -835,13 +862,23 @@ print.summary.evmiss_sim_study_2 <- function(x, quiet = FALSE, ...) {
     # How many summary statistics are involved?
     nstats <- nrow(x$adjust_gev)
     if (x$vsfull) {
-      mat <- rbind(x$adjust_gev, x$naive_gev, x$discard_gev,
-                   x$weight1_gev, x$weight2_gev)
-      mat <- mat[order(c(seq_len(nrow(x$adjust_gev)),
-                         seq_len(nrow(x$naive_gev)),
-                         seq_len(nrow(x$discard_gev)),
-                         seq_len(nrow(x$weight1_gev)),
-                         seq_len(nrow(x$weight2_gev)))), ]
+      if (!ses) {
+        mat <- rbind(x$adjust_gev, x$naive_gev, x$discard_gev,
+                     x$weight1_gev, x$weight2_gev)
+        mat <- mat[order(c(seq_len(nrow(x$adjust_gev)),
+                           seq_len(nrow(x$naive_gev)),
+                           seq_len(nrow(x$discard_gev)),
+                           seq_len(nrow(x$weight1_gev)),
+                           seq_len(nrow(x$weight2_gev)))), ]
+      } else {
+        mat <- rbind(x$adjust_gev_mcse, x$naive_gev_mcse, x$discard_gev_mcse,
+                     x$weight1_gev_mcse, x$weight2_gev_mcse)
+        mat <- mat[order(c(seq_len(nrow(x$adjust_gev_mcse)),
+                           seq_len(nrow(x$naive_gev_mcse)),
+                           seq_len(nrow(x$discard_gev_mcse)),
+                           seq_len(nrow(x$weight1_gev_mcse)),
+                           seq_len(nrow(x$weight2_gev_mcse)))), ]
+      }
       if (is.null(rownames(mat))) {
         rownames(mat) <- rep(paste0("stat", 1:nstats), each = 3)
       }
@@ -915,11 +952,11 @@ print.summary.evmiss_sim_study_2 <- function(x, quiet = FALSE, ...) {
 #'
 #' @rdname sim_study_2_methods
 #' @export
-tab.evmiss_sim_study_2 <- function(object, return_period, ...) {
+tab.evmiss_sim_study_2 <- function(object, return_period, ses = FALSE, ...) {
   # If return_period is supplied then compare return levels
   # Otherwise compare GEV parameters
   if (missing(return_period)) {
-    res <- print(summary(object, what = "all", ...), quiet = TRUE)
+    res <- print(summary(object, what = "all", ...), ses = ses, quiet = TRUE)
     res <- attr(res, "matrix")
     # Extract bias, sd and rmse
     bias_rows <- grepl("bias",  rownames(res)) &
@@ -936,7 +973,8 @@ tab.evmiss_sim_study_2 <- function(object, return_period, ...) {
     val <- cbind(bias_res, sd_res, rmse_res)
   } else {
     res <- print(summary(object, what = "return",
-                         return_period = return_period, ...), quiet = TRUE)
+                         return_period = return_period, ...), ses = ses,
+                 quiet = TRUE)
     res <- attr(res, "matrix")
     # Extract bias, sd and rmse
     bias_rows <- grepl("bias",  rownames(res)) &

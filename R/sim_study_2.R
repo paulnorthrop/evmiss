@@ -306,7 +306,8 @@ sim_study_2 <- function(nsim, return_periods, discard = 10, level = 0.95,
   results <- sapply(1:nsim, FUN = replication_fun,
                     return_periods = return_periods)
   # Calculate the true return levels
-  if (!missing(return_periods)) {
+  if (!missing(return_periods) & !is.null(return_periods)) {
+    print(return_periods)
     # Set up the quantile function for the simulation distribution
     quantile_fn <- paste0("q", sim_data_args$distn)
     # The ^ (1 / sim_data_args$block_length) part transforms from the block

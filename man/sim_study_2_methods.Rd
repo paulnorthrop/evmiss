@@ -38,9 +38,9 @@
   vsfull = TRUE
 )
 
-\method{print}{summary.evmiss_sim_study_2}(x, quiet = FALSE, ...)
+\method{print}{summary.evmiss_sim_study_2}(x, ses = FALSE, quiet = FALSE, ...)
 
-\method{tab}{evmiss_sim_study_2}(object, return_period, ...)
+\method{tab}{evmiss_sim_study_2}(object, return_period, ses = FALSE, ...)
 }
 \arguments{
 \item{x, object}{An object inheriting from class \code{"evmiss_sim_study_2"}, a
@@ -169,6 +169,10 @@ relative to the estimates from the \code{"full"} case, that is, fitting to data
 with no missing values. If \code{vsfull = FALSE} then comparisons are made
 relative to the true values (\code{what = "return"}) or penultimate
 approximations to the GEV parameter values (\code{what = "all"}).}
+
+\item{ses}{A logical scalar. Should we return summaries of the performances
+of the estimators \code{ses = FALSE} or the Monte Carlo standard errors
+associated with these summaries?}
 
 \item{quiet}{A logical scalar. If \code{quiet = TRUE} then do not print the
 summary to the console.}
