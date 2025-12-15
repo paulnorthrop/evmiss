@@ -14,8 +14,7 @@ gev_influence(z, mu = 0, sigma = 1, xi = 0)
 calculate the GEV influence function. See \strong{Details}.}
 
 \item{mu, sigma, xi}{Numeric scalars supplying the values of the GEV
-parameters \eqn{\mu}, \eqn{\sigma} and \eqn{\xi}. These vectors are
-recycled to the length of the longest vector.}
+parameters \eqn{\mu}, \eqn{\sigma} and \eqn{\xi}.}
 
 \item{x}{An object inheriting from class \code{"gev_influence"}, a result of a
 call to \code{\link{gev_influence}}.}
@@ -76,7 +75,7 @@ curves on the standard normal \code{z} scale can help to aid interpretation.
 The value of \eqn{IC(y)} is invariant to the value of \eqn{\mu}.
 For a given value of \eqn{\xi}, the values of \eqn{IC_{\mu}(y)} and
 \eqn{IC_{\sigma}(y)} scale with the scale parameter \eqn{\sigma}, that is,
-doubling \eqn{\sigma} doubles \eqn{IC_{\mu}(y)} and \eqn{IC_{\sigma}(y)}.
+doubling \eqn{\sigma} doubles \eqn{IC_{\mu}(y)} and \eqn{IC_{\sigma}(y).}
 Typically, interest focuses on the shape parameter \eqn{\xi}, but if the
 input scale parameter \eqn{\sigma} is large then this may hide the
 influence of \eqn{y} on \eqn{\xi}. Therefore, the default setting of

@@ -6,8 +6,7 @@
 #' @param z A numeric vector. Values of normal quantiles \eqn{z} at which to
 #'  calculate the GEV influence function. See **Details**.
 #' @param mu,sigma,xi Numeric scalars supplying the values of the GEV
-#'   parameters \eqn{\mu}, \eqn{\sigma} and \eqn{\xi}. These vectors are
-#'   recycled to the length of the longest vector.
+#'   parameters \eqn{\mu}, \eqn{\sigma} and \eqn{\xi}.
 #' @details An influence function measures the effect on a parameter estimator
 #'   of changing one observation in a sample. See Hampel (2005) and, in the
 #'   context of extreme value analyses of threshold exceedances,
@@ -27,7 +26,7 @@
 #'   The value of \eqn{IC(y)} is invariant to the value of \eqn{\mu}.
 #'   For a given value of \eqn{\xi}, the values of \eqn{IC_{\mu}(y)} and
 #'   \eqn{IC_{\sigma}(y)} scale with the scale parameter \eqn{\sigma}, that is,
-#'   doubling \eqn{\sigma} doubles \eqn{IC_{\mu}(y)} and \eqn{IC_{\sigma}(y)}.
+#'   doubling \eqn{\sigma} doubles \eqn{IC_{\mu}(y)} and \eqn{IC_{\sigma}(y).}
 #'   Typically, interest focuses on the shape parameter \eqn{\xi}, but if the
 #'   input scale parameter \eqn{\sigma} is large then this may hide the
 #'   influence of \eqn{y} on \eqn{\xi}. Therefore, the default setting of
