@@ -97,7 +97,7 @@ plot(inf)
 # Influence curves based on the adjusted fit to the Plymouth ozone data
 fit <- gev_mle(PlymouthOzoneMaxima)
 pars <- coef(fit)
-infp <- gev_influence(mu = pars[1], sigma = pars[2], xi = pars[3], z = z)
+infp <- gev_influence(z = z, mu = pars[1], sigma = pars[2], xi = pars[3])
 plot(infp)
 }
 \references{
