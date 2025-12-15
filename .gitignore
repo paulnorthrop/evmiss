@@ -6,3 +6,4 @@ SimpsonNorthrop2025
 inst/doc
 data-raw/dumped.R
 data-raw/gp_influence.R
+data-raw/tssim.R
