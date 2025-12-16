@@ -15,7 +15,6 @@
 }
 
 The row names of \code{BrestSurgeMaxima} are the years \code{1946:2007}.
-The raw data are missing for approximately \eqn{9\%} of the days.
 }
 \source{
 The dataset \code{Brest} in the \code{Renext} R package, specifically
@@ -28,6 +27,17 @@ BrestSurgeMaxima
 \description{
 Annual maxima of sea surge heights near high tide at Brest tide gauge
 station (France) for the years 1846-2007 inclusive.
+}
+\note{
+The raw data are missing for approximately \eqn{9\%} of the days.
+The data were declustered by the original providers in order to provide a
+series of independent surge heights at high tide. Specifically, these
+surge heights are separated by at least two days. A correction was applied
+to account for trend in the sea-level over the observation period.
+Although the declustering of the data means that the effective block size is
+smaller than \code{n}, it may be reasonable to suppose that the proportion
+\code{notNA/n} of non-missing values provides a useful measure of the extent to
+which the size of an annual maximum is likely to be affected by missingness.
 }
 \examples{
 head(BrestSurgeMaxima)

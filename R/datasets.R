@@ -12,7 +12,16 @@
 #' * `block` : a block number of 1 for year 1846 through to 162 for year 2007.
 #'
 #' The row names of `BrestSurgeMaxima` are the years `1946:2007`.
-#' The raw data are missing for approximately \eqn{9\%} of the days.
+#'
+#' @note The raw data are missing for approximately \eqn{9\%} of the days.
+#' The data were declustered by the original providers in order to provide a
+#' series of independent surge heights at high tide. Specifically, these
+#' surge heights are separated by at least two days. A correction was applied
+#' to account for trend in the sea-level over the observation period.
+#' Although the declustering of the data means that the effective block size is
+#' smaller than `n`, it may be reasonable to suppose that the proportion
+#' `notNA/n` of non-missing values provides a useful measure of the extent to
+#' which the size of an annual maximum is likely to be affected by missingness.
 #'
 #' @source The dataset `Brest` in the `Renext` R package, specifically
 #'   `Brest$OTdata` and `Brest$OTmissing`. Originally, the source was
