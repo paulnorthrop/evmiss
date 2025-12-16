@@ -32,9 +32,10 @@
 #' @seealso [`gev_influence`], [`gev_return`]
 #' @examples
 #' # Influence curves based on the adjusted fit to the Plymouth ozone data
+#' z <- seq(from = -3, to = 3, by = 0.01)
 #' fit <- gev_mle(PlymouthOzoneMaxima)
 #' pars <- coef(fit)
-#' m <- c(27, 50, 100)
+#' m <- c(25, 50, 100)
 #' infp <- gev_influence_rl(z = z, mu = pars[1], sigma = pars[2], xi = pars[3],
 #'                          m = m)
 #' plot(infp)
