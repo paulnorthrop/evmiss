@@ -17,7 +17,7 @@ greater than a percentage of the underlying raw values are missing.
 
 The \code{evmiss} package was created to accompany the research
 paper Simpson, E. S. and Northrop, P. J. (2025) Accounting for missing data
-when modelling block maxima.
+when modelling block maxima. arXiv preprint arXiv:2512.15429.
 }
 \details{
 The main functions are
