@@ -10,14 +10,15 @@ Authors@R: c(
     )
 Maintainer: Paul J. Northrop <p.northrop@ucl.ac.uk>
 Description: Performs likelihood-based extreme value inferences with 
-    adjustment for the presence of missing values. A Generalised Extreme Value
+    adjustment for the presence of missing values based on Simpson and 
+    Northrop (2025) <arXiv:2512.15429>. A Generalised Extreme Value
     distribution is fitted to block maxima using maximum likelihood estimation, 
     with the location and scale parameters reflecting the numbers of 
     non-missing raw values in each block. A Bayesian version is also provided. 
     For the purposes of comparison, there are options to make no adjustment for 
     missing values or to discard any block maximum for which greater than a 
     percentage of the underlying raw values are missing. Example datasets 
-    containing missing values are provided.
+    containing missing values are provided. 
 Imports: bootstrap,
     gamlssx,
     graphics,
