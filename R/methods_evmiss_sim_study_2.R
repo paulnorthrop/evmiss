@@ -347,7 +347,7 @@ plot.evmiss_sim_study_2 <- function(x, what = c("return", "mu", "sigma", "xi",
       rl_call_hist_fn(rl_weight2, which = 6, ...)
       rl_call_hist_fn(rl_weight1, which = 5, ...)
       rl_call_hist_fn(rl_naive, which = 3, ...)
-      rl_call_hist_fn(na.omit(rl_discard), which = 4, ...)
+      rl_call_hist_fn(stats::na.omit(rl_discard), which = 4, ...)
     } else {
       rl_mat <- cbind(full = rl_full, adjust = rl_adjust, naive = rl_naive,
                       discard = rl_discard, weight1 = rl_weight1,

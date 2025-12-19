@@ -94,6 +94,8 @@ gev_influence_rl <- function(z, mu = 0, sigma = 1, xi = 0, m, npy = 1) {
   rl_influence <- cbind(z = z, y = y, rl_influence)
   rls <- paste0(m, "-year return level")
   colnames(rl_influence) <- c("z", "y", rls)
+  # Save the return levels as an attribute
+  attr(rl_influence, "m") <- m
   class(rl_influence) <- c("gev_influence_rl", class(rl_influence))
   return(rl_influence)
 }
@@ -180,7 +182,7 @@ plot.gev_influence_rl <- function(x, xvar = c("z", "y"), vlines, ...) {
     graphics::abline(v = vlines, lty = 2)
   }
   # Add the legend
-  legend_text <- as.character(m)
+  legend_text <- as.character(attr(x, "m"))
   legend_fn <- function(..., legend = legend_text, lty = 1, lwd = 2,
                         col = 1:3, main, xlab, ylab, xlim, ylim,
                         cex, cex.axis, cex.lab, cex.main, cex.sub,

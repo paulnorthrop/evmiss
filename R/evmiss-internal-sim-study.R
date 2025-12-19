@@ -139,7 +139,7 @@ rl_reorder_results_2 <- function(rl_list, profile, return_periods) {
 #' @keywords internal
 #' @rdname evmiss-internal-sim-study
 rfrechet <- function(n) {
-  return(-1 / log(runif(n)))
+  return(-1 / log(stats::runif(n)))
 }
 
 # A function to simulate a realisation of length n from a maxAR process with
