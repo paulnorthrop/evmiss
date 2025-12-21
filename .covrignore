@@ -1,1 +1,5 @@
 R/evmiss-internal-sim-study.R
+R/sim_study.R
+R/sim_study_2.R
+R/methods_evmiss_sim_study.R
+R/methods_evmiss_sim_study_2.R
