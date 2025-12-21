@@ -30,7 +30,6 @@ jobs:
       - name: Test coverage
         run: |
           cov <- covr::package_coverage(
-            token = "7db6eab7-08cc-495c-abbf-f9d3675fdd70",
             quiet = FALSE,
             clean = FALSE,
             install_path = file.path(normalizePath(Sys.getenv("RUNNER_TEMP"), winslash = "/"), "package")
