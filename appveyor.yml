@@ -34,9 +34,6 @@ on_failure:
 on_success:
   - Rscript -e "covr::codecov()"
 
-codecov:
-token: d939dd91-c285-4f22-bc98-79f65b946ac1
-
 artifacts:
   - path: '*.Rcheck\**\*.log'
     name: Logs
