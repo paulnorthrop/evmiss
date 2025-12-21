@@ -61,3 +61,55 @@ coef(fit2)
 # Create the package data
 usethis::use_data(PlymouthOzoneMaxima, overwrite = TRUE)
 usethis::use_data(PlymouthOzone, overwrite = TRUE)
+
+# Explore the distribution of lengths of missing and non-missing episodes
+
+x <- rle(is.na(PlymouthOzone$Ozone))
+missing_periods <- x$lengths[x$values]
+non_missing_periods <- x$lengths[!x$values]
+tab_missing <- table(c(missing_periods, 1:max(missing_periods))) - 1
+barplot(tab_missing)
+tab_non_missing <- table(c(non_missing_periods, 1:max(non_missing_periods))) - 1
+barplot(tab_non_missing)
+plot(non_missing_periods, c(missing_periods, NA),
+     xlab = "length of prior presence period",
+     ylab = "length of following missing period")
+plot(non_missing_periods, c(missing_periods, NA),
+     xlab = "length of prior presence period",
+     ylab = "length of following missing period", log = "xy")
+plot(missing_periods, non_missing_periods[-1],
+     xlab = "length of prior missing period",
+     ylab = "length of following presence period", log = "xy")
+
+# It seems reasonable to model the missing/non-missing process as an
+# alternating renewal process using either
+# (a) empirical distributions from these data, or
+# (b) fits of suitable probability distributions to these data
+
+# Alternatively, I could base the patterns of missingness exactly on
+# those observed in PlymouthOzone
+
+# I should also explore whether the onset of a period of missing values seems
+# related at all to the most recent non-missing value of ozone.
+
+beforeNA <- function(x) {
+  # Find all NAs
+  whereNA <- which(is.na(x))
+  # Remove whereNA = 1, if this occurs
+  whereNA <- whereNA[whereNA > 1]
+  beforeNA <- whereNA - 1
+  # Extract values immediately before each NA
+  before <- x[beforeNA]
+  before <- before[!is.na(before)]
+  elsewhere <- x[-beforeNA]
+  elsewhere <- elsewhere[!is.na(elsewhere)]
+  # Return only non-missing such values
+  return(list(before = before, elsewhere = elsewhere))
+}
+
+# It seems not. The sample quartiles are very similar. The range of the
+# "elsewhere" values is larger but this is because there are 8770 of these and
+# only 82 "before" values.
+b <- beforeNA(PlymouthOzone$Ozone)
+summary(b$before)
+summary(b$elsewhere)
