@@ -27,8 +27,8 @@ the presence of missing values. Example datasets containing missing
 values are provided.
 
 The `evmiss` package was created to accompany the research paper
-Simpson, E. S. and Northrop, P. J. (2025) Accounting for missing data
-when modelling block maxima.
+[Simpson, E. S. and Northrop, P. J. (2025) Accounting for missing data
+when modelling block maxima](https://arxiv.org/abs/2512.15429).
 
 ## An example
 
@@ -124,6 +124,7 @@ plot(fit_adjust)
 ```
 
 <p align="center">
+
 <img src="man/figures/README-plots-1.png" width="60%" style="display: block; margin: auto;" />
 </p>
 
