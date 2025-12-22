@@ -104,3 +104,19 @@ test_that("Plymouth, discard = 50 vs manual removal, adjust = FALSE, SEs", {
   testthat::expect_equal(sqrt(diag(vcov(fitPlymouth4))),
                          sqrt(diag(vcov(fitPlymouth6))))
 })
+
+# Check that the return level estimates and confidence intervals returned
+# from plot.evmiss for profile = FALSE and profile = TRUE are as expected
+
+profFALSE <- plot(fitPlymouth1, profile = FALSE, num = 2, m = c(2, 100))
+profTRUE <- plot(fitPlymouth1, profile = TRUE, num = 2, m = c(2, 100))
+
+test_that("plot.evmiss, RLs equal for prof = TRUE and prof = FALSE", {
+  testthat::expect_equal(profTRUE[, 2], profFALSE[, 2])
+})
+test_that("plot.evmiss, RL CI upper prof = TRUE > prof = FALSE", {
+  testthat::expect_gt(profTRUE[2, 3], profFALSE[2, 3])
+})
+test_that("plot.evmiss, RL CI lower prof = TRUE > prof = FALSE", {
+  testthat::expect_gt(profTRUE[2, 1], profFALSE[2, 1])
+})
