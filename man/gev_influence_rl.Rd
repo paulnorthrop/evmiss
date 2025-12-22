@@ -16,8 +16,8 @@ calculate the GEV influence function. See \strong{Details}.}
 \item{mu, sigma, xi}{Numeric scalars supplying the values of the GEV
 parameters \eqn{\mu}, \eqn{\sigma} and \eqn{\xi}.}
 
-\item{m}{A number vector of length 3 contaning the required return periods
-in years.}
+\item{m}{A numeric vector of length 3 containing 3 unique return periods
+in years. All entries in \code{m} must be greater than 1.}
 
 \item{npy}{A numeric scalar.  The number \eqn{n_{py}} of block maxima per
 year. If the blocks are of length 1 year then \code{npy = 1}.}
@@ -54,7 +54,7 @@ of \code{z}.
 }
 \description{
 Calculates influence function curves for maximum likelihood estimators of
-return levels based on Generalised Extreme Value (GEV) parameters.
+3 return levels based on Generalised Extreme Value (GEV) parameters.
 }
 \details{
 See \code{\link{gev_influence}} for information about influence functions in

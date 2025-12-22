@@ -1,14 +1,14 @@
 #' GEV influence curves for return levels
 #'
 #' Calculates influence function curves for maximum likelihood estimators of
-#' return levels based on Generalised Extreme Value (GEV) parameters.
+#' 3 return levels based on Generalised Extreme Value (GEV) parameters.
 #'
 #' @param z A numeric vector. Values of normal quantiles \eqn{z} at which to
 #'  calculate the GEV influence function. See **Details**.
 #' @param mu,sigma,xi Numeric scalars supplying the values of the GEV
 #'   parameters \eqn{\mu}, \eqn{\sigma} and \eqn{\xi}.
-#' @param m A number vector of length 3 contaning the required return periods
-#'   in years.
+#' @param m A numeric vector of length 3 containing 3 unique return periods
+#'   in years. All entries in `m` must be greater than 1.
 #' @param npy A numeric scalar.  The number \eqn{n_{py}} of block maxima per
 #'   year. If the blocks are of length 1 year then `npy = 1`.
 #' @details See [`gev_influence`] for information about influence functions in
@@ -64,6 +64,10 @@ gev_influence_rl <- function(z, mu = 0, sigma = 1, xi = 0, m, npy = 1) {
   # Check mu, sigma and xi
   if (any(length(mu) > 1, length(sigma) > 1, length(xi) > 1)) {
     stop("mu, sigma and xi must be scalar")
+  }
+  # Check that m contains at least 3 unique values
+  if (length(unique(m)) != 3 || any(m <= 1)) {
+    stop("m must be a numeric vector or 3 unique values, all > 1.")
   }
   # Convert the normal quantile to the GEV(mu, sigma, xi) scale
   y <- nieve::qGEV(stats::pnorm(z), loc = mu, scale = sigma, shape = xi,
