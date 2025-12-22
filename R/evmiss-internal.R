@@ -1153,7 +1153,7 @@ gev_rl <- function (x, adjust, m, level, profile, num, npy, ...){
   return_level_plot_fn(x = -1 / log(f), y = y_mat, empirical = empirical,
                        at = horizontal_axis_values, labels = m,
                        xlim = xlim, ylim = ylim, ...)
-  return(invisible())
+  return(invisible(y_mat))
 }
 
 #' @keywords internal
