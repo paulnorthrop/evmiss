@@ -19,8 +19,7 @@ Description: Performs likelihood-based extreme value inferences with
     missing values or to discard any block maximum for which greater than a 
     percentage of the underlying raw values are missing. Example datasets 
     containing missing values are provided. 
-Imports: bootstrap,
-    gamlssx,
+Imports: gamlssx,
     graphics,
     itp,
     Monte.Carlo.se,
