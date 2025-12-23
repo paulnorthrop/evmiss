@@ -52,6 +52,7 @@
 #' @references Davison, A. C. and Smith, R. L. (1990). Models for exceedances
 #'   over high thresholds. Journal of the Royal Statistical Society: Series B
 #'   (Methodological), 52(3):393–425. \doi{10.1111/j.2517-6161.1990.tb01796.x}
+#' @seealso [`gev_influence_rl`]
 #' @examples
 #' # Influence curve for the default mu = 0, sigma = 1, xi = 0 case
 #' z <- seq(from = -3, to = 3, by = 0.01)

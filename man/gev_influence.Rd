@@ -108,3 +108,6 @@ Davison, A. C. and Smith, R. L. (1990). Models for exceedances
 over high thresholds. Journal of the Royal Statistical Society: Series B
 (Methodological), 52(3):393–425. \doi{10.1111/j.2517-6161.1990.tb01796.x}
 }
+\seealso{
+\code{\link{gev_influence_rl}}
+}
