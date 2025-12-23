@@ -57,14 +57,25 @@ station (France) for the years 1846-2007 inclusive.</p>
 <li><p><code>notNA</code> : the number of days of the year for which raw data were available.</p></li>
 <li><p><code>n</code> : the number of days in the year (365 or 366).</p></li>
 <li><p><code>block</code> : a block number of 1 for year 1846 through to 162 for year 2007.</p></li>
-</ul><p>The row names of <code>BrestSurgeMaxima</code> are the years <code>1946:2007</code>.
-The raw data are missing for approximately \(9\%\) of the days.</p>
+</ul><p>The row names of <code>BrestSurgeMaxima</code> are the years <code>1946:2007</code>.</p>
     </div>
     <div class="section level2">
     <h2 id="source">Source<a class="anchor" aria-label="anchor" href="#source"></a></h2>
     <p>The dataset <code>Brest</code> in the <code>Renext</code> R package, specifically
 <code>Brest$OTdata</code> and <code>Brest$OTmissing</code>. Originally, the source was
 <a href="https://data.shom.fr/" class="external-link">https://data.shom.fr/</a>.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h2>
+    <p>The raw data are missing for approximately \(9\%\) of the days.
+The data were declustered by the original providers in order to provide a
+series of independent surge heights at high tide. Specifically, these
+surge heights are separated by at least two days. A correction was applied
+to account for trend in the sea-level over the observation period.
+Although the declustering of the data means that the effective block size is
+smaller than <code>n</code>, it may be reasonable to suppose that the proportion
+<code>notNA/n</code> of non-missing values provides a useful measure of the extent to
+which the size of an annual maximum is likely to be affected by missingness.</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>

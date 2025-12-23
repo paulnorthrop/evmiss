@@ -78,7 +78,7 @@ for doing this based on a Missing Completely At Random (MCAR) assumption.</p>
 Usually, this will be a positive integer, but <code>blocks = 0</code> returns a list
 containing in the input arguments, in particular, <code>distn</code>, <code>distn_args</code>
 and <code>block_length</code>. This feature is provided so that a simulation setup
-can be replicated in <code><a href="sim_study.html">sim_study</a></code> without actually simulating data.</p></dd>
+could be replicated in without actually simulating data.</p></dd>
 
 
 <dt id="arg-block-length">block_length<a class="anchor" aria-label="anchor" href="#arg-block-length"></a></dt>
@@ -137,7 +137,7 @@ blocks as follows.</p><ul><li><p>A proportion <code>p0miss</code> of the blocks 
 <code>ceiling(prop_miss * block_length)</code>, where <code>prob_miss</code> is a value
 simulated from a Uniform(<code>min</code>, <code>max</code>) distribution. The positions of
 these missing values within the block is random.</p></li>
-</ul><p>The function <code>mcar2</code> identifies at random a proportionmm<code>pmiss</code> of the
+</ul><p>The function <code>mcar2</code> identifies at random a proportion <code>pmiss</code> of the
 simulated raw observations to become missing.</p>
 <p>Care may need to be taken if these simulated data are used as input to
 <code><a href="gev_mle.html">gev_mle</a></code> using an approach that discards block maxima based on more

@@ -10,10 +10,6 @@ template:
   bootswatch: flatly
   math-rendering: mathjax
 
-#template:
-#  params:
-#    bootswatch: paper
-
 reference:
   - title: Package
     desc: ~
@@ -25,6 +21,7 @@ reference:
       - "block_maxima"
       - "gev_mle"
       - "gev_bayes"
+      - "gev_weighted"
       - "evmiss_methods"
       - "confint_gev_methods"
   - title: Return levels
@@ -48,9 +45,8 @@ reference:
     desc: ~
     contents:
       - "gev_influence"
+      - "gev_influence_rl"
   - title: Simulation
     desc: ~
     contents:
       - "sim_data"
-      - "sim_study"
-      - "sim_study_methods"

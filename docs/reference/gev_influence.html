@@ -64,8 +64,7 @@ calculate the GEV influence function. See <strong>Details</strong>.</p></dd>
 
 <dt id="arg-mu-sigma-xi">mu, sigma, xi<a class="anchor" aria-label="anchor" href="#arg-mu-sigma-xi"></a></dt>
 <dd><p>Numeric scalars supplying the values of the GEV
-parameters \(\mu\), \(\sigma\) and \(\xi\). These vectors are
-recycled to the length of the longest vector.</p></dd>
+parameters \(\mu\), \(\sigma\) and \(\xi\).</p></dd>
 
 
 <dt id="arg-x">x<a class="anchor" aria-label="anchor" href="#arg-x"></a></dt>
@@ -133,7 +132,7 @@ curves on the standard normal <code>z</code> scale can help to aid interpretatio
 <p>The value of \(IC(y)\) is invariant to the value of \(\mu\).
 For a given value of \(\xi\), the values of \(IC_{\mu}(y)\) and
 \(IC_{\sigma}(y)\) scale with the scale parameter \(\sigma\), that is,
-doubling \(\sigma\) doubles \(IC_{\mu}(y)\) and \(IC_{\sigma}(y)\).
+doubling \(\sigma\) doubles \(IC_{\mu}(y)\) and \(IC_{\sigma}(y).\)
 Typically, interest focuses on the shape parameter \(\xi\), but if the
 input scale parameter \(\sigma\) is large then this may hide the
 influence of \(y\) on \(\xi\). Therefore, the default setting of
@@ -165,7 +164,7 @@ over high thresholds. Journal of the Royal Statistical Society: Series B
 <span class="r-in"><span><span class="co"># Influence curves based on the adjusted fit to the Plymouth ozone data</span></span></span>
 <span class="r-in"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="gev_mle.html">gev_mle</a></span><span class="op">(</span><span class="va">PlymouthOzoneMaxima</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">pars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/coef.html" class="external-link">coef</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">infp</span> <span class="op">&lt;-</span> <span class="fu">gev_influence</span><span class="op">(</span>mu <span class="op">=</span> <span class="va">pars</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, sigma <span class="op">=</span> <span class="va">pars</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, xi <span class="op">=</span> <span class="va">pars</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>, z <span class="op">=</span> <span class="va">z</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">infp</span> <span class="op">&lt;-</span> <span class="fu">gev_influence</span><span class="op">(</span>z <span class="op">=</span> <span class="va">z</span>, mu <span class="op">=</span> <span class="va">pars</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, sigma <span class="op">=</span> <span class="va">pars</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, xi <span class="op">=</span> <span class="va">pars</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">infp</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="gev_influence-2.png" alt="" width="700" height="433"></span>
 </code></pre></div>

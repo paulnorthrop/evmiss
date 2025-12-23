@@ -8,7 +8,7 @@
 #'   Usually, this will be a positive integer, but `blocks = 0` returns a list
 #'   containing in the input arguments, in particular, `distn`, `distn_args`
 #'   and `block_length`. This feature is provided so that a simulation setup
-#'   can be replicated in [`sim_study`] without actually simulating data.
+#'   could be replicated in without actually simulating data.
 #' @param block_length A numeric scalar. The number of raw observations per
 #'   block.
 #' @param distn A character scalar. Specifies the distribution from which raw

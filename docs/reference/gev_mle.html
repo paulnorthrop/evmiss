@@ -7,9 +7,11 @@
   };
 </script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="GEV ML Inference with Adjustment for Missing Data — gev_mle"><meta name="description" content="Fits a GEV distribution to block maxima using maximum likelihood estimation,
 with the option to make an adjustment for the numbers of non-missing raw
-values in each block."><meta property="og:description" content="Fits a GEV distribution to block maxima using maximum likelihood estimation,
+values in each block. The GEV location and scale parameters are adjusted to
+reflect the proportion of raw values that are missing."><meta property="og:description" content="Fits a GEV distribution to block maxima using maximum likelihood estimation,
 with the option to make an adjustment for the numbers of non-missing raw
-values in each block."></head><body>
+values in each block. The GEV location and scale parameters are adjusted to
+reflect the proportion of raw values that are missing."></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -45,7 +47,8 @@ values in each block."></head><body>
     <div class="ref-description section level2">
     <p>Fits a GEV distribution to block maxima using maximum likelihood estimation,
 with the option to make an adjustment for the numbers of non-missing raw
-values in each block.</p>
+values in each block. The GEV location and scale parameters are adjusted to
+reflect the proportion of raw values that are missing.</p>
     </div>
 
     <div class="section level2">
@@ -144,12 +147,12 @@ using maximum likelihood estimation.</p>
 <p>The adjustment for the numbers of non-missing values underlying the block
 maxima is based on the strong assumption that missing values occur
 completely at random. We suppose that a block maximum \(M_n\) based on
-a full block of length \(n\) has a \(\text{GEV}(\mu, \sigma, \xi)\)
-distribution, with distribution function \(G(x)\). Let \(n_i\) be the
-number of missing values in block \(i\) and let \(M_{n_i}\) denote the
-block maximum of such a block. We suppose that \(M_{n_i}\) has a
-\(\text{GEV}(\mu(n_i), \sigma(n_i), \xi)\) distribution, where
-$$\mu(n_i) = \mu + \sigma [(n_i/n)^\xi -1] / \xi,$$
+a full (no missing raw values) block of length \(n\) has a
+\(\text{GEV}(\mu, \sigma, \xi)\) distribution, with distribution function
+\(G(x)\). Let \(n_i\) be the number of non-missing values in block \(i\)
+and let \(M_{n_i}\) denote the block maximum of such a block. We suppose
+that \(M_{n_i}\) has a \(\text{GEV}(\mu(n_i), \sigma(n_i), \xi)\)
+distribution, where $$\mu(n_i) = \mu + \sigma [(n_i/n)^\xi -1] / \xi,$$
 $$\sigma(n_i) = \sigma (n_i/n)^\xi.$$</p>
 <p>These expressions are based on inferring the parameters of an approximate
 GEV distribution for \(M_{n_i}\) from its approximate distribution function
