@@ -29,7 +29,7 @@ mcar2(sim_data, missing_args = list(pmiss = 0.5))
 Usually, this will be a positive integer, but \code{blocks = 0} returns a list
 containing in the input arguments, in particular, \code{distn}, \code{distn_args}
 and \code{block_length}. This feature is provided so that a simulation setup
-can be replicated in \code{\link{sim_study}} without actually simulating data.}
+could be replicated in without actually simulating data.}
 
 \item{block_length}{A numeric scalar. The number of raw observations per
 block.}
