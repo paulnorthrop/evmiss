@@ -11,3 +11,4 @@
 ^data-raw/gp_influence\.R$
 ^data-raw/tssim\.R$
 ^\.covrignore$
+^appveyor\.yml$
