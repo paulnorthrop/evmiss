@@ -51,7 +51,13 @@
   </div>
 </nav><div class="container template-home">
 <div class="row">
-  <main id="main" class="col-md-9">
+  <main id="main" class="col-md-9"><div class="section level1">
+<div class="page-header"><h1 id="evmiss">evmiss<a class="anchor" aria-label="anchor" href="#evmiss"></a>
+</h1></div>
+<p><a href="https://github.com/paulnorthrop/evmiss/actions/workflows/R-CMD-check.yaml"><img src="https://github.com/paulnorthrop/evmiss/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a> <a href="https://app.codecov.io/github/paulnorthrop/evmiss?branch=master" class="external-link"><img src="https://codecov.io/github/paulnorthrop/evmiss/coverage.svg?branch=master" alt="Coverage Status"></a></p>
+<p>This is an old development version of this software. For the current released version on CRAN see <a href="https://cran.r-project.org/package=evmissing" class="external-link">evmissing</a>, installed using</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"evmissing"</span><span class="op">)</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="extreme-value-analyses-with-missing-data">Extreme Value Analyses with Missing Data<a class="anchor" aria-label="anchor" href="#extreme-value-analyses-with-missing-data"></a>
 </h2>
@@ -67,7 +73,7 @@
 <h3 id="sea-surge-height-data">Sea surge height data<a class="anchor" aria-label="anchor" href="#sea-surge-height-data"></a>
 </h3>
 <p>We illustrate this using the data <code>BrestSurgeMaxima</code>, which is a data frame containing annual maximum sea surge heights (in cm) at Brest, France for the years 1846-2007 inclusive.</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://paulnorthrop.github.io/evmiss/" class="external-link">evmiss</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">BrestSurgeMaxima</span><span class="op">)</span></span>
 <span><span class="co">#&gt;      maxima notNA   n block</span></span>
@@ -82,7 +88,7 @@
 <div class="section level3">
 <h3 id="model-fitting">Model fitting<a class="anchor" aria-label="anchor" href="#model-fitting"></a>
 </h3>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Make the adjustment</span></span>
 <span><span class="va">fit_adjust</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/gev_mle.html">gev_mle</a></span><span class="op">(</span><span class="va">BrestSurgeMaxima</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">fit_adjust</span><span class="op">)</span></span>
@@ -113,7 +119,7 @@
 <h3 id="model-diagnostic-plots">Model diagnostic plots<a class="anchor" aria-label="anchor" href="#model-diagnostic-plots"></a>
 </h3>
 <p>The plot method for an object returned from <code>gev_mle</code> creates visual model diagnostics like those described in Coles (2001) and implemented in Heffernan and Stephenson (2018), where the values plotted have been adjusted, where necessary, for the presence of missing values.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit_adjust</span><span class="op">)</span></span></code></pre></div>
 <p align="center">
 <img src="reference/figures/README-plots-1.png" width="60%" style="display: block; margin: auto;"></p>
@@ -124,7 +130,7 @@
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
 <p>To install this development version from GitHub:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"paulnorthrop/evmiss"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
@@ -139,7 +145,7 @@ Heffernan, Janet E., and Alec G. Stephenson. 2018. <em><span class="nocase">i</s
 </div>
 </div>
 </div>
-
+</div>
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">

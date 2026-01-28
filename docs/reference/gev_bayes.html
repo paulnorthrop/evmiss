@@ -57,7 +57,7 @@ values in each block.</p>
 <span>  adjust <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  discard <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  init <span class="op">=</span> <span class="st">"quartiles"</span>,</span>
-<span>  prior <span class="op">=</span> <span class="fu">revdbayes</span><span class="fu">::</span><span class="fu"><a href="https://paulnorthrop.github.io/revdbayes/reference/set_prior.html" class="external-link">set_prior</a></span><span class="op">(</span>prior <span class="op">=</span> <span class="st">"flat"</span>, model <span class="op">=</span> <span class="st">"gev"</span><span class="op">)</span>,</span>
+<span>  prior <span class="op">=</span> <span class="fu">revdbayes</span><span class="fu">::</span><span class="fu"><a href="https://github.com/paulnorthrop/revdbayes/reference/set_prior.html" class="external-link">set_prior</a></span><span class="op">(</span>prior <span class="op">=</span> <span class="st">"flat"</span>, model <span class="op">=</span> <span class="st">"gev"</span><span class="op">)</span>,</span>
 <span>  n <span class="op">=</span> <span class="fl">1000</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -119,9 +119,9 @@ variance of these maxima and an initial value of 0.1 for \(\xi\).</p></dd>
 
 <dt id="arg-prior">prior<a class="anchor" aria-label="anchor" href="#arg-prior"></a></dt>
 <dd><p>Specifies a prior distribution for the GEV parameters. This is
-most easily set using <code><a href="https://paulnorthrop.github.io/revdbayes/reference/set_prior.html" class="external-link">revdbayes::set_prior</a></code>. The default is a prior
+most easily set using <code><a href="https://github.com/paulnorthrop/revdbayes/reference/set_prior.html" class="external-link">revdbayes::set_prior</a></code>. The default is a prior
 \(\pi(\mu, \sigma, \xi) \propto \sigma^{-1}\) for \(\sigma &gt; 0\). See
-<code><a href="https://paulnorthrop.github.io/revdbayes/reference/set_prior.html" class="external-link">revdbayes::set_prior</a></code> for details.</p></dd>
+<code><a href="https://github.com/paulnorthrop/revdbayes/reference/set_prior.html" class="external-link">revdbayes::set_prior</a></code> for details.</p></dd>
 
 
 <dt id="arg-n">n<a class="anchor" aria-label="anchor" href="#arg-n"></a></dt>
@@ -130,12 +130,12 @@ posterior distribution for \((\mu, \sigma, \xi)\).</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
-<dd><p>Further arguments to be passed to <code><a href="https://paulnorthrop.github.io/rust/reference/ru.html" class="external-link">rust::ru</a></code>.</p></dd>
+<dd><p>Further arguments to be passed to <code><a href="https://github.com/paulnorthrop/rust/reference/ru.html" class="external-link">rust::ru</a></code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>An object returned from <code><a href="https://paulnorthrop.github.io/rust/reference/ru.html" class="external-link">rust::ru</a></code>. The following components are
+    <p>An object returned from <code><a href="https://github.com/paulnorthrop/rust/reference/ru.html" class="external-link">rust::ru</a></code>. The following components are
 added to this list</p><ul><li><p><code>model</code>: = <code>"gev"</code>.</p></li>
 <li><p><code>data,prior</code>: the inputs <code>data</code> and <code>prior</code>.</p></li>
 <li><p><code>call</code>: the call to <code>gev_bayes</code>.</p></li>
@@ -149,8 +149,8 @@ the <strong>Details</strong> section of <code><a href="gev_mle.html">gev_mle</a>
 only if the input argument <code>adjust</code> was <code>TRUE</code>.</p></li>
 <li><p><code>adjust,discard</code> : the values of these input arguments.</p></li>
 </ul><p>The class of the returned object is <code>c("evpost", "ru", "bayes", "evmiss")</code>.
-Objects of class <code>"evpost"</code> have <code><a href="https://paulnorthrop.github.io/revdbayes/reference/print.evpost.html" class="external-link">print</a></code>,
-<code><a href="https://paulnorthrop.github.io/revdbayes/reference/summary.evpost.html" class="external-link">summary</a></code> and <code><a href="https://paulnorthrop.github.io/revdbayes/reference/plot.evpost.html" class="external-link">plot</a></code>
+Objects of class <code>"evpost"</code> have <code><a href="https://github.com/paulnorthrop/revdbayes/reference/print.evpost.html" class="external-link">print</a></code>,
+<code><a href="https://github.com/paulnorthrop/revdbayes/reference/summary.evpost.html" class="external-link">summary</a></code> and <code><a href="https://github.com/paulnorthrop/revdbayes/reference/plot.evpost.html" class="external-link">plot</a></code>
 S3 methods.</p>
     </div>
     <div class="section level2">
@@ -158,12 +158,12 @@ S3 methods.</p>
     <p>The likelihood described in <code><a href="gev_mle.html">gev_mle</a></code> is combined with the prior
 density provided by <code>prior</code> to produce, up to proportionality, a
 posterior density for \((\mu, \sigma, \xi)\).</p>
-<p>A function to evaluate the log-posterior is passed to <code><a href="https://paulnorthrop.github.io/rust/reference/ru.html" class="external-link">rust::ru</a></code> to
+<p>A function to evaluate the log-posterior is passed to <code><a href="https://github.com/paulnorthrop/rust/reference/ru.html" class="external-link">rust::ru</a></code> to
 simulate a random sample from this posterior distribution using the
 generalised ratio-of-uniforms method, using relocation of the mode of the
 density to the origin to increase efficiency. The value of <code>init</code> is used
 as an initial estimate in a search for the posterior mode. Arguments to
-<code><a href="https://paulnorthrop.github.io/rust/reference/ru.html" class="external-link">rust::ru</a></code> can be passed via <code>...</code>. The default setting is
+<code><a href="https://github.com/paulnorthrop/rust/reference/ru.html" class="external-link">rust::ru</a></code> can be passed via <code>...</code>. The default setting is
 <code>trans = "none"</code>, that is, no transformation of the margins, and
 <code>rotate = TRUE</code>, rotation of the parameter axes to improve isotropy
 with a view to increasing efficiency.</p>
