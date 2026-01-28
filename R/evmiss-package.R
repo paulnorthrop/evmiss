@@ -11,9 +11,8 @@
 #'
 #' The `evmiss` package was created to accompany the research
 #' paper Simpson, E. S. and Northrop, P. J. (2025) Accounting for missing data
-#' when modelling block maxima. arXiv preprint arXiv:2512.15429.
-#'
-#' @details The main functions are
+#' when modelling block maxima, which will appear in the journal Environmetrics
+#' in 2026.
 #'
 #' * [`gev_mle`]: maximum likelihood inference for block maxima based on a GEV
 #'   distributon, with [`S3 methods`][evmiss_methods] including `confint`.
