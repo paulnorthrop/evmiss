@@ -16,6 +16,11 @@ using
 install.packages("evmissing")
 ```
 
+The `evmiss` package was created to accompany the research paper
+Simpson, E. S. and Northrop, P. J. (2025) Accounting for missing data
+when modelling block maxima, which will appear in [Environmetrics in
+2026](https://onlinelibrary.wiley.com/loi/1099095x/year/2026).
+
 ## Extreme Value Analyses with Missing Data
 
 Performs likelihood-based extreme value inferences with adjustment for
@@ -29,10 +34,6 @@ the underlying raw values are missing. A plot method provides a set of
 standard model diagnostic plots, with appropriate adjustment made for
 the presence of missing values. Example datasets containing missing
 values are provided.
-
-The `evmiss` package was created to accompany the research paper
-[Simpson, E. S. and Northrop, P. J. (2025) Accounting for missing data
-when modelling block maxima](https://arxiv.org/abs/2512.15429).
 
 ## An example
 
