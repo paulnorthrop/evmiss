@@ -15,7 +15,29 @@ adjustment for missing values or to discard any block maximum for which
 greater than a percentage of the underlying raw values are missing.
 The evmiss package was created to accompany the research
 paper Simpson, E. S. and Northrop, P. J. (2025) Accounting for missing data
-when modelling block maxima. arXiv preprint arXiv:2512.15429."><meta property="og:description" content="Performs likelihood-based extreme value inferences with
+when modelling block maxima, which will appear in the journal Environmetrics
+in 2026.
+gev_mle: maximum likelihood inference for block maxima based on a GEV
+distributon, with S3 methods including confint.
+gev_bayes: Bayesian inference for block maxima based on a GEV
+distributon.
+
+
+For objects returned by gev_mle, inferences about return levels are
+performed by gev_return, with with S3 methods
+including confint.
+The function gev_influence quantifies the influence that individual
+extreme (small or large) block maxima have on the maximum likelihood
+estimators of GEV parameters.
+The following example datasets are provided.
+BloomsburyOzoneMaxima: Annual maxima ozone levels at Bloomsbury,
+London, UK, 1992-2024.
+PlymouthOzoneMaxima: Annual maxima ozone levels at Plymouth, Devon,
+UK, 1998-2024.
+BrestSurgeMaxima: Annual maxima surge heights at Brest, France,
+1846-2007.
+
+"><meta property="og:description" content="Performs likelihood-based extreme value inferences with
 adjustment for the presence of missing values. A Generalised Extreme Value
 (GEV) distribution is fitted to block maxima using maximum likelihood
 estimation, with the GEV location and scale parameters reflecting the
@@ -25,7 +47,29 @@ adjustment for missing values or to discard any block maximum for which
 greater than a percentage of the underlying raw values are missing.
 The evmiss package was created to accompany the research
 paper Simpson, E. S. and Northrop, P. J. (2025) Accounting for missing data
-when modelling block maxima. arXiv preprint arXiv:2512.15429."></head><body>
+when modelling block maxima, which will appear in the journal Environmetrics
+in 2026.
+gev_mle: maximum likelihood inference for block maxima based on a GEV
+distributon, with S3 methods including confint.
+gev_bayes: Bayesian inference for block maxima based on a GEV
+distributon.
+
+
+For objects returned by gev_mle, inferences about return levels are
+performed by gev_return, with with S3 methods
+including confint.
+The function gev_influence quantifies the influence that individual
+extreme (small or large) block maxima have on the maximum likelihood
+estimators of GEV parameters.
+The following example datasets are provided.
+BloomsburyOzoneMaxima: Annual maxima ozone levels at Bloomsbury,
+London, UK, 1992-2024.
+PlymouthOzoneMaxima: Annual maxima ozone levels at Plymouth, Devon,
+UK, 1998-2024.
+BrestSurgeMaxima: Annual maxima surge heights at Brest, France,
+1846-2007.
+
+"></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -69,13 +113,8 @@ adjustment for missing values or to discard any block maximum for which
 greater than a percentage of the underlying raw values are missing.</p>
 <p>The <code>evmiss</code> package was created to accompany the research
 paper Simpson, E. S. and Northrop, P. J. (2025) Accounting for missing data
-when modelling block maxima. arXiv preprint arXiv:2512.15429.</p>
-    </div>
-
-
-    <div class="section level2">
-    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>The main functions are</p><ul><li><p><code><a href="gev_mle.html">gev_mle</a></code>: maximum likelihood inference for block maxima based on a GEV
+when modelling block maxima, which will appear in the journal Environmetrics
+in 2026.</p><ul><li><p><code><a href="gev_mle.html">gev_mle</a></code>: maximum likelihood inference for block maxima based on a GEV
 distributon, with <code><a href="evmiss_methods.html">S3 methods</a></code> including <code>confint</code>.</p></li>
 <li><p><code><a href="gev_bayes.html">gev_bayes</a></code>: Bayesian inference for block maxima based on a GEV
 distributon.</p></li>
@@ -92,6 +131,8 @@ UK, 1998-2024.</p></li>
 <li><p><code><a href="BrestSurgeMaxima.html">BrestSurgeMaxima</a></code>: Annual maxima surge heights at Brest, France,
 1846-2007.</p></li>
 </ul></div>
+
+
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p>Useful links:</p><ul><li><p><a href="https://paulnorthrop.github.io/evmiss/" class="external-link">https://paulnorthrop.github.io/evmiss/</a></p></li>
