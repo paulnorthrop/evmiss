@@ -27,9 +27,6 @@ knitr::knit_hooks$set(imgcenter = function(before, options, envir){
 
 [![R-CMD-check](https://github.com/paulnorthrop/evmiss/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/paulnorthrop/evmiss/actions/workflows/R-CMD-check.yaml)
 [![Coverage Status](https://codecov.io/github/paulnorthrop/evmiss/coverage.svg?branch=master)](https://app.codecov.io/github/paulnorthrop/evmiss?branch=master)
-[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/evmiss)](https://cran.r-project.org/package=evmiss)
-[![Downloads (monthly)](https://cranlogs.r-pkg.org/badges/evmiss?color=brightgreen)](https://cran.r-project.org/package=evmiss)
-[![Downloads (total)](https://cranlogs.r-pkg.org/badges/grand-total/evmiss?color=brightgreen)](https://cran.r-project.org/package=evmiss)
 
 This is an old development version of this software. For the current released version on CRAN see [evmissing](https://cran.r-project.org/package=evmissing), installed using
 
@@ -108,22 +105,10 @@ We see that overall the GEV model fits these data well, although the largest ann
 
 ## Installation
 
-```{r, echo = FALSE}
-released <- FALSE
-```
-
-```{asis, echo = !released}
 To install this development version from GitHub:
-```
-```{r github_installation, eval = FALSE, echo = !released}
-remotes::install_github("paulnorthrop/evmiss")
-```
 
-```{asis, echo = released}
-To install the current released version from CRAN:
-```
-```{r cran_installation, eval = FALSE, echo = released}
-install.packages("evmiss")
+```{r github_installation, eval = FALSE, echo = TRUE}
+remotes::install_github("paulnorthrop/evmiss")
 ```
 
 ## References

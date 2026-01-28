@@ -6,11 +6,6 @@
 [![R-CMD-check](https://github.com/paulnorthrop/evmiss/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/paulnorthrop/evmiss/actions/workflows/R-CMD-check.yaml)
 [![Coverage
 Status](https://codecov.io/github/paulnorthrop/evmiss/coverage.svg?branch=master)](https://app.codecov.io/github/paulnorthrop/evmiss?branch=master)
-[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/evmiss)](https://cran.r-project.org/package=evmiss)
-[![Downloads
-(monthly)](https://cranlogs.r-pkg.org/badges/evmiss?color=brightgreen)](https://cran.r-project.org/package=evmiss)
-[![Downloads
-(total)](https://cranlogs.r-pkg.org/badges/grand-total/evmiss?color=brightgreen)](https://cran.r-project.org/package=evmiss)
 
 This is an old development version of this software. For the current
 released version on CRAN see
