@@ -1,8 +1,8 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-[![Appveyor Build
-status](https://ci.appveyor.com/api/projects/status/99jojhgk9t4agdmv/branch/main?svg=true)](https://ci.appveyor.com/project/paulnorthrop/evmiss/branch/main)
+# evmiss
+
 [![R-CMD-check](https://github.com/paulnorthrop/evmiss/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/paulnorthrop/evmiss/actions/workflows/R-CMD-check.yaml)
 [![Coverage
 Status](https://codecov.io/github/paulnorthrop/evmiss/coverage.svg?branch=master)](https://app.codecov.io/github/paulnorthrop/evmiss?branch=master)
@@ -11,6 +11,15 @@ Status](https://codecov.io/github/paulnorthrop/evmiss/coverage.svg?branch=master
 (monthly)](https://cranlogs.r-pkg.org/badges/evmiss?color=brightgreen)](https://cran.r-project.org/package=evmiss)
 [![Downloads
 (total)](https://cranlogs.r-pkg.org/badges/grand-total/evmiss?color=brightgreen)](https://cran.r-project.org/package=evmiss)
+
+This is an old development version of this software. For the current
+released version on CRAN see
+[evmissing](https://cran.r-project.org/package=evmissing), installed
+using
+
+``` r
+install.packages("evmissing")
+```
 
 ## Extreme Value Analyses with Missing Data
 
