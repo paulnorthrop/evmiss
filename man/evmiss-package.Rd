@@ -17,8 +17,8 @@ greater than a percentage of the underlying raw values are missing.
 
 The \code{evmiss} package was created to accompany the research
 paper Simpson, E. S. and Northrop, P. J. (2025) Accounting for missing data
-when modelling block maxima, which will appear in the journal Environmetrics
-in 2026.
+when modelling block maxima, \emph{Environmetrics}, \strong{37}(2): e70075
+\doi{10.1002/env.70075}.
 \itemize{
 \item \code{\link{gev_mle}}: maximum likelihood inference for block maxima based on a GEV
 distributon, with \code{\link[=evmiss_methods]{S3 methods}} including \code{confint}.
